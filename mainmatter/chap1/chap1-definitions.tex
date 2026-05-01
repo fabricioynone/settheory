@@ -69,7 +69,7 @@ Isso é formalizado pelo resultado a seguir.
     \[
         T\vdash \forall y\,\forall x\bigl((\varphi \wedge \varphi[x/y])\rightarrow x=y\bigr).
     \]
-    Como $z$ não ocorre em $\varphi$, podemos renomear o quantificador externo de $y$ para $z$.
+    Como $z$ não ocorre em $\varphi$ nem em $\varphi[x/y]$, e é distinto de $x$ e de $y$, podemos renomear o quantificador externo de $y$ para $z$.
     Usando o Metalema~\ref{mlem:renomeacaoVariavelUniversal} e o
     Metalema~\ref{mlem:substituicaoComposta}, aplicado às substituições
     $[x/y]$ e $[y/z]$, obtemos
