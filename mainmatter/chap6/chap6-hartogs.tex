@@ -80,12 +80,12 @@ Um primeiro lema é o seguinte.
 
 \begin{lemma}\label{lem:cardinalEquivNaoBijetaComOrdinalMenor}
     Seja $\alpha$ um ordinal.
-    Então $\alpha$ é um cardinal se, e somente se, para todo $\beta<\alpha$, $\alpha$ não está em bijeção com $\beta$.
+    Então $\alpha$ é um cardinal se, e somente se, para todo $\beta<\alpha$, não existe injeção de $\alpha$ em $\beta$.
 \end{lemma}
 \begin{proof}
     Dado $\beta<\alpha$, temos que $\beta\subseteq \alpha$, e, portanto, $\beta\preceq \alpha$.
-    Assim, pelo Teorema de Cantor-Schröder-Bernstein, $\alpha$ está em bijeção com $\beta$ se, e somente se, $\alpha\approx \beta$.
-    Desse modo, existe $\beta<\alpha$ tal que $\alpha$ está em bijeção com $\beta$ se, e somente se, existe $\beta<\alpha$ tal que $\alpha\approx \beta$.
+    Assim, pelo Teorema de Cantor-Schröder-Bernstein, $\alpha$ está em bijeção com $\beta$ se, e somente se, $\alpha\preceq \beta$.
+    Desse modo, existe $\beta<\alpha$ tal que $\alpha$ está em bijeção com $\beta$ se, e somente se, existe $\beta<\alpha$ tal que $\alpha\preceq \beta$.
 \end{proof}
 
 Propriedades elementares dos cardinais são as seguintes.
@@ -145,7 +145,7 @@ Com o Axioma da Potência, tal feito se faz possível.
 \end{proof}
 
 \begin{definition}\label{def:numeroDeHartogs}\index{número de Hartogs}
-    O número de Hartogs de um conjunto $A$, denotado por $h(A)$, é o menor ordinal $\alpha$ tal que $A$ não injeta em $\alpha$.
+    O número de Hartogs de um conjunto $A$, denotado por $h(A)$, é o menor ordinal $\alpha$ tal que $\alpha$ não injeta em $A$.
 \end{definition}
 
 \begin{lemma}\label{lem:hartogsEhCardinal}
