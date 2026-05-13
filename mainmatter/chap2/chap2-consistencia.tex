@@ -297,38 +297,35 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
 \begin{proof}
     A demonstração é por indução na complexidade de $t$.
 
-    Se $t$ é uma variável, digamos, $x_i$, então a conclusão segue da tautologia $A(x_i)\to A(x_i)$, seguida das introduções dos quantificadores restritos.
+    Se $t$ é uma variável, digamos, $x$, basta mostrar que $T^A\Vdash \forall x\in A\,(A(x)\rightarrow A(x))$, o que é trivial.
 
-    Se $t$ é uma constante $c$, então $T^A\vdash A(c^A)$ pela definição de interpretação.
-    Logo, por introduções de implicações e quantificadores restritos, obtemos
-    \[
-        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(c^A).
-    \]
+    Se $t$ é uma constante $c$, basta notar que $T^A\vdash A(c^A)$ pela definição de interpretação.
 
-    Suponha agora que $t$ é da forma $f(t_1,\dots,t_m)$.
-    Pela hipótese indutiva, para cada $1\leq i\leq m$,
+    Suponha agora que $t$ é da forma $f(t_1,\dots,t_m)$ e que as variáveis de $t_1,\dots,t_m$ estão entre $x_1,\dots,x_n$, variáveis distintas, e que vale a hipótese indutiva de que para cada $1\leq i\leq m$,
     \[
         T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(t_i^A).
     \]
-    Pela definição de interpretação,
+
+    Escreva $t_i(x_1,\dots,x_n)$ para indicar que as variáveis de $t_i$ estão entre $x_1,\dots,x_n$ e utilizar substituições.
+
+    Devemos ver que
     \[
-        T^A\vdash
-        \forall y_1\cdots\forall y_m\,
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(f^A(t_1^A,\dots,t_m^A)).
+    \]
+    Trabalhando em $T^A$, fixe $a_1, \dots, a_n$ constantes para $x_1, \dots, x_n$.
+    Basta ver que
+    \[A(f^A(t_1^A(a_1,\dots,a_n),\dots,t_m^A(a_1,\dots,a_n))).
+    \]
+    Pela definição de interpretação, $\forall y_1\cdots\forall y_m\,
         \bigl(A(y_1)\wedge\cdots\wedge A(y_m)\to
-        A(f^A(y_1,\dots,y_m))\bigr).
-    \]
-    Instanciando essa fórmula com os termos $t_1^A,\dots,t_m^A$, obtemos
+        A(f^A(y_1,\dots,y_m))\bigr)$.
+    Instanciando essa fórmula com os termos $t_1^A(a_1,\dots,a_n),\dots,t_m^A(a_1,\dots,a_n)$, obtemos
     \[
-        T^A\vdash
-        A(t_1^A)\wedge\cdots\wedge A(t_m^A)\to
-        A(f^A(t_1^A,\dots,t_m^A)).
+        A(t_1^A(a_1,\dots,a_n))\wedge\cdots\wedge A(t_m^A(a_1,\dots,a_n))\to
+        A(f^A(t_1^A(a_1,\dots,a_n),\dots,t_m^A(a_1,\dots,a_n))).
     \]
-    Pelas regras proposicionais derivadas para $\wedge$ e $\to$, concluímos
-    \[
-        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,
-        A(f^A(t_1^A,\dots,t_m^A)).
-    \]
-    Como $t^A$ é $f^A(t_1^A,\dots,t_m^A)$, isso prova a tese.
+    Por hipótese, para cada $1\leq i\leq m$, $A(t_i^A(a_1,\dots,a_n))$.
+    Logo, $A(f^A(t_1^A(a_1,\dots,a_n),\dots,t_m^A(a_1,\dots,a_n)))$.
 \end{proof}
 
 \begin{metalemma}[Axiomas lógicos relativizados]\label{mlem:axiomasLogicosInterpretacao}
@@ -336,31 +333,18 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
     Seja $\alpha$ um axioma lógico na linguagem de $S$.
     Se $x_1,\dots,x_n$ são exatamente as variáveis livres de $\alpha$, então
     \[
-        T^A\vdash \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
+        T^A\vdash \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A(x_1, \dots, x_n).
     \]
 \end{metalemma}
 
 \begin{proof}
-    Seja $\alpha$ um axioma lógico da linguagem de $S$, e sejam $x_1,\dots,x_n$ exatamente as variáveis livres de $\alpha$.
-    Provaremos que
-    \[
-        T^A\vdash \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
-    \]
+    Seja $\alpha$ um axioma lógico da linguagem de $S$.
 
     Primeiro, considere os axiomas FO1--FO13.
-    Se $\alpha$ é uma instância de um desses esquemas, então $\alpha^A$ é uma instância do mesmo esquema, agora na linguagem de $T^A$.
-    Logo, $T^A\vdash \alpha^A$.
-    Aplicando repetidamente introdução de implicação e generalização universal, obtemos
-    \[
-        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
-    \]
+    Se $\alpha$ é uma instância de um desses esquemas, então $\alpha^A$ é uma instância do mesmo esquema.
 
     O caso FO16 também é imediato.
-    Se $\alpha$ é $x=x$, então $\alpha^A$ é $x=x$, que é uma instância de FO16 na linguagem de $T^A$.
-    Portanto, como acima,
-    \[
-        T^A\vdash \forall x\in A\, (x=x).
-    \]
+    Se $\alpha$ é $x_1=x_1$, então $\alpha^A$ é $a_1=a_1$, que é um teorema.
 
     Considere agora FO17.
     Suponha que $\alpha$ é
@@ -369,8 +353,12 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
         \to
         f(x_1,\dots,x_m)=f(y_1,\dots,y_m),
     \]
+
+ 
     em que $f$ é um símbolo funcional de aridade $m>0$ da linguagem de $S$.
-    Então $\alpha^A$ é
+
+     Nesse caso, consideremos que os nomes das constantes fixadas para $x_1, \dots, x_n$ e para $y_1, \dots, y_m$ são $
+     Então $\alpha^A$ é
     \[
         \bigl(x_1=y_1\wedge\cdots\wedge x_m=y_m\bigr)
         \to
