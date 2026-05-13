@@ -53,7 +53,7 @@ Em particular, teorias obtidas por extensão por definição de uma teoria $T$ s
     Assim, $T$ é inconsistente.
 \end{proof}
 
-Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos é por meio de examinar o universo dos conjuntos restrito à alguma classe definível.
+Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos é por meio de examinar o universo dos conjuntos restrito a alguma classe definível.
 
 \begin{metadefinition}
     Seja $T$ uma teoria de primeira ordem e $\mathcal L'$ um léxico para uma linguagem de primeira ordem.
@@ -61,7 +61,7 @@ Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos
     \begin{itemize}
         \item Um novo símbolo de relação unário $A$, introduzido na linguagem de $T$ via definição, de modo que $T^A\vdash \exists x\, A(x)$.
         \item Para cada símbolo de predicado $R$ de $\mathcal L'$ de aridade $n$, um símbolo de predicado $R^A$ de aridade $n$ introduzido na linguagem de $T$ via definição.
-        \item Um símbolo de constante $c^A$ introduzido na linguagem de $T$ via definição de modo que $T^A\vdash A(c^A)$.
+        \item Para cada símbolo de constante $c$ de $\mathcal L'$, um símbolo de constante $c^A$ introduzido na linguagem de $T$ via definição de modo que $T^A\vdash A(c^A)$.
         \item Para cada símbolo de função $f$ de $\mathcal L'$ de aridade $n\geq1$, um símbolo de função $f^A$ de aridade $n$ introduzido na linguagem de $T$ via definição de modo que
         \[
             T^A\vdash \forall x_1 \ldots \forall x_n\, (A(x_1)\wedge \cdots \wedge A(x_n)\rightarrow A(f^A(x_1, \dots, x_n))).
@@ -70,14 +70,15 @@ Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos
 
     Para cada $\mathcal L'$-termo $t$, criamos o termo $t^A$ da linguagem de $T^A$ por recursão na metateoria, de modo que:
     \begin{itemize}
-        \item Se $t$ é uma variável, digamos, $x$ então $x^A$ é a própria variável $x$.
-        \item Se $t$ é um símbolo de constante, então $t^A$ é a própria constante $c^A$.
+        \item Se $t$ é uma variável, digamos, $x$, então $t^A$ é a própria variável $x$.
+        \item Se $t$ é uma constante $c$, então $t^A$ é a constante $c^A$.
         \item Se $t$ é da forma $f(t_1, \dots, t_n)$, então $t^A$ é o termo $f^A(t_1^A, \dots, t_n^A)$.
     \end{itemize}
 
     Para cada $\mathcal L'$-fórmula $\phi$, criamos a fórmula $\phi^A$ da linguagem de $T^A$ por recursão na metateoria, de modo que:
     \begin{itemize}
-        \item Se $\phi$ é da forma $R(t_1, \dots, t_n)$, então $\phi^A$ é a fórmula $R^A(t_1^A, \dots, t_n^A)$.
+        \item Se $\phi$ é um símbolo de predicado $0$-ário $R$, então $\phi^A$ é a fórmula $R^A$.
+        \item Se $\phi$ é da forma $R(t_1, \dots, t_n)$ em que $R$ é um símbolo de predicado de $\mathcal L'$ de aridade $n\geq 1$, então $\phi^A$ é a fórmula $R^A(t_1^A, \dots, t_n^A)$.
         \item Se $\phi$ é da forma $t_1=t_2$, então $\phi^A$ é a fórmula $t_1^A=t_2^A$.
         \item Se $\phi$ é da forma $\neg \psi$, então $\phi^A$ é a fórmula $\neg \psi^A$.
         \item Se $\phi$ é da forma $\psi\wedge \theta$, então $\phi^A$ é a fórmula $\psi^A\wedge \theta^A$.
@@ -88,7 +89,7 @@ Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos
         \item Se $\phi$ é da forma $\exists x\,\psi$, então $\phi^A$ é a fórmula $\exists x (A(x)\wedge \psi^A)$.
     \end{itemize}
 
-    Se $\mathcal T'=(\mathcal L', \Sigma')$ é uma teoria de primeira ordem, dizemos que $T^A$ é uma \emph{interpretação} de $\mathcal T'$ se $T^A$ é uma interpretação de $\mathcal L'$ em $T$ e se, para cada $\sigma\in \Sigma'$, $T^A\vdash \sigma^A$.
+    Se $S$ é uma teoria de primeira ordem de léxico $\mathcal L'$, dizemos que $T^A$ é uma \emph{interpretação} de $S$ em $T$ se $T^A$ é uma interpretação de $\mathcal L'$ em $T$ e se, para todo axioma $\sigma$ de $S$, $T^A\vdash \sigma^A$.
 
     Algumas convenções notacionais: muitas vezes, para abreviar fórmulas de modo mais intuitivo, adotamos as seguintes convenções.
 
