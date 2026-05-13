@@ -195,7 +195,7 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
 \end{proof}
 
 
-\begin{metalemma}
+\begin{metalemma}\label{mlem:substituicaoEInterpretacao}
     Seja $T$ uma teoria de primeira ordem e seja $T^A$ uma interpretação de um léxico $\mathcal L'$ em $T$.
 
     Se $\phi$ é uma $\mathcal L'$-fórmula, então as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
@@ -342,9 +342,11 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
 
     Primeiro, considere os axiomas FO1--FO13.
     Se $\alpha$ é uma instância de um desses esquemas, então $\alpha^A$ é uma instância do mesmo esquema.
+    Assim, qualquer generalização de $\alpha^A$ é um teorema de $T^A$.
 
     O caso FO16 também é imediato.
-    Se $\alpha$ é $x_1=x_1$, então $\alpha^A$ é $a_1=a_1$, que é um teorema.
+    Se $\alpha$ é $x=x$, então $\alpha^A$ é $x=x$, que é um axioma lógico da linguagem de $T^A$.
+    Assim, qualquer generalização de $\alpha^A$ é um teorema de $T^A$.
 
     Considere agora FO17.
     Suponha que $\alpha$ é
@@ -354,150 +356,86 @@ Agora faremos algumas observações simples sobre interpretações de termos e f
         f(x_1,\dots,x_m)=f(y_1,\dots,y_m),
     \]
 
- 
-    em que $f$ é um símbolo funcional de aridade $m>0$ da linguagem de $S$.
-
-     Nesse caso, consideremos que os nomes das constantes fixadas para $x_1, \dots, x_n$ e para $y_1, \dots, y_m$ são $
-     Então $\alpha^A$ é
+    Segue que $\alpha^A$ é
     \[
         \bigl(x_1=y_1\wedge\cdots\wedge x_m=y_m\bigr)
         \to
         f^A(x_1,\dots,x_m)=f^A(y_1,\dots,y_m),
     \]
-    que é uma instância de FO17 na linguagem de $T^A$.
-    Logo, $T^A\vdash \alpha^A$, e a conclusão relativizada segue por introdução dos quantificadores restritos.
+
+    Tal fórmula é um axioma da linguagem de $T^A$, e, portanto, qualquer generalização de $\alpha^A$ é um teorema de $T^A$.
 
     O caso FO18 é análogo.
-    Se $R$ é um símbolo de predicado não lógico da linguagem de $S$, então a interpretação de uma instância de FO18 para $R$ é a instância correspondente de FO18 para $R^A$ na linguagem de $T^A$.
-    Se o predicado em questão é o símbolo lógico de igualdade, a tradução não altera o símbolo de igualdade, e obtemos novamente uma instância de FO18 na linguagem de $T^A$.
 
-    Resta tratar FO14 e FO15.
-
-    Suponha primeiro que $\alpha$ é uma instância de FO14, isto é,
-    \[
-        \alpha \quad\text{é}\quad
-        \forall z\,\varphi\to \varphi[z/t],
-    \]
+    Suponha agora que $\alpha$ é uma instância de FO14, isto é, $\alpha$ é da forma $\forall z\,\varphi\to \varphi[z/t]$,
     em que $z$ é substituível por $t$ em $\varphi$.
-    Pelo metalema sobre substituições e interpretação, a substituição de $z$ por $t^A$ em $\varphi^A$ é válida e
-    \[
-        (\varphi[z/t])^A
-    \]
-    é
-    \[
-        \varphi^A[z/t^A].
-    \]
-    Assim, $\alpha^A$ é
-    \[
-        \forall z(A(z)\to\varphi^A)\to \varphi^A[z/t^A].
-    \]
+    Pelo Metalema~\ref{mlem:substituicaoEInterpretacao}, a substituição de $z$ por $t^A$ em $\varphi^A$ é válida e $(\varphi[z/t])^A$ é $\varphi^A[z/t^A]$.
 
-    Se $z$ ocorre livre em $\varphi$, então todas as variáveis de $t$ ocorrem livres em $\alpha$.
-    Pelo Metalema~\ref{mlem:termosInterpretadosPertencemAA}, sob as hipóteses $x_1\in A,\dots,x_n\in A$, obtemos $A(t^A)$.
-    Por FO14 em $T^A$, aplicado à fórmula $A(z)\to\varphi^A$ e ao termo $t^A$, temos
+    Assim, $\alpha^A$ é $\forall z(A(z)\to\varphi^A)\to \varphi^A[z/t^A]$.
+
+    Como $A(z)$ é uma fórmula atômica, $z$ é substituível por $t^A$ em $A(z)$, e temos que, pelo axioma FO14 em $T^A$,
     \[
         T^A\vdash
         \forall z(A(z)\to\varphi^A)
         \to
         \bigl(A(t^A)\to\varphi^A[z/t^A]\bigr).
     \]
-    Usando proposicionalmente $A(t^A)$, obtemos
+
+    Devemos provar que:
+
     \[
+        T^A\vdash\forall x_1\in A\cdots \forall x_n\in A\,
         \forall z(A(z)\to\varphi^A)
         \to
-        \varphi^A[z/t^A].
-    \]
-    Portanto,
-    \[
-        T^A\vdash
-        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
+        \bigl(A(t^A)\to\varphi^A[z/t^A]\bigr).
     \]
 
-    Se $z$ não ocorre livre em $\varphi$, então $\varphi[z/t]$ é a própria $\varphi$.
-    Nesse caso, $\alpha^A$ é
+     Se todas as variáveis que ocorrem em $t$ estão entre $x_1,\dots,x_n$, então, pelo metalema sobre termos interpretados pertencentes a $A$,
     \[
-        \forall z(A(z)\to\varphi^A)\to \varphi^A.
+        T^A\vdash
+        \forall x_1\in A\cdots \forall x_n\in A\, A(t^A).
     \]
-    Como $T^A\vdash \exists z\,A(z)$ pela definição de interpretação, a conclusão segue de FO14, da regra de introdução do quantificador existencial e de modus ponens.
-    Com efeito, escolhendo uma variável $w$ que não ocorre livre em $\varphi^A$, FO14 dá
+    Combinando isso com a instância de FO14 acima, obtemos
     \[
-        \forall z(A(z)\to\varphi^A)\to (A(w)\to\varphi^A).
+        T^A\vdash
+        \forall x_1\in A\cdots \forall x_n\in A\,
+        \bigl(\forall z(A(z)\to\varphi^A)\to \varphi^A[z/t^A]\bigr),
+    \]
+    isto é,
+    \[
+        T^A\vdash
+        \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
+    \]
+
+    Resta considerar o caso em que alguma variável de $t$ não está entre $x_1,\dots,x_n$.
+    Nesse caso, $z$ não ocorre livre em $\varphi$.
+    De fato, se $z$ ocorresse livre em $\varphi$, então, como a substituição de $z$ por $t$ em $\varphi$ é válida, toda variável de $t$ ocorreria livre em $\varphi[z/t]$, e portanto ocorreria livre em $\alpha$.
+
+    Assim, $\varphi[z/t]$ é a própria $\varphi$, e $\alpha^A$ é
+    \[
+        \forall z(A(z)\to\varphi^A)\to\varphi^A.
+    \]
+    Como $T^A\vdash \exists w\,A(w)$, tomando $w$ que não ocorre livre em $\varphi^A$, obtemos, por FO14,
+    \[
+        T^A\vdash
+        \forall z(A(z)\to\varphi^A)\to(A(w)\to\varphi^A).
     \]
     Por raciocínio proposicional,
     \[
+        T^A\vdash
         A(w)\to\bigl(\forall z(A(z)\to\varphi^A)\to\varphi^A\bigr).
     \]
-    Como $w$ não ocorre livre em $\forall z(A(z)\to\varphi^A)\to\varphi^A$, pela regra de introdução do quantificador existencial,
+    Pela regra de introdução do quantificador existencial,
     \[
+        T^A\vdash
         \exists w\,A(w)\to\bigl(\forall z(A(z)\to\varphi^A)\to\varphi^A\bigr).
     \]
-    Como $T^A\vdash \exists w\,A(w)$, obtemos $\alpha^A$.
-    Relativizando as variáveis livres $x_1,\dots,x_n$, obtemos a conclusão desejada.
-
-    Finalmente, suponha que $\alpha$ é uma instância de FO15, isto é,
-    \[
-        \alpha \quad\text{é}\quad
-        \varphi[z/t]\to \exists z\,\varphi,
-    \]
-    em que $z$ é substituível por $t$ em $\varphi$.
-    Pelo metalema sobre substituições e interpretação, $\alpha^A$ é
-    \[
-        \varphi^A[z/t^A]\to \exists z(A(z)\wedge\varphi^A).
-    \]
-
-    Se $z$ ocorre livre em $\varphi$, então todas as variáveis de $t$ ocorrem livres em $\alpha$.
-    Pelo Metalema~\ref{mlem:termosInterpretadosPertencemAA}, sob as hipóteses $x_1\in A,\dots,x_n\in A$, obtemos $A(t^A)$.
-    Pela introdução de $\wedge$,
-    \[
-        A(t^A)\wedge \varphi^A[z/t^A].
-    \]
-    Como
-    \[
-        A(t^A)\wedge \varphi^A[z/t^A]
-    \]
-    é
-    \[
-        (A(z)\wedge\varphi^A)[z/t^A],
-    \]
-    FO15 em $T^A$, aplicado à fórmula $A(z)\wedge\varphi^A$ e ao termo $t^A$, dá
-    \[
-        A(t^A)\wedge \varphi^A[z/t^A]
-        \to
-        \exists z(A(z)\wedge\varphi^A).
-    \]
-    Portanto, proposicionalmente,
-    \[
-        \varphi^A[z/t^A]\to \exists z(A(z)\wedge\varphi^A).
-    \]
-    Relativizando as variáveis livres, obtemos
+    Logo, como $T^A\vdash \exists w\,A(w)$, temos $T^A\vdash \alpha^A$.
+    Portanto, também nesse caso,
     \[
         T^A\vdash
-        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
+        \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
     \]
 
-    Se $z$ não ocorre livre em $\varphi$, então $\varphi[z/t]$ é a própria $\varphi$, e $\alpha^A$ é
-    \[
-        \varphi^A\to \exists z(A(z)\wedge\varphi^A).
-    \]
-    Como $T^A\vdash \exists w\,A(w)$ para uma variável $w$ que não ocorre livre em $\varphi^A$, obtemos, por FO15 aplicado à fórmula $A(z)\wedge\varphi^A$ e ao termo $w$,
-    \[
-        A(w)\wedge\varphi^A \to \exists z(A(z)\wedge\varphi^A).
-    \]
-    Logo, proposicionalmente,
-    \[
-        A(w)\to\bigl(\varphi^A\to\exists z(A(z)\wedge\varphi^A)\bigr).
-    \]
-    Pela regra de introdução do quantificador existencial, segue que
-    \[
-        \exists w\,A(w)\to
-        \bigl(\varphi^A\to\exists z(A(z)\wedge\varphi^A)\bigr).
-    \]
-    Como $T^A\vdash \exists w\,A(w)$, obtemos $\alpha^A$.
-    Relativizando as variáveis livres, concluímos novamente
-    \[
-        T^A\vdash
-        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
-    \]
-
-    Isso encerra todos os casos de axiomas lógicos FO1--FO18.
+    O axioma FO15 é tratado de forma análoga.
 \end{proof}
