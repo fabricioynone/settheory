@@ -10,7 +10,7 @@ Uma prova de consistência é uma prova metateórica de que se certa teoria não
 \end{metadefinition}
 
 Conforme vimos, o Princípio da Explosão implica que uma teoria inconsistente prova qualquer sentença (ver Metaproposição~\ref{mprop:principioDaExplosao}).
-Tal fato remove quase que completamente o interesse matemático por teorias de primeira ordem inconsistentes.
+Tal fato remove quase que completamente o interesse matemático por teorias de primeira ordem inconsistentes (no sistema da lógica clássica).
 
 Assim, seria útil termos um método para provar que certas teorias de primeira ordem são consistentes, ao menos com relação a outras teorias de primeira ordem.
 
@@ -28,7 +28,7 @@ Iniciaremos com uma proposição simples.
 
     Suponha que $\Con(T)$ é falso.
     Então $T$ é inconsistente, e existe uma sentença $\phi$ tal que $T\vdash \phi$ e $T\vdash \neg \phi$.
-    Pela metaproposição~\ref{mprop:extensaoDeTeoria}, $T'$ prova todos os teoremas de $T$, e, portanto, $T'\vdash \phi$ e $T'\vdash \neg \phi$.
+    Pela Metaproposição~\ref{mprop:extensaoDeTeoria}, $T'$ prova todos os teoremas de $T$, e, portanto, $T'\vdash \phi$ e $T'\vdash \neg \phi$.
     Assim, $T'$ é inconsistente.
 \end{proof}
 
@@ -56,8 +56,8 @@ Em particular, teorias obtidas por extensão por definição de uma teoria $T$ s
 Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos é por meio de examinar o universo dos conjuntos restrito à alguma classe de conjuntos.
 
 \begin{metadefinition}
-    Assuma que $T$ é uma teoria de primeira ordem.
-    Uma \emph{interpretação} de $T$ consiste em uma extensão por definição $T^A$ de $T$ com os seguintes novos símbolos.
+    Sejam $S, T$ teorias de primeira ordem.
+    Uma \emph{interpretação} de $S$ em $T$ é uma extensão por definição $T^A$ de $T$ tal que a linguagem de $T^A$ é obtida a partir da linguagem de $T$ por meio da adição de:
     \begin{itemize}
         \item Um novo símbolo de relação unário $A$, introduzido na linguagem de $T$ via definição.
         \item Para cada símbolo de predicado $R$ de $T$ de aridade $n$, um símbolo de predicado $R^A$ de aridade $n$ introduzido na linguagem de $T$ via definição.
@@ -67,7 +67,7 @@ Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos
         \]
     \end{itemize}
 
-    Para cada termo $t$ da linguagem de $T$, criamos o termo $t^A$ da linguagem de $T^A$ por recursão na metateoria, de modo que:
+    Para cada termo $t$ da linguagem de $S$, criamos o termo $t^A$ da linguagem de $T^A$ por recursão na metateoria, de modo que:
     \begin{itemize}
         \item Se $t$ é uma variável, digamos, $x$ então $x^A$ é a própria variável $x$.
         \item Se $t$ é um símbolo de constante, então $t^A$ é a própria constante $c^A$.
@@ -98,27 +98,18 @@ Uma importante forma de produzir provas de consistência em Teoria dos Conjuntos
 Como $T^A$ é uma extensão por definição de $T$, $T^A$ é uma extensão conservativa de $T$, e, portanto, $\Con(T)$ se, e somente se, $\Con(T^A)$.
 
 \begin{metalemma}\label{mlem:axiomasLogicosInterpretacao}
-    Seja $T$ uma teoria de primeira ordem e $T^A$ uma interpretação de $T$.
+    Sejam $S$ e $T$ teorias de primeira ordem e $T^A$ uma interpretação de $S$.
     Se $\phi$ é um axioma da lógica na linguagem de $T$, então
     $\phi^A$ é um teorema de $T^A$.
 \end{metalemma}
 
 \begin{proof}
-    Pela Metadefinição~\ref{mdef:axiomasLogicos}, $\phi$ é o fecho universal de uma instância $\theta$ de um dos onze esquemas lógicos lá explicitado.
-    Se $y_1, \dots, y_n$ é a lista de variáveis livres de $\theta$, escreveremos
-    \[
-        \forall \vec y \in A\, \theta
-    \]
-    para abreviar
-    \[
-        \forall y_1\in A \cdots \forall y_n \in A\, \theta.
-    \]
-    Assim, $\phi$ é da forma $\forall \bar y\, \theta$, e $\phi^A$ é da forma $\forall \bar y\in A\, \theta^A$.
-
+    Se $\phi$ é um axioma do tipo (FO1)-(FO13) conforme a Metadefinição~\ref{mdef:axiomasLogicaPrimeiraOrdem}, então $\phi^A$ é um axioma do mesmo tipo na linguagem de $T^A$, e, portanto, um teorema de $T^A$.
+    
     Usaremos algumas observações simples.
 
     \begin{claim}
-        Se $t$ é um termo da linguagem de $T$, então as variáveis de $t$ são as mesmas que as variáveis de $t^A$.
+        Se $t$ é um termo da linguagem de $S$, então as variáveis de $t$ são as mesmas que as variáveis de $t^A$.
     \end{claim}
     \begin{proof}
         A demonstração é uma indução na complexidade de $t$ simples.
@@ -132,10 +123,66 @@ Como $T^A$ é uma extensão por definição de $T$, $T^A$ é uma extensão conse
     \end{proof}
 
     \begin{claim}
-        Se $\psi[x/t]$ é uma substituição válida, então $\psi[x/t^A]$ é uma substituição válida.
+        Se $\phi$ é uma fórmula da linguagem de $S$, então as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
     \end{claim}
     \begin{proof}
-        Imediato pela afirmação anterior.
+        A demonstração é uma indução na complexidade de $\phi$.
+        
+        Se $\phi$ é atômica, digamos, $Rs_1\cdots s_n$, então $\phi^A$ é $R^A s_1^A\cdots s_n^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$ pela afirmação anterior.
+
+        Se $\phi$ é da forma $\neg\psi$, então $\phi^A$ é da forma $\neg\psi^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $\psi^A$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+        Se $\phi$ é da forma $\psi\square\theta$, com $\square$ um conector lógico binário, então $\phi^A$ é da forma $\psi^A\square\theta^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$ ou de $\theta$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $\psi^A$ ou de $\theta^A$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+        Se $\phi$ é da forma $\forall x\,\psi$, então $\phi^A$ é da forma $\forall x\,(A(x)\to \psi^A)$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, exceto $x$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $A(x)\to \psi^A$, exceto $x$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+        Analogamente, se $\phi$ é da forma $\exists x\,\psi$, então $\phi^A$ é da forma $\exists x\,(A(x)\wedge \psi^A)$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, exceto $x$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $A(x)\wedge \psi^A$, exceto $x$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+    \end{proof}
+
+    \begin{claim}
+        Se $s$, $t$ são termos da linguagem de $S$ e $x$ é uma variável, então $s[x/t]^A$ é $s^A[x/t^A]$.
+    \end{claim}
+    \begin{proof}
+        A demonstração é uma indução na complexidade de $s$.
+
+        Se $s$ é uma variável, digamos, $y$, e $y\neq x$, então $(s[x/t])^A$ é $y^A$, que é $y$, e $s^A[x/t^A]$ é $y$.
+
+        Se $s$ é um símbolo de constante, digamos, $c$, então $(s[x/t])^A$ é $c^A$, e $s^A[x/t^A]$ é $c^A$.
+        
+        Se $s$ é a variável $x$, então $(s[x/t])^A$ é $t^A$, e $s^A[x/t^A]$ é $x[x/t^A]$, que é $t^A$. e $s^A[x/t^A]$ é $t^A$.
+
+        Se a hipótese indutiva é válida para $s_1, \dots, s_n$, e $s$ é da forma $fs_1\cdots s_n$, então:
+
+        \[(s[x/t])^A = (fs_1[x/t]\cdots s_n[x/t])^A = f^A(s_1[x/t]^A\cdots s_n[x/t]^A) = f^A(s_1^A[x/t^A]\cdots s_n^A[x/t^A]) = s^A[x/t^A].\]
+        
+        Assim, segue a tese.
+    \end{proof}
+
+    \begin{claim}
+        Se $\psi$ é uma fórmula da linguagem de $S$, $x$ é uma variável, e $\psi[x/t]$ é uma substituição válida, então $\psi^A[x/t^A]$ é uma substituição válida e $\psi[x/t]^A$ é $\psi^A[x/t^A]$.
+    \end{claim}
+    \begin{proof}
+        Procedemos por indução na complexidade de $\psi$.
+
+        Se $\psi$ é uma fórmula atômica, digamos, $Rs_1\cdots s_n$, então, da afirmação anterior,
+        \[
+            (Rs_1[x/t]\cdots s_n[x/t])^A = R^A(s_1[x/t]^A\cdots s_n[x/t]^A) = R^A(s_1^A[x/t^A]\cdots s_n^A[x/t^A]) = R^A(s_1^A\cdots s_n^A)[x/t^A].
+        \]
+
+        Se $\psi$ é da forma $\neg\theta$, então, pela hipótese indutiva, $\theta^A[x/t^A]$ é uma substituição válida e $\theta[x/t]^A$ é $\theta^A[x/t^A]$.
+        Logo, $\neg\theta^A[x/t^A]$ é uma substituição válida e $\neg\theta[x/t]^A$ é $\neg\theta^A[x/t^A]$.
+
+        Se $\psi$ é da forma $\theta\square\chi$, com $\square$ um conector lógico binário, então, pela hipótese indutiva, $\theta^A[x/t^A]$ e $\chi^A[x/t^A]$ são substituições válidas e $\theta[x/t]^A$ é $\theta^A[x/t^A]$ e $\chi[x/t]^A$ é $\chi^A[x/t^A]$.
+        Logo, $\theta^A[x/t^A]\square\chi^A[x/t^A]$ é uma substituição válida e $(\theta\square\chi)[x/t]^A$ é $\theta^A[x/t^A]\square\chi^A[x/t^A]$.
+
+        Se $\psi$ é da forma $Q y\,\theta$, em que $Q$ é $\forall$ ou $\exists$ e em que $y$ é diferente de $x$, suponha que $(Q y\,\theta)[x/t]$ é uma substituição válida.
+        Então ($y$ não ocorre em $t$ e $\theta[x/t]$ é uma substituição válida) ou ($x$ não ocorre livre em $\theta$).
+
+        Se $y$ não ocorre em $t$ e $\theta[x/t]$ é uma substituição válida, então, pela hipótese indutiva, $\theta^A[x/t^A]$ é uma substituição válida e $y$ não ocorre em $t^A$, e, portanto, $Q y\,\theta^A[x/t^A]$ é uma substituição válida e $(Q y\,\theta)[x/t]^A$ é $Q y\,\theta^A[x/t^A]$.
+
+        Já se $x$ não ocorre livre em $\theta$, então $x$ não ocorre livre em $\theta^A$, e, portanto, $Q y\,\theta^A$ é uma substituição válida e $(Q y\,\theta)[x/t]^A$ é $Q y\,\theta^A$, que é $Q y\,\theta^A[x/t^A]$.
+
+        Finalmente, se $\psi$ é da forma $Q x\,\theta$, em que $Q$ é $\forall$ ou $\exists$, então $(Q x\,\theta)[x/t]^A$ é $Q x\,\theta^A$, que é $Q x\,\theta^A[x/t^A]$, e tal substituição é válida.
     \end{proof}
 
     \smallskip
