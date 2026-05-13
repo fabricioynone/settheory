@@ -1,0 +1,96 @@
+\section{Relações bem fundadas}
+
+\begin{definition}[$\BST$]
+    Uma relação definida é um símbolo de predicado binário introduzido por definição.
+\end{definition}
+
+\begin{definition}[$\BST$]
+    Uma relação definida $R$ é dita \emph{set-like} se para todo $x$ existe um (único) conjunto $y$ tal que, para todo $z$, $R(z,x)$ se, e somente se, $z\in y$.
+
+    Ou seja, se $y_\downarrow=\pred_{R}(x)=\{z: R(z,x)\}$ é um conjunto para todo $x$.
+
+    $R$ é dita bem fundada em $A$ se:
+
+    \[
+        \forall X\big(X\neq \emptyset \rightarrow \exists x\in X \, \forall y\big(y\in X \rightarrow \neg R(y,x)\big)\big)
+    \]
+
+    Ou seja, $R$ é bem fundada se todo subconjunto não vazio possui um elemento $R$-minimal.
+\end{definition}
+
+\begin{definition}[$\BST$]
+    Seja $R$ uma relação definida.
+
+    Para cada número natural $n$ e cada $a, b$, um $R$-caminho de comprimento $n$ de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n-1})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i+1<n$, em que $x_0=a$ e $x_{n-1}=b$.
+
+    Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$ para algum número natural $n$ que começa em $x$ e termina em $y$.
+\end{definition}
+
+\begin{proposition}[ZF-P]
+    Se $R$ é uma relação definida set-like, então $R^*$ é uma relação definida set-like.
+\end{proposition}
+
+\begin{proof}
+    Por indução em $n$, vejamos que para todo $n\in \omega$, existe um (único) conjunto $y$ tal que, para todo $z$, $R^*(z,x)$ se, e somente se, existe um $R$-caminho de comprimento $n$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
+
+    Para $n=0$, note que $\pred^0_{R}(x)=\emptyset$.
+
+    Para $n=1$, note que $\pred^1_{R}(x)=\pred_{R}(x)$.
+
+    Suponha que o resultado seja verdadeiro para $n\geq 1$.
+    Provaremos para $n+1$.
+
+    Por hipótese de indução, existe o conjunto $\pred^n_{R}(x)$ cujos elementos são exatamente os $z$ tais que existe um $R$-caminho de comprimento $n$ de $z$ até $x$.
+    Seja $\pred^{n+1}_{R}(x)=\bigcup\{\pred_{R}(y): y\in \pred^n_{R}(x)\}$.
+
+    Se $z\in \pred^{n+1}_{R}(x)$, então $z\in \pred_{R}(y)$ para algum $y\in \pred^n_{R}(x)$, e, portanto, um $R$-caminho de comprimento $n$ de $y$ até $x$, digamos, $(x_0, \dots, x_{n-1})$.
+    Considere $(z, x_0, \dots, x_{n-1})$.
+
+    Reciprocamente, seja $(x_0, x_1, \dots, x_n)$ um $R$-caminho de comprimento $n+1$ de $x_0$ até $x_n=x$.
+    Então $(x_1, \dots, x_n)$ é um $R$-caminho de comprimento $n$ de $x_1$ até $x$, e, portanto, $x_1\in \pred^n_{R}(x)$.
+    Como $x_0 R x_1$, $x_0\in \pred_{R}(x_1)$, e, portanto, $x_0\in \pred^{n+1}_{R}(x)$.
+
+    Considere $Z=\bigcup_{n\in \omega} \pred^n_{R}(x)$.
+    Temos que, para todo $z$, $R^*(z,x)$ se, e somente se, $z\in Z$.
+\end{proof}
+
+\begin{proposition}[ZF-P]
+    Seja $R$ uma relação definida set-like e bem fundada.
+    
+    Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
+    Então:
+    \[
+        \forall t_1\dots, t_n\bigg(\exists x\in A \, \phi(x, t_1, \dots, t_n) \rightarrow \exists x\bigg(\phi(x, t_1, \dots, t_n)\wedge \forall y\big(y R x \rightarrow \neg \phi(y, t_1, \dots, t_n)\big)\bigg)\bigg)
+    \]
+\end{proposition}
+
+\begin{proof}
+    Fixe $t_1, \dots, t_n$ e suponha que $\exists x\, \phi(x, t_1, \dots, t_n)$.
+    Fixe $x$ dessa forma.
+
+    Se $\forall y\big(y R x \rightarrow \neg \phi(y, t_1, \dots, t_n)\big)$, segue a tese.
+    Se não, considere $X=\{z \in \pred_{R^*}(x): \phi(z, t_1, \dots, t_n)\}$.
+    Temos que $X$ é um conjunto e $X\neq \emptyset$.
+    Logo, existe um elemento $R$-minimal de $X$, digamos, $x'$.
+    Temos que $\phi(x', t_1, \dots, t_n)$ e, dado $y$ tal que $y R x'$, $y\in \pred_{R^*}(x)$, e, portanto, $y\notin X$, ou seja, $\neg \phi(y, t_1, \dots, t_n)$.
+\end{proof}
+
+\begin{corollary}[ZF-P]
+    Seja $R$ uma relação definida set-like e bem fundada em $A$.
+    
+    Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
+    Então:
+    \[
+        \forall t_1\dots, t_n\bigg(\forall x \, \left(\forall z \in \pred_{R^*}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)\rightarrow \forall x\, \phi(x, t_1, \dots, t_n)\bigg)
+    \]
+\end{corollary}
+
+
+\begin{metatheorem}[$\ZFmPI$](Esquema da recursão transfinita)\label{mthm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
+    Suponha que um símbolo de função binário $G(p, s, a)$ seja introduzido por definição.
+
+    Então é possível introduzir um símbolo de função binário $F(p, a)$ de modo que
+    \[
+        \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R^*}(a), a)\Big).
+    \]
+\end{metatheorem}
