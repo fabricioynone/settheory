@@ -104,327 +104,412 @@ Como $T^A$ é uma extensão por definição de $T$, $T^A$ é uma extensão conse
 
 Notemos que $\neg\forall x\,\psi$ é logicamente equivalente a $\exists x\,\neg\psi$, e que $\neg\exists x\,\psi$ é logicamente equivalente a $\forall x\,\neg\psi$.
 
-\begin{metalemma}\label{mlem:axiomasLogicosInterpretacao}
-    Sejam $S$ e $T$ teorias de primeira ordem e $T^A$ uma interpretação de $S$.
-    Se $\phi$ é um axioma da lógica na linguagem de $T$, então
-    $\phi^A$ é um teorema de $T^A$.
+Agora faremos algumas observações simples sobre interpretações de termos e fórmulas.
+
+\begin{metalemma}
+    Seja $T$ uma teoria de primeira ordem e seja $T^A$ uma interpretação de um léxico $\mathcal L'$ em $T$.
+
+    Se $t$ é um $\mathcal L'$-termo, então as variáveis que ocorrem em $t$ são as mesmas que as variáveis que ocorrem em $t^A$.
+    
+    Se $\phi$ é uma $\mathcal L'$-fórmula, então as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+\end{metalemma}
+\begin{proof}
+    Para a primeira afirmação, a demonstração é uma indução simples na complexidade de $t$.
+
+    Se $t$ é uma variável, então $t^A$ é a própria variável $t$.
+
+    Se $t$ é uma constante $c$, então $t^A$ é a constante $c^A$, e, portanto, nenhum dos dois possui variáveis.
+
+    Se $t$ é da forma $f(t_1,\dots,t_n)$, então $t^A$ é da forma $f^A(t_1^A,\dots,t_n^A)$.
+    Assim, as variáveis que ocorrem em $t$ são exatamente as variáveis que ocorrem em algum $t_i$, e as variáveis que ocorrem em $t^A$ são exatamente as variáveis que ocorrem em algum $t_i^A$.
+    Pela hipótese indutiva, para cada $1\leq i\leq n$, as variáveis que ocorrem em $t_i$ são as mesmas que as variáveis que ocorrem em $t_i^A$.
+    Portanto, as variáveis que ocorrem em $t$ são as mesmas que as variáveis que ocorrem em $t^A$.
+
+    Já para a segunda afirmação, a demonstração é por indução na complexidade de $\phi$.
+
+    Se $\phi$ é um símbolo de predicado $0$-ário, então nem $\phi$ nem $\phi^A$ possuem variáveis livres.
+
+    Se $\phi$ é atômica da forma $R(s_1,\dots,s_n)$, com $n\geq 1$, então $\phi^A$ é $R^A(s_1^A,\dots,s_n^A)$.
+    As variáveis livres de $\phi$ são exatamente as variáveis que ocorrem em algum $s_i$, e as variáveis livres de $\phi^A$ são exatamente as variáveis que ocorrem em algum $s_i^A$.
+    Pela primeira afirmação, essas variáveis são as mesmas.
+
+    Se $\phi$ é atômica da forma $s=t$, então $\phi^A$ é $s^A=t^A$.
+    Pela primeira afirmação, as variáveis que ocorrem em $s$ e em $t$ são, respectivamente, as mesmas que ocorrem em $s^A$ e em $t^A$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Se $\phi$ é da forma $\neg\psi$, então $\phi^A$ é $\neg\psi^A$.
+    Pela hipótese indutiva, as variáveis livres de $\psi$ são as mesmas que as variáveis livres de $\psi^A$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Se $\phi$ é da forma $\psi\square\theta$, com $\square$ um conectivo lógico binário, então $\phi^A$ é da forma $\psi^A\square\theta^A$.
+    Pela hipótese indutiva, as variáveis livres de $\psi$ e de $\theta$ são, respectivamente, as mesmas que as variáveis livres de $\psi^A$ e de $\theta^A$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Se $\phi$ é da forma $\forall x\,\psi$, então $\phi^A$ é $\forall x\,(A(x)\to \psi^A)$.
+    As variáveis livres de $\phi$ são as variáveis livres de $\psi$, exceto $x$.
+    As variáveis livres de $\phi^A$ são as variáveis livres de $A(x)\to\psi^A$, exceto $x$; portanto, são as variáveis livres de $\psi^A$, exceto $x$.
+    Pela hipótese indutiva, as variáveis livres de $\psi$ são as mesmas que as variáveis livres de $\psi^A$.
+    Logo, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    O caso em que $\phi$ é da forma $\exists x\,\psi$ é análogo.
+\end{proof}
+
+\begin{metalemma}
+    Seja $T$ uma teoria de primeira ordem e seja $T^A$ uma interpretação de um léxico $\mathcal L'$ em $T$.
+    Se $s$, $t$ são $\mathcal L'$-termos e $x$ é uma variável, então $(s[x/t])^A$ é $s^A[x/t^A]$.
+\end{metalemma}
+\begin{proof}
+    A demonstração é por indução na complexidade de $s$.
+
+    Se $s$ é uma variável $y$ diferente de $x$, então $s[x/t]$ é $y$.
+    Logo, $(s[x/t])^A$ é $y$.
+    Por outro lado, $s^A$ é $y$, e, portanto, $s^A[x/t^A]$ é $y$.
+
+    Se $s$ é a variável $x$, então $s[x/t]$ é $t$.
+    Logo, $(s[x/t])^A$ é $t^A$.
+    Por outro lado, $s^A$ é $x$, e, portanto, $s^A[x/t^A]$ é $x[x/t^A]$, que é $t^A$.
+
+    Se $s$ é uma constante $c$, então $s[x/t]$ é $c$.
+    Logo, $(s[x/t])^A$ é $c^A$.
+    Por outro lado, $s^A$ é $c^A$, e, como $c^A$ é uma constante, $s^A[x/t^A]$ é $c^A$.
+
+    Finalmente, suponha que $s$ é da forma $f(s_1,\dots,s_n)$ e que a tese vale para $s_1,\dots,s_n$.
+    Então
+    \[
+        (s[x/t])^A
+        =
+        f^A\bigl((s_1[x/t])^A,\dots,(s_n[x/t])^A\bigr).
+    \]
+    Pela hipótese indutiva, para cada $1\leq i\leq n$, temos $(s_i[x/t])^A=s_i^A[x/t^A]$.
+    Portanto,
+    \[
+        (s[x/t])^A
+        =
+        f^A\bigl(s_1^A[x/t^A],\dots,s_n^A[x/t^A]\bigr).
+    \]
+    Pela definição de substituição em termos, o lado direito é exatamente
+    \[
+        f^A(s_1^A,\dots,s_n^A)[x/t^A],
+    \]
+    isto é, $s^A[x/t^A]$.
+\end{proof}
+
+
+\begin{metalemma}
+    Seja $T$ uma teoria de primeira ordem e seja $T^A$ uma interpretação de um léxico $\mathcal L'$ em $T$.
+
+    Se $\phi$ é uma $\mathcal L'$-fórmula, então as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Além disso, se $t$ é um $\mathcal L'$-termo, $x$ é uma variável, e se a substituição $\phi[x/t]$ é válida, então a substituição $\phi^A[x/t^A]$ é válida e $(\phi[x/t])^A$ é $\phi^A[x/t^A]$.
+\end{metalemma}
+\begin{proof}
+    Procedemos por indução na complexidade de $\phi$, provando simultaneamente as duas afirmações do enunciado.
+
+    Se $\phi$ é um símbolo de predicado $0$-ário, então nem $\phi$ nem $\phi^A$ possuem variáveis livres.
+    Além disso, $\phi[x/t]$ é $\phi$ e $\phi^A[x/t^A]$ é $\phi^A$.
+    Logo, as duas afirmações são imediatas.
+
+    Se $\phi$ é atômica da forma $R(s_1,\dots,s_n)$, com $n\geq 1$, então $\phi^A$ é $R^A(s_1^A,\dots,s_n^A)$.
+    Pela preservação de variáveis em termos, as variáveis que ocorrem em cada $s_i$ são as mesmas que ocorrem em $s_i^A$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Como fórmulas atômicas não possuem quantificadores, a substituição de $x$ por $t^A$ em $\phi^A$ é válida.
+    Pela compatibilidade da interpretação com substituições em termos, para cada $1\leq i\leq n$, $(s_i[x/t])^A$ é $s_i^A[x/t^A]$.
+    Assim, $(\phi[x/t])^A$ é $R^A(s_1^A[x/t^A],\dots,s_n^A[x/t^A])$, que é exatamente $\phi^A[x/t^A]$.
+  
+    Se $\phi$ é atômica da forma $s_1=s_2$, o argumento é análogo.
+
+    Se $\phi$ é da forma $\neg\theta$, então $\phi^A$ é $\neg\theta^A$.
+    Pela hipótese indutiva, as variáveis livres de $\theta$ são as mesmas que as variáveis livres de $\theta^A$.
+    Como a negação não altera variáveis livres, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Suponha agora que $\phi[x/t]$ é válida.
+    Então $\theta[x/t]$ é válida.
+    Pela hipótese indutiva, a substituição de $x$ por $t^A$ em $\theta^A$ é válida e $(\theta[x/t])^A$ é $\theta^A[x/t^A]$.
+    Logo, a substituição de $x$ por $t^A$ em $\neg\theta^A$ é válida, e $((\neg\theta)[x/t])^A$ é $\neg(\theta^A[x/t^A])$,
+    que é exatamente $(\neg\theta^A)[x/t^A]$.
+
+    Se $\phi$ é da forma $\theta\square\chi$, com $\square$ um conectivo lógico binário, então $\phi^A$ é $\theta^A\square\chi^A$.
+    Pela hipótese indutiva, as variáveis livres de $\theta$ e de $\chi$ são, respectivamente, as mesmas que as variáveis livres de $\theta^A$ e de $\chi^A$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Suponha agora que $\phi[x/t]$ é válida.
+    Então $\theta[x/t]$ e $\chi[x/t]$ são válidas.
+    Pela hipótese indutiva, a substituição de $x$ por $t^A$ é válida em $\theta^A$ e em $\chi^A$, e temos
+    \[
+        (\theta[x/t])^A \text{ é } \theta^A[x/t^A]
+        \qquad\text{e}\qquad
+        (\chi[x/t])^A \text{ é } \chi^A[x/t^A].
+    \]
+    Logo, a substituição de $x$ por $t^A$ em $\theta^A\square\chi^A$ é válida, e $((\theta\square\chi)[x/t])^A$
+    é $\theta^A[x/t^A]\square\chi^A[x/t^A]$, que é exatamente $(\theta^A\square\chi^A)[x/t^A]$.
+
+    Resta tratar os quantificadores.
+    Seja $\phi$ da forma $Qy\,\theta$, em que $Q$ é $\forall$ ou $\exists$.
+    Escrevamos $B_y(\eta)$ para $A(y)\to\eta$, se $Q$ é $\forall$, e para $A(y)\wedge\eta$, se $Q$ é $\exists$.
+    Assim, $\phi^A$ é da forma
+    \[
+        Qy\,B_y(\theta^A).
+    \]
+
+    Pela hipótese indutiva, as variáveis livres de $\theta$ são as mesmas que as variáveis livres de $\theta^A$.
+    As variáveis livres de $\phi$ são as variáveis livres de $\theta$, exceto $y$.
+    Já as variáveis livres de $\phi^A$ são as variáveis livres de $B_y(\theta^A)$, exceto $y$.
+    Como as variáveis livres de $B_y(\theta^A)$ são $y$ juntamente com as variáveis livres de $\theta^A$, segue que as variáveis livres de $\phi^A$ são as variáveis livres de $\theta^A$, exceto $y$.
+    Portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
+
+    Suponha agora que $\phi[x/t]$ é válida.
+
+    Primeiro, suponha que $y$ é diferente de $x$.
+    Então $x$ é substituível por $t$ em $\theta$ e, além disso, ou $x$ não ocorre livre em $\theta$, ou $y$ não ocorre em $t$.
+    Pela hipótese indutiva, $x$ é substituível por $t^A$ em $\theta^A$, e $(\theta[x/t])^A$ é $\theta^A[x/t^A]$.
+
+    Pela preservação de variáveis em termos, se $y$ não ocorre em $t$, então $y$ não ocorre em $t^A$.
+    Pela preservação de variáveis livres já demonstrada para $\theta$, se $x$ não ocorre livre em $\theta$, então $x$ não ocorre livre em $\theta^A$.
+    Como $y$ é diferente de $x$, a variável $x$ não ocorre livre em $A(y)$.
+    Logo, $x$ é substituível por $t^A$ em $B_y(\theta^A)$ e a condição referente ao quantificador inicial $Qy$ também é satisfeita.
+    Portanto, a substituição de $x$ por $t^A$ em $\phi^A$ é válida.
+
+    Além disso, $((Qy\,\theta)[x/t])^A$ é $(Qy\,\theta[x/t])^A$, que é $Qy\,B_y((\theta[x/t])^A)$.
+    Pela hipótese indutiva, essa fórmula é $Qy\,B_y(\theta^A[x/t^A])$.
+    Como $y$ é diferente de $x$, esta última fórmula é exatamente $(Qy\,B_y(\theta^A))[x/t^A]$,
+    isto é, $\phi^A[x/t^A]$.
+
+    Finalmente, suponha que $y$ é $x$.
+    Então $\phi[x/t]$ é a própria $\phi$.
+    Por outro lado, $\phi^A$ é
+    \[
+        Qx\,B_x(\theta^A).
+    \]
+    A variável $x$ não ocorre livre em $\phi^A$, pois todas as ocorrências livres de $x$ em $B_x(\theta^A)$ ficam no escopo do quantificador inicial $Qx$.
+    Portanto, a substituição de $x$ por $t^A$ em $\phi^A$ é válida e $\phi^A[x/t^A]$ é a própria $\phi^A$.
+    Assim, $(\phi[x/t])^A$ é $\phi^A[x/t^A]$.
+\end{proof}
+
+\begin{metalemma}\label{mlem:termosInterpretadosPertencemAA}
+    Seja $T^A$ uma interpretação de um léxico $\mathcal L'$ em $T$.
+    Seja $t$ um $\mathcal L'$-termo, e sejam $x_1,\dots,x_n$ variáveis que contêm todas as variáveis que ocorrem em $t$.
+    Então
+    \[
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(t^A).
+    \]
+\end{metalemma}
+\begin{proof}
+    A demonstração é por indução na complexidade de $t$.
+
+    Se $t$ é uma variável, digamos, $x_i$, então a conclusão segue da tautologia $A(x_i)\to A(x_i)$, seguida das introduções dos quantificadores restritos.
+
+    Se $t$ é uma constante $c$, então $T^A\vdash A(c^A)$ pela definição de interpretação.
+    Logo, por introduções de implicações e quantificadores restritos, obtemos
+    \[
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(c^A).
+    \]
+
+    Suponha agora que $t$ é da forma $f(t_1,\dots,t_m)$.
+    Pela hipótese indutiva, para cada $1\leq i\leq m$,
+    \[
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,A(t_i^A).
+    \]
+    Pela definição de interpretação,
+    \[
+        T^A\vdash
+        \forall y_1\cdots\forall y_m\,
+        \bigl(A(y_1)\wedge\cdots\wedge A(y_m)\to
+        A(f^A(y_1,\dots,y_m))\bigr).
+    \]
+    Instanciando essa fórmula com os termos $t_1^A,\dots,t_m^A$, obtemos
+    \[
+        T^A\vdash
+        A(t_1^A)\wedge\cdots\wedge A(t_m^A)\to
+        A(f^A(t_1^A,\dots,t_m^A)).
+    \]
+    Pelas regras proposicionais derivadas para $\wedge$ e $\to$, concluímos
+    \[
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,
+        A(f^A(t_1^A,\dots,t_m^A)).
+    \]
+    Como $t^A$ é $f^A(t_1^A,\dots,t_m^A)$, isso prova a tese.
+\end{proof}
+
+\begin{metalemma}[Axiomas lógicos relativizados]\label{mlem:axiomasLogicosInterpretacao}
+    Sejam $S$ e $T$ teorias de primeira ordem e seja $T^A$ uma interpretação de $S$ em $T$.
+    Seja $\alpha$ um axioma lógico na linguagem de $S$.
+    Se $x_1,\dots,x_n$ são exatamente as variáveis livres de $\alpha$, então
+    \[
+        T^A\vdash \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
+    \]
 \end{metalemma}
 
 \begin{proof}
-    Se $\phi$ é um axioma do tipo (FO1)-(FO13) conforme a Metadefinição~\ref{mdef:axiomasLogicaPrimeiraOrdem}, então $\phi^A$ é um axioma do mesmo tipo na linguagem de $T^A$, e, portanto, um teorema de $T^A$.
-    
-    Usaremos algumas observações simples.
-
-    \begin{claim}
-        Se $t$ é um termo da linguagem de $S$, então as variáveis de $t$ são as mesmas que as variáveis de $t^A$.
-    \end{claim}
-    \begin{proof}
-        A demonstração é uma indução na complexidade de $t$ simples.
-        Se $t$ é uma variável, então $t^A$ é a própria variável $t$.
-
-        Se $t$ é um símbolo de constante, então $t^A$ é a própria constante $c^A$, e, portanto, não tem variáveis.
-
-        Se $t$ é da forma $f(t_1, \dots, t_n)$, então $t^A$ é da forma $f^A(t_1^A, \dots, t_n^A)$.
-        Assim, as variáveis de $t$ são as que ocorrem em algum $t_i$, e as variáveis de $t^A$ são as que ocorrem em algum $t_i^A$.
-        Pelo passo indutivo, as variáveis de $t_i$ são as mesmas que as variáveis de $t_i^A$, e, portanto, as variáveis de $t$, e, assim, segue a tese.
-    \end{proof}
-
-    \begin{claim}
-        Se $\phi$ é uma fórmula da linguagem de $S$, então as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
-    \end{claim}
-    \begin{proof}
-        A demonstração é uma indução na complexidade de $\phi$.
-        
-        Se $\phi$ é atômica, digamos, $Rs_1\cdots s_n$, então $\phi^A$ é $R^A s_1^A\cdots s_n^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$ pela afirmação anterior.
-
-        Se $\phi$ é da forma $\neg\psi$, então $\phi^A$ é da forma $\neg\psi^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $\psi^A$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
-
-        Se $\phi$ é da forma $\psi\square\theta$, com $\square$ um conector lógico binário, então $\phi^A$ é da forma $\psi^A\square\theta^A$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$ ou de $\theta$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $\psi^A$ ou de $\theta^A$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
-
-        Se $\phi$ é da forma $\forall x\,\psi$, então $\phi^A$ é da forma $\forall x\,(A(x)\to \psi^A)$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, exceto $x$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $A(x)\to \psi^A$, exceto $x$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
-
-        Analogamente, se $\phi$ é da forma $\exists x\,\psi$, então $\phi^A$ é da forma $\exists x\,(A(x)\wedge \psi^A)$, e as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\psi$, exceto $x$, e as variáveis livres de $\phi^A$ são as mesmas que as variáveis livres de $A(x)\wedge \psi^A$, exceto $x$, e, portanto, as variáveis livres de $\phi$ são as mesmas que as variáveis livres de $\phi^A$.
-    \end{proof}
-
-    \begin{claim}
-        Se $s$, $t$ são termos da linguagem de $S$ e $x$ é uma variável, então $s[x/t]^A$ é $s^A[x/t^A]$.
-    \end{claim}
-    \begin{proof}
-        A demonstração é uma indução na complexidade de $s$.
-
-        Se $s$ é uma variável, digamos, $y$, e $y\neq x$, então $(s[x/t])^A$ é $y^A$, que é $y$, e $s^A[x/t^A]$ é $y$.
-
-        Se $s$ é um símbolo de constante, digamos, $c$, então $(s[x/t])^A$ é $c^A$, e $s^A[x/t^A]$ é $c^A$.
-        
-        Se $s$ é a variável $x$, então $(s[x/t])^A$ é $t^A$, e $s^A[x/t^A]$ é $x[x/t^A]$, que é $t^A$. e $s^A[x/t^A]$ é $t^A$.
-
-        Se a hipótese indutiva é válida para $s_1, \dots, s_n$, e $s$ é da forma $fs_1\cdots s_n$, então:
-
-        \[(s[x/t])^A = (fs_1[x/t]\cdots s_n[x/t])^A = f^A(s_1[x/t]^A\cdots s_n[x/t]^A) = f^A(s_1^A[x/t^A]\cdots s_n^A[x/t^A]) = s^A[x/t^A].\]
-        
-        Assim, segue a tese.
-    \end{proof}
-
-    \begin{claim}
-        Se $\psi$ é uma fórmula da linguagem de $S$, $x$ é uma variável, e $\psi[x/t]$ é uma substituição válida, então $\psi^A[x/t^A]$ é uma substituição válida e $\psi[x/t]^A$ é $\psi^A[x/t^A]$.
-    \end{claim}
-    \begin{proof}
-        Procedemos por indução na complexidade de $\psi$.
-
-        Se $\psi$ é uma fórmula atômica, digamos, $Rs_1\cdots s_n$, então, da afirmação anterior,
-        \[
-            (Rs_1[x/t]\cdots s_n[x/t])^A = R^A(s_1[x/t]^A\cdots s_n[x/t]^A) = R^A(s_1^A[x/t^A]\cdots s_n^A[x/t^A]) = R^A(s_1^A\cdots s_n^A)[x/t^A].
-        \]
-
-        Se $\psi$ é da forma $\neg\theta$, então, pela hipótese indutiva, $\theta^A[x/t^A]$ é uma substituição válida e $\theta[x/t]^A$ é $\theta^A[x/t^A]$.
-        Logo, $\neg\theta^A[x/t^A]$ é uma substituição válida e $\neg\theta[x/t]^A$ é $\neg\theta^A[x/t^A]$.
-
-        Se $\psi$ é da forma $\theta\square\chi$, com $\square$ um conector lógico binário, então, pela hipótese indutiva, $\theta^A[x/t^A]$ e $\chi^A[x/t^A]$ são substituições válidas e $\theta[x/t]^A$ é $\theta^A[x/t^A]$ e $\chi[x/t]^A$ é $\chi^A[x/t^A]$.
-        Logo, $\theta^A[x/t^A]\square\chi^A[x/t^A]$ é uma substituição válida e $(\theta\square\chi)[x/t]^A$ é $\theta^A[x/t^A]\square\chi^A[x/t^A]$.
-
-        Se $\psi$ é da forma $Q y\,\theta$, em que $Q$ é $\forall$ ou $\exists$ e em que $y$ é diferente de $x$, suponha que $(Q y\,\theta)[x/t]$ é uma substituição válida.
-        Então ($y$ não ocorre em $t$ e $\theta[x/t]$ é uma substituição válida) ou ($x$ não ocorre livre em $\theta$).
-
-        Se $y$ não ocorre em $t$ e $\theta[x/t]$ é uma substituição válida, então, pela hipótese indutiva, $\theta^A[x/t^A]$ é uma substituição válida e $y$ não ocorre em $t^A$, e, portanto, $Q y\,\theta^A[x/t^A]$ é uma substituição válida e $(Q y\,\theta)[x/t]^A$ é $Q y\,\theta^A[x/t^A]$.
-
-        Já se $x$ não ocorre livre em $\theta$, então $x$ não ocorre livre em $\theta^A$, e, portanto, $Q y\,\theta^A$ é uma substituição válida e $(Q y\,\theta)[x/t]^A$ é $Q y\,\theta^A$, que é $Q y\,\theta^A[x/t^A]$.
-
-        Finalmente, se $\psi$ é da forma $Q x\,\theta$, em que $Q$ é $\forall$ ou $\exists$, então $(Q x\,\theta)[x/t]^A$ é $Q x\,\theta^A$, que é $Q x\,\theta^A[x/t^A]$, e tal substituição é válida.
-    \end{proof}
-
-    \smallskip
-    \textbf{(b)} Se todas as variáveis livres de um termo $t$ pertencem a $A$, então, sob essas hipóteses,
-    $T^A$ demonstra $A(t^A)$.
-    Isto se prova por indução sobre a complexidade de $t$, usando as definições escolhidas para os símbolos traduzidos.
-
-    \smallskip
-    \textbf{(c)} Se $T^A\vdash \forall z\,\beta$, então $T^A\vdash \forall z\in A\,\beta$.
-    De fato, $\beta\rightarrow (A(z)\rightarrow \beta)$ é uma tautologia, logo
+    Seja $\alpha$ um axioma lógico da linguagem de $S$, e sejam $x_1,\dots,x_n$ exatamente as variáveis livres de $\alpha$.
+    Provaremos que
     \[
-        T^A\vdash \forall z\,(\beta\rightarrow (A(z)\rightarrow \beta)).
-    \]
-    Pelo esquema lógico (3), segue
-    \[
-        T^A\vdash \forall z\,\beta \rightarrow \forall z\,(A(z)\rightarrow \beta).
+        T^A\vdash \forall x_1\in A\cdots \forall x_n\in A\,\alpha^A.
     \]
 
-    \smallskip
-    Agora dividimos a prova em onze casos.
+    Primeiro, considere os axiomas FO1--FO13.
+    Se $\alpha$ é uma instância de um desses esquemas, então $\alpha^A$ é uma instância do mesmo esquema, agora na linguagem de $T^A$.
+    Logo, $T^A\vdash \alpha^A$.
+    Aplicando repetidamente introdução de implicação e generalização universal, obtemos
+    \[
+        T^A\vdash \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
+    \]
 
-    \smallskip
-    \textbf{Caso 1.} $\sigma$ é uma instância de tautologia.
-    Como a tradução $(\cdot)^A$ comuta com $\neg$, $\wedge$, $\vee$ e $\rightarrow$, a fórmula $\sigma^A$ tem exatamente o mesmo esqueleto proposicional de $\sigma$.
-    Logo, $\sigma^A$ também é uma instância de tautologia.
-    Portanto, $\forall \bar y\,\sigma^A$ é um axioma lógico de $T^A$.
-    Aplicando a observação \textbf{(c)} sucessivamente a cada quantificador externo, obtemos
+    O caso FO16 também é imediato.
+    Se $\alpha$ é $x=x$, então $\alpha^A$ é $x=x$, que é uma instância de FO16 na linguagem de $T^A$.
+    Portanto, como acima,
     \[
-        T^A\vdash \forall \bar y\in A\,\sigma^A.
+        T^A\vdash \forall x\in A\, (x=x).
     \]
-    Isto é, $T^A\vdash \phi^A$.
 
-    \smallskip
-    \textbf{Caso 2.} $\sigma$ é $\forall x\,\psi\rightarrow \psi[x/t]$, com substituição válida.
-    Fixemos os parâmetros livres de $\psi$ e de $t$ em $A$.
-    Sob a hipótese temporária $\forall x\,(A(x)\rightarrow \psi^A)$, o esquema lógico (2) em $T^A$, aplicado à fórmula $A(x)\rightarrow \psi^A$ e ao termo $t^A$, fornece
+    Considere agora FO17.
+    Suponha que $\alpha$ é
     \[
-        \forall x\,(A(x)\rightarrow \psi^A)\rightarrow (A(t^A)\rightarrow \psi^A[x/t^A]).
+        \bigl(x_1=y_1\wedge\cdots\wedge x_m=y_m\bigr)
+        \to
+        f(x_1,\dots,x_m)=f(y_1,\dots,y_m),
     \]
-    Pela observação \textbf{(b)}, temos $A(t^A)$.
-    Pela observação \textbf{(a)}, $\psi^A[x/t^A] = (\psi[x/t])^A$.
-    Logo, sob a hipótese $\forall x\,(A(x)\rightarrow \psi^A)$, concluímos $(\psi[x/t])^A$.
-    Pelo Teorema da Dedução,
+    em que $f$ é um símbolo funcional de aridade $m>0$ da linguagem de $S$.
+    Então $\alpha^A$ é
     \[
-        T^A\vdash (\forall x\,\psi)^A \rightarrow (\psi[x/t])^A,
+        \bigl(x_1=y_1\wedge\cdots\wedge x_m=y_m\bigr)
+        \to
+        f^A(x_1,\dots,x_m)=f^A(y_1,\dots,y_m),
     \]
-    isto é, $T^A\vdash \sigma^A$.
-    Como os parâmetros livres foram arbitrários em $A$, segue que $T^A\vdash \phi^A$.
+    que é uma instância de FO17 na linguagem de $T^A$.
+    Logo, $T^A\vdash \alpha^A$, e a conclusão relativizada segue por introdução dos quantificadores restritos.
 
-    \smallskip
-    \textbf{Caso 3.} $\sigma$ é
-    \[
-        \forall x\,(\psi\rightarrow \theta)\rightarrow (\forall x\,\psi\rightarrow \forall x\,\theta).
-    \]
-    Fixemos os parâmetros livres em $A$.
-    Suponha temporariamente
-    \[
-        \forall x\,(A(x)\rightarrow (\psi^A\rightarrow \theta^A))
-        \qquad\text{e}\qquad
-        \forall x\,(A(x)\rightarrow \psi^A).
-    \]
-    A tautologia proposicional
-    \[
-        (P\rightarrow (Q\rightarrow R))\rightarrow ((P\rightarrow Q)\rightarrow (P\rightarrow R))
-    \]
-    fornece, após substituição e fecho universal em $x$,
-    \[
-        \forall x\,\Bigl((A(x)\rightarrow (\psi^A\rightarrow \theta^A))\rightarrow ((A(x)\rightarrow \psi^A)\rightarrow (A(x)\rightarrow \theta^A))\Bigr).
-    \]
-    Pelo esquema lógico (3), concluímos
-    \[
-        T^A\vdash \forall x\,(A(x)\rightarrow (\psi^A\rightarrow \theta^A))
-        \rightarrow
-        \forall x\,((A(x)\rightarrow \psi^A)\rightarrow (A(x)\rightarrow \theta^A)).
-    \]
-    Sob a primeira hipótese temporária, segue
-    \[
-        \forall x\,((A(x)\rightarrow \psi^A)\rightarrow (A(x)\rightarrow \theta^A)).
-    \]
-    Aplicando novamente o esquema lógico (3), agora às fórmulas $A(x)\rightarrow \psi^A$ e $A(x)\rightarrow \theta^A$, segue
-    \[
-        T^A\vdash \forall x\,(A(x)\rightarrow \psi^A)\rightarrow \forall x\,(A(x)\rightarrow \theta^A).
-    \]
-    Portanto, sob as duas hipóteses temporárias, obtemos $\forall x\,(A(x)\rightarrow \theta^A)$.
-    Aplicando o Teorema da Dedução duas vezes, segue que $T^A\vdash \sigma^A$.
-    Fechando universalmente relativamente a $A$ os parâmetros livres remanescentes, obtemos $T^A\vdash \phi^A$.
+    O caso FO18 é análogo.
+    Se $R$ é um símbolo de predicado não lógico da linguagem de $S$, então a interpretação de uma instância de FO18 para $R$ é a instância correspondente de FO18 para $R^A$ na linguagem de $T^A$.
+    Se o predicado em questão é o símbolo lógico de igualdade, a tradução não altera o símbolo de igualdade, e obtemos novamente uma instância de FO18 na linguagem de $T^A$.
 
-    \smallskip
-    \textbf{Caso 4.} $\sigma$ é $\psi\rightarrow \forall x\,\psi$, com $x$ não ocorrendo livre em $\psi$.
-    Então $x$ também não ocorre livre em $\psi^A$.
-    Fixemos os parâmetros livres de $\psi$ em $A$ e suponhamos temporariamente $\psi^A$.
-    Pelo esquema lógico (4), a sentença
-    \[
-        \psi^A\rightarrow \forall x\,\psi^A
-    \]
-    é um teorema de $T^A$.
-    Portanto, sob a hipótese temporária $\psi^A$, obtemos
-    \[
-        \forall x\,\psi^A.
-    \]
-    Além disso, a sentença
-    \[
-        \forall x\,(\psi^A\rightarrow (A(x)\rightarrow \psi^A))
-    \]
-    é um teorema de $T^A$, pois vem da tautologia $\psi^A\rightarrow (A(x)\rightarrow \psi^A)$ por fecho universal em $x$.
-    Pelo esquema lógico (3), segue
-    \[
-        T^A\vdash \forall x\,\psi^A \rightarrow \forall x\,(A(x)\rightarrow \psi^A).
-    \]
-    Portanto, sob a hipótese temporária $\psi^A$, concluímos $\forall x\,(A(x)\rightarrow \psi^A)$, isto é, $(\forall x\,\psi)^A$.
-    Pelo Teorema da Dedução, $T^A\vdash \sigma^A$.
-    Fechando universalmente relativamente a $A$ os parâmetros livres remanescentes, obtemos $T^A\vdash \phi^A$.
+    Resta tratar FO14 e FO15.
 
-    \smallskip
-    \textbf{Caso 5.} $\sigma$ é $\psi[x/t]\rightarrow \exists x\,\psi$, com substituição válida.
-    Fixemos os parâmetros livres de $\psi$ e de $t$ em $A$ e suponhamos temporariamente $(\psi[x/t])^A$.
-    Pela observação \textbf{(a)}, temos $\psi^A[x/t^A]$.
-    Pela observação \textbf{(b)}, temos também $A(t^A)$.
-    Usando a tautologia $P\rightarrow (Q\rightarrow (Q\wedge P))$, obtemos, sob essa hipótese temporária,
+    Suponha primeiro que $\alpha$ é uma instância de FO14, isto é,
     \[
-        A(t^A)\wedge \psi^A[x/t^A].
+        \alpha \quad\text{é}\quad
+        \forall z\,\varphi\to \varphi[z/t],
     \]
-    Aplicando o esquema lógico (5) à fórmula $A(x)\wedge \psi^A$ e ao termo $t^A$, a sentença
+    em que $z$ é substituível por $t$ em $\varphi$.
+    Pelo metalema sobre substituições e interpretação, a substituição de $z$ por $t^A$ em $\varphi^A$ é válida e
     \[
-        (A(t^A)\wedge \psi^A[x/t^A])\rightarrow \exists x\,(A(x)\wedge \psi^A)
+        (\varphi[z/t])^A
     \]
-    é um teorema de $T^A$.
-    Logo, sob a hipótese temporária $(\psi[x/t])^A$, concluímos
+    é
     \[
-        \exists x\,(A(x)\wedge \psi^A).
+        \varphi^A[z/t^A].
     \]
-    Isto é, concluímos $(\exists x\,\psi)^A$.
-    Pelo Teorema da Dedução, $T^A\vdash \sigma^A$.
-    Fechando universalmente relativamente a $A$ os parâmetros livres remanescentes, obtemos $T^A\vdash \phi^A$.
+    Assim, $\alpha^A$ é
+    \[
+        \forall z(A(z)\to\varphi^A)\to \varphi^A[z/t^A].
+    \]
 
-    \smallskip
-    \textbf{Caso 6.} $\sigma$ é $\forall x\,\neg\psi \leftrightarrow \neg \exists x\,\psi$.
-    Fixemos os parâmetros livres de $\psi$ em $A$ e ponhamos
+    Se $z$ ocorre livre em $\varphi$, então todas as variáveis de $t$ ocorrem livres em $\alpha$.
+    Pelo Metalema~\ref{mlem:termosInterpretadosPertencemAA}, sob as hipóteses $x_1\in A,\dots,x_n\in A$, obtemos $A(t^A)$.
+    Por FO14 em $T^A$, aplicado à fórmula $A(z)\to\varphi^A$ e ao termo $t^A$, temos
     \[
-        \chi(x):= A(x)\wedge \psi^A.
+        T^A\vdash
+        \forall z(A(z)\to\varphi^A)
+        \to
+        \bigl(A(t^A)\to\varphi^A[z/t^A]\bigr).
     \]
-    Pelo esquema lógico (6), aplicado a $\chi$, temos
+    Usando proposicionalmente $A(t^A)$, obtemos
     \[
-        T^A\vdash \forall x\,\neg\chi \leftrightarrow \neg\exists x\,\chi.
+        \forall z(A(z)\to\varphi^A)
+        \to
+        \varphi^A[z/t^A].
     \]
-    Por outro lado, as tautologias
+    Portanto,
     \[
-        \neg(P\wedge Q)\rightarrow (P\rightarrow \neg Q)
-        \qquad\text{e}\qquad
-        (P\rightarrow \neg Q)\rightarrow \neg(P\wedge Q)
+        T^A\vdash
+        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
     \]
-    fornecem, após substituição e fecho universal em $x$,
-    \[
-        T^A\vdash \forall x\,(\neg\chi\rightarrow (A(x)\rightarrow \neg\psi^A))
-    \]
-    e
-    \[
-        T^A\vdash \forall x\,((A(x)\rightarrow \neg\psi^A)\rightarrow \neg\chi).
-    \]
-    Aplicando o esquema lógico (3) a cada uma dessas sentenças, obtemos
-    \[
-        T^A\vdash \forall x\,\neg\chi \rightarrow \forall x\,(A(x)\rightarrow \neg\psi^A)
-    \]
-    e
-    \[
-        T^A\vdash \forall x\,(A(x)\rightarrow \neg\psi^A)\rightarrow \forall x\,\neg\chi.
-    \]
-    Logo,
-    \[
-        T^A\vdash \forall x\,(A(x)\rightarrow \neg\psi^A)\leftrightarrow \forall x\,\neg\chi.
-    \]
-    Combinando essa equivalência com
-    \[
-        T^A\vdash \forall x\,\neg\chi \leftrightarrow \neg\exists x\,\chi
-    \]
-    e usando tautologias proposicionais, concluímos
-    \[
-        T^A\vdash \forall x\,(A(x)\rightarrow \neg\psi^A)\leftrightarrow \neg\exists x\,(A(x)\wedge \psi^A),
-    \]
-    que é precisamente $\sigma^A$.
-    Fechando universalmente relativamente a $A$ os parâmetros livres remanescentes, obtemos $T^A\vdash \phi^A$.
 
-    \smallskip
-    \textbf{Caso 7.} $\sigma$ é $x=x$.
-    Então $\forall x\,(x=x)$ é um axioma lógico de $T^A$.
-    Pela observação \textbf{(c)},
+    Se $z$ não ocorre livre em $\varphi$, então $\varphi[z/t]$ é a própria $\varphi$.
+    Nesse caso, $\alpha^A$ é
     \[
-        T^A\vdash \forall x\,(A(x)\rightarrow x=x).
+        \forall z(A(z)\to\varphi^A)\to \varphi^A.
     \]
-    Isto é, $T^A\vdash \phi^A$.
+    Como $T^A\vdash \exists z\,A(z)$ pela definição de interpretação, a conclusão segue de FO14, da regra de introdução do quantificador existencial e de modus ponens.
+    Com efeito, escolhendo uma variável $w$ que não ocorre livre em $\varphi^A$, FO14 dá
+    \[
+        \forall z(A(z)\to\varphi^A)\to (A(w)\to\varphi^A).
+    \]
+    Por raciocínio proposicional,
+    \[
+        A(w)\to\bigl(\forall z(A(z)\to\varphi^A)\to\varphi^A\bigr).
+    \]
+    Como $w$ não ocorre livre em $\forall z(A(z)\to\varphi^A)\to\varphi^A$, pela regra de introdução do quantificador existencial,
+    \[
+        \exists w\,A(w)\to\bigl(\forall z(A(z)\to\varphi^A)\to\varphi^A\bigr).
+    \]
+    Como $T^A\vdash \exists w\,A(w)$, obtemos $\alpha^A$.
+    Relativizando as variáveis livres $x_1,\dots,x_n$, obtemos a conclusão desejada.
 
-    \smallskip
-    \textbf{Caso 8.} $\sigma$ é $x=y\rightarrow y=x$.
-    A sentença
+    Finalmente, suponha que $\alpha$ é uma instância de FO15, isto é,
     \[
-        \forall x\,\forall y\,(x=y\rightarrow y=x)
+        \alpha \quad\text{é}\quad
+        \varphi[z/t]\to \exists z\,\varphi,
     \]
-    é um axioma lógico de $T^A$.
-    Aplicando a observação \textbf{(c)} duas vezes, obtemos $\phi^A$.
+    em que $z$ é substituível por $t$ em $\varphi$.
+    Pelo metalema sobre substituições e interpretação, $\alpha^A$ é
+    \[
+        \varphi^A[z/t^A]\to \exists z(A(z)\wedge\varphi^A).
+    \]
 
-    \smallskip
-    \textbf{Caso 9.} $\sigma$ é $x=y\wedge y=z\rightarrow x=z$.
-    A sentença
+    Se $z$ ocorre livre em $\varphi$, então todas as variáveis de $t$ ocorrem livres em $\alpha$.
+    Pelo Metalema~\ref{mlem:termosInterpretadosPertencemAA}, sob as hipóteses $x_1\in A,\dots,x_n\in A$, obtemos $A(t^A)$.
+    Pela introdução de $\wedge$,
     \[
-        \forall x\,\forall y\,\forall z\,(x=y\wedge y=z\rightarrow x=z)
+        A(t^A)\wedge \varphi^A[z/t^A].
     \]
-    é um axioma lógico de $T^A$.
-    Aplicando a observação \textbf{(c)} três vezes, obtemos $\phi^A$.
+    Como
+    \[
+        A(t^A)\wedge \varphi^A[z/t^A]
+    \]
+    é
+    \[
+        (A(z)\wedge\varphi^A)[z/t^A],
+    \]
+    FO15 em $T^A$, aplicado à fórmula $A(z)\wedge\varphi^A$ e ao termo $t^A$, dá
+    \[
+        A(t^A)\wedge \varphi^A[z/t^A]
+        \to
+        \exists z(A(z)\wedge\varphi^A).
+    \]
+    Portanto, proposicionalmente,
+    \[
+        \varphi^A[z/t^A]\to \exists z(A(z)\wedge\varphi^A).
+    \]
+    Relativizando as variáveis livres, obtemos
+    \[
+        T^A\vdash
+        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
+    \]
 
-    \smallskip
-    \textbf{Caso 10.} $\sigma$ é
+    Se $z$ não ocorre livre em $\varphi$, então $\varphi[z/t]$ é a própria $\varphi$, e $\alpha^A$ é
     \[
-        x_1=y_1\wedge \cdots \wedge x_n=y_n \rightarrow f(x_1,\dots,x_n)=f(y_1,\dots,y_n),
+        \varphi^A\to \exists z(A(z)\wedge\varphi^A).
     \]
-    com $f$ de aridade $n>0$.
-    Sua tradução é
+    Como $T^A\vdash \exists w\,A(w)$ para uma variável $w$ que não ocorre livre em $\varphi^A$, obtemos, por FO15 aplicado à fórmula $A(z)\wedge\varphi^A$ e ao termo $w$,
     \[
-        x_1=y_1\wedge \cdots \wedge x_n=y_n \rightarrow f^A(x_1,\dots,x_n)=f^A(y_1,\dots,y_n),
+        A(w)\wedge\varphi^A \to \exists z(A(z)\wedge\varphi^A).
     \]
-    que é uma instância do mesmo esquema lógico na linguagem de $T^A$.
-    Portanto, o fecho universal ordinário dessa fórmula é um axioma lógico de $T^A$, e, pela observação \textbf{(c)} aplicada repetidamente, obtemos $\phi^A$.
+    Logo, proposicionalmente,
+    \[
+        A(w)\to\bigl(\varphi^A\to\exists z(A(z)\wedge\varphi^A)\bigr).
+    \]
+    Pela regra de introdução do quantificador existencial, segue que
+    \[
+        \exists w\,A(w)\to
+        \bigl(\varphi^A\to\exists z(A(z)\wedge\varphi^A)\bigr).
+    \]
+    Como $T^A\vdash \exists w\,A(w)$, obtemos $\alpha^A$.
+    Relativizando as variáveis livres, concluímos novamente
+    \[
+        T^A\vdash
+        \forall x_1\in A\cdots\forall x_n\in A\,\alpha^A.
+    \]
 
-    \smallskip
-    \textbf{Caso 11.} $\sigma$ é
-    \[
-        x_1=y_1\wedge \cdots \wedge x_n=y_n \rightarrow \bigl(R(x_1,\dots,x_n)\leftrightarrow R(y_1,\dots,y_n)\bigr),
-    \]
-    com $R$ de aridade $n>0$.
-    Sua tradução é
-    \[
-        x_1=y_1\wedge \cdots \wedge x_n=y_n \rightarrow \bigl(R^A(x_1,\dots,x_n)\leftrightarrow R^A(y_1,\dots,y_n)\bigr),
-    \]
-    que é uma instância do mesmo esquema lógico na linguagem de $T^A$.
-    Assim, o fecho universal ordinário dessa fórmula é um axioma lógico de $T^A$, e, pela observação \textbf{(c)} aplicada repetidamente, segue $\phi^A$.
-
-    \smallskip
-    Em todos os casos concluímos que $T^A\vdash \phi^A$.
+    Isso encerra todos os casos de axiomas lógicos FO1--FO18.
 \end{proof}
