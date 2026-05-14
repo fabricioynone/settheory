@@ -91,7 +91,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
     Se não, considere $X=\{z \in \pred_{R^*}(x): \phi(z, t_1, \dots, t_n)\}$.
     Temos que $X$ é um conjunto e $X\neq \emptyset$.
     Logo, existe um elemento $R$-minimal de $X$, digamos, $x'$.
-    Temos que $\phi(x', t_1, \dots, t_n)$ e, dado $y$ tal que $y R x'$, $y\in \pred_{R^*}(x)$, e, portanto, $y\notin X$, ou seja, $\neg \phi(y, t_1, \dots, t_n)$.
+    Temos que $\phi(x', t_1, \dots, t_n)$ e, dado $y$ tal que $y R x'R^*x$, segue que $y\in \pred_{R^*}(x)$, e, portanto, $y\notin X$, ou seja, $\neg \phi(y, t_1, \dots, t_n)$.
 \end{proof}
 
 \begin{corollary}[$\ZFmP$](Princípio da indução)\label{cor:principioDaInducao}
@@ -127,4 +127,6 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \begin{exercise}\label{ex:fechoTransitivo}
     Sejam $R$ e $S$ relações definidas.
     Mostre que se $S$ estende $R$ e é transitiva, então $S$ estende $R^*$.
+
+    Conclua que se $R$ é uma relação definida transitiva, então $R$ e $R^*$ coincidem.
 \end{exercise}
