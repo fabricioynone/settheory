@@ -1,8 +1,6 @@
 \section{Relações bem fundadas}
 
-\begin{definition}[$\BST$]
-    Uma relação definida é um símbolo de predicado binário introduzido por definição.
-\end{definition}
+Uma relação definida é um símbolo de predicado binário introduzido por definição.
 
 \begin{definition}[$\BST$]
     Uma relação definida $R$ é dita \emph{set-like} se para todo $x$ existe um (único) conjunto $y$ tal que, para todo $z$, $R(z,x)$ se, e somente se, $z\in y$.
@@ -18,26 +16,40 @@
     Ou seja, $R$ é bem fundada se todo subconjunto não vazio possui um elemento $R$-minimal.
 \end{definition}
 
+A definição acima é, em realidade, um esquema de definições.
+Para cada possível símbolo de predicado binário $R$, temos uma definição de $R$ ser set-like e uma definição de $R$ ser bem fundada.
+O mesmo se aplica para a definição abaixo.
+
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
 
-    Para cada número natural $n$ e cada $a, b$, um $R$-caminho de comprimento $n$ de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n-1})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i+1<n$, em que $x_0=a$ e $x_{n-1}=b$.
+    Para cada número natural $n\geq 2$ e cada $a, b$, um $R$-caminho de comprimento $n$ de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n-1})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i<n-1$, em que $x_0=a$ e $x_{n-1}=b$.
 
     Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$ para algum número natural $n$ que começa em $x$ e termina em $y$.
 \end{definition}
 
-\begin{proposition}[ZF-P]
+\begin{proposition}[$\BST$]
+    Se $R$ é uma relação definida set-like, então $R^*$ é uma relação transitiva que estende $R$.
+\end{proposition}
+\begin{proof}
+    Se $x R y$, então $x R^* y$ pois $(x,y)$ é um $R$-caminho de comprimento $2$ de $x$ até $y$.
+
+    Se $x R^* y$ e $y R^* z$, então existem $R$-caminhos de comprimento $n$ de $x$ até $y$, digamos, $(x_0, \dots, x_{n-1})$, e um $R$-caminho de comprimento $m$ de $y$ até $z$, digamos, $(y_0, \dots, y_{m-1})$, em que $n, m\geq 2$.
+    Então $(x_0, \dots, x_{n-1}, y_1, \dots, y_{m-1})$ é um $R$-caminho de comprimento $n+m-1$ de $x$ até $z$, e, portanto, $x R^* z$.
+\end{proof}
+
+\begin{proposition}[$\ZFmP$]
     Se $R$ é uma relação definida set-like, então $R^*$ é uma relação definida set-like.
 \end{proposition}
 
 \begin{proof}
     Por indução em $n$, vejamos que para todo $n\in \omega$, existe um (único) conjunto $y$ tal que, para todo $z$, $R^*(z,x)$ se, e somente se, existe um $R$-caminho de comprimento $n$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
 
-    Para $n=0$, note que $\pred^0_{R}(x)=\emptyset$.
+    Para $n=0$ ou $n=1$, note que $\pred^0_{R}(x)=\emptyset$.
 
-    Para $n=1$, note que $\pred^1_{R}(x)=\pred_{R}(x)$.
+    Para $n=2$, note que $\pred^1_{R}(x)=\pred_{R}(x)$.
 
-    Suponha que o resultado seja verdadeiro para $n\geq 1$.
+    Suponha que o resultado seja verdadeiro para $n\geq 2$.
     Provaremos para $n+1$.
 
     Por hipótese de indução, existe o conjunto $\pred^n_{R}(x)$ cujos elementos são exatamente os $z$ tais que existe um $R$-caminho de comprimento $n$ de $z$ até $x$.
@@ -54,7 +66,7 @@
     Temos que, para todo $z$, $R^*(z,x)$ se, e somente se, $z\in Z$.
 \end{proof}
 
-\begin{proposition}[ZF-P]
+\begin{proposition}[$\ZFmP$]
     Seja $R$ uma relação definida set-like e bem fundada.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
@@ -75,15 +87,21 @@
     Temos que $\phi(x', t_1, \dots, t_n)$ e, dado $y$ tal que $y R x'$, $y\in \pred_{R^*}(x)$, e, portanto, $y\notin X$, ou seja, $\neg \phi(y, t_1, \dots, t_n)$.
 \end{proof}
 
-\begin{corollary}[ZF-P]
+\begin{corollary}[$\ZFmP$]
     Seja $R$ uma relação definida set-like e bem fundada em $A$.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
     Então:
     \[
-        \forall t_1\dots, t_n\bigg(\forall x \, \left(\forall z \in \pred_{R^*}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)\rightarrow \forall x\, \phi(x, t_1, \dots, t_n)\bigg)
+        \forall t_1\dots, t_n\bigg(\forall x \, \left(\forall z \in \pred_{R}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)\rightarrow \forall x\, \phi(x, t_1, \dots, t_n)\bigg)
     \]
 \end{corollary}
+
+\begin{proof}
+    Fixe $t_1, \dots, t_n$ e suponha que existe $x$ tal que $\neg \phi(x, t_1, \dots, t_n)$.
+
+
+\end{proof}
 
 
 \begin{metatheorem}[$\ZFmPI$](Esquema da recursão transfinita)\label{mthm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
@@ -94,3 +112,9 @@
         \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R^*}(a), a)\Big).
     \]
 \end{metatheorem}
+
+\section*{Exercícios}
+\begin{exercise}
+    Sejam $R$ e $S$ relações definidas.
+    Mostre que se $S$ estende $R$ e é transitiva, então $S$ estende $R^*$.
+\end{exercise}
