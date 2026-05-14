@@ -73,7 +73,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
     Temos que, para todo $z$, $R^*(z,x)$ se, e somente se, $z\in Z$.
 \end{proof}
 
-\begin{proposition}[$\ZFmP$]
+\begin{proposition}[$\ZFmP$](Princípio da minimalidade)\label{prop:principioDaMinimalidade}
     Seja $R$ uma relação definida set-like e bem fundada.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
@@ -94,7 +94,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
     Temos que $\phi(x', t_1, \dots, t_n)$ e, dado $y$ tal que $y R x'$, $y\in \pred_{R^*}(x)$, e, portanto, $y\notin X$, ou seja, $\neg \phi(y, t_1, \dots, t_n)$.
 \end{proof}
 
-\begin{corollary}[$\ZFmP$]
+\begin{corollary}[$\ZFmP$](Princípio da indução)\label{cor:principioDaInducao}
     Seja $R$ uma relação definida set-like e bem fundada em $A$.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
@@ -107,19 +107,21 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \begin{proof}
     Fixe $t_1, \dots, t_n$ e suponha que existe $x$ tal que $\neg \phi(x, t_1, \dots, t_n)$.
 
+    Pela Proposição~\ref{prop:principioDaMinimalidade}, existe um elemento $R$-minimal $x'$ tal que $\neg \phi(x', t_1, \dots, t_n)$ e $\phi(z, t_1, \dots, t_n)$ para todo $z\in \pred_{R}(x')$.
 
-
+    Por hipótese, temos que $\forall x \, \left(\forall z \in \pred_{R}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)$.
+    Aplicando isso para $x'$, temos que $\phi(x', t_1, \dots, t_n)$, o que é uma contradição.
 \end{proof}
 
 
-\begin{metatheorem}[$\ZFmPI$](Esquema da recursão transfinita)\label{mthm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
+\begin{theorem}[$\ZFmPI$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
     Suponha que um símbolo de função binário $G(p, s, a)$ seja introduzido por definição.
 
     Então é possível introduzir um símbolo de função binário $F(p, a)$ de modo que
     \[
         \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R^*}(a), a)\Big).
     \]
-\end{metatheorem}
+\end{theorem}
 
 \section*{Exercícios}
 \begin{exercise}\label{ex:fechoTransitivo}
