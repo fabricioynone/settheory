@@ -18,8 +18,17 @@ Uma relação definida é um símbolo de predicado binário introduzido por defi
 
 A definição acima é, em realidade, um esquema de definições.
 Para cada possível símbolo de predicado binário $R$, temos uma definição de $R$ ser set-like e uma definição de $R$ ser bem fundada.
-O mesmo se aplica para a definição abaixo.
 
+
+\begin{example}[$\BST$]A relação $\in$ é set-like, pois para todo $x$, $\pred_{\in}(x)=\{z: z\in x\}=x$ é um conjunto.
+\end{example}
+
+\begin{example}[$\BST$]A relação $\preceq$ não é set-like, pois para todo singleton $\{x\}$, temos $\{x\}\preceq 1$, desse modo, se $\pred_{\preceq}(1)$ fosse um conjunto, ele conteria todos os singletons, o que é impossível.
+\end{example}
+
+\begin{example}[$\BST$]
+    A relação $\subseteq$ é set-like se, e vale o Axioma da Potência, e, nesse caso, $\pred_{\subseteq}(x)=\mathcal{P}(x)$.
+\end{example}
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
 
