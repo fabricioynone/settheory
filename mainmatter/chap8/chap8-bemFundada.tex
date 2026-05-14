@@ -122,6 +122,113 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
         \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R^*}(a), a)\Big).
     \]
 \end{theorem}
+Para provar esse teorema, façamos as seguintes definições auxiliares.
+
+\begin{definition}[$\ZFmPI$]
+    Seja $R$ uma relação definida set-like.
+    Dizemos que um conjunto $E$ é $R$-fechado se, e somente se, para todo $x\in E$, $\pred_{R}(x)\subseteq E$.
+
+    Dados conjuntos $t, a, p$, escrevemos $\Ap_G(t, p, a)$ e dizemos que \emph{$t$ é uma computação parcial de domínio $E$ em $a$ com parâmetro $p$ baseada em $G$} se, e somente se,
+    \begin{itemize}
+        \item $t$ é uma função,
+        \item $\dom(t)$ é $R$-fechado,
+        \item $a \in \dom(t)$,
+        \item $G(p, t|\pred_{R}(b), b)$ é definido para todo $b\in \dom(t)$, e
+        \item $G(p, t|\pred_{R}(b), b)=t(b)$ para todo $b\in \dom(t)$.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[$\ZFmPI$]
+    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+
+    Se $t_1$, $t_2$, $a$, $p$ são tais que $\Ap_G(t_1, p, a)$ e $\Ap_G(t_2, p, a)$, então $t_1$ e $t_2$ são compatíveis.
+\end{lemma}
+\begin{proof}
+    Suponha por absurdo que não.
+    Então seja $x \in \dom(t_1)\cap \dom(t_2)$ $R$-minimal tal que $t_1(x)\neq t_2(x)$.
+
+    Dessa forma, para todo $yRx$, temos que $y\in \dom(t_1)\cap \dom(t_2)$, pois $\dom(t_1)$ e $\dom(t_2)$ são $R$-fechados, e, portanto, $t_1(y)=t_2(y)$ pela minimalidade de $x$.
+    Daí, segue que:
+    \[
+        t_1(x)=G(p, t_1|\pred_{R}(x), x)=G(p, t_2|\pred_{R}(x), x)=t_2(x),
+    \]
+    o que é uma contradição.
+\end{proof}
+
+\begin{lemma}
+    Seja $R$ uma relação definida set-like.
+
+    Seja $a$ um conjunto.
+    Então $\pred_{R^*}(a)\cup\{a\}$ é $R$-fechado.
+    Além disso, se $E$ é um conjunto $R$-fechado e $a\in E$, então $\pred_{R^*}(a)\cup\{a\}\subseteq E$. 
+\end{lemma}
+\begin{proof}
+    Para a primeira afirmação, seja $x\in \pred_{R^*}(a)\cup\{a\}$.
+    Devemos ver que $\pred_{R}(x)\subseteq \pred_{R^*}(a)\cup\{a\}$.
+    Se $x=a$, então $\pred_{R}(x)\subseteq \pred_{R^*}(a)\cup\{a\}$, pois $\pred_{R}(x)\subseteq \pred_{R^*}(a)$.
+    Se $x\in \pred_{R^*}(a)$, tome $y\in \pred_{R}(x)$.
+    Temos que $yRxR^*a$, e, portanto, $y\in \pred_{R^*}(a)$.
+
+    Agora vamos provar a segunda afirmação.
+    Dado $b\in \pred_{R^*}(a)$, existe um $R$-caminho de comprimento $n$ de $b$ até $a$, digamos, $(x_0, \dots, x_{n-1})$, em que $x_0=b$ e $x_{n-1}=a$.
+    Se $b \notin E$, existe o maior $i<n$ tal que $x_i \notin E$.
+    Temos que $i<n-1$, pois $a=x_{n-1}\in E$.
+    Assim, $x_{i+1}\in E$ e $x_i R x_{i+1}$, o que é uma contradição.
+\end{proof}
+
+\begin{corollary}
+    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+
+    Sejam $a$ e $p$ conjuntos.
+    Se existe $t$ tal que $\Ap_G(t, p, a)$, então existe um único $t'$ tal que $\Ap_G(t', p, a)$ e $\dom(t')=\pred_{R^*}(a)\cup\{a\}$.
+\end{corollary}
+\begin{proof}
+    Para a existência, fixado $t$, tome $t'=t|\pred_{R^*}(a)\cup\{a\}$.
+
+    Para a unicidade, se $t'$ e $t''$ são tais que $\Ap_G(t', p, a)$ e $\Ap_G(t'', p, a)$ e $\dom(t')=\dom(t'')=\pred_{R^*}(a)\cup\{a\}$, então $t'$ e $t''$ são compatíveis, e, portanto, $t'=t''$.
+\end{proof}
+\begin{lemma}
+    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+
+    Para todo $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$.
+\end{lemma}
+
+\begin{proof}
+    Fixe $p$.
+    Provaremos por $R$-indução que, para todo $a$, existe um $t$ tal que $\Ap_G(t, p, a)$.
+
+    Dado $a$, basta ver que se a tese vale para todo $b\in \pred_{R}(a)$, então vale para $a$.
+
+    Suponha que, para todo $c\in \pred_{R}(a)$, existe um $t$ tal que $\Ap_G(t, p, c)$.
+    Seja $t_c$ o único $t$ tal que $\Ap_G(t, p, c)$ e $\dom(t)=\pred_{R^*}(c)\cup\{c\}$.
+    Seja $t'=\bigcup_{c\in \pred_{R}(a)} t_c$ e $t=t'\cup\{(a, G(p, t'|\pred_{R}(a), a))\}$.
+
+    Temos que $\dom t=\bigcup_{c\in \pred_{R}(a)} \dom t_c \cup \{a\}=\bigcup_{c\in \pred_{R}(a)} (\pred_{R^*}(c)\cup\{c\})\cup \{a\}=\pred_{R^*}(a)\cup\{a\}$, é fechado e $a\in \dom t$.
+
+    Dado $b\in \dom t$, se $b=a$, então $t(a)=G(p, t|\pred_{R}(a), a)=G(p, t'|\pred_{R}(a), a)$.
+
+    Já se $b\neq a$, existe um $c\in \pred_{R}(a)$ tal que $b\in \pred_{R^*}(c)\cup\{c\}$, e, portanto, $\pred_{R}(b)\subseteq \pred_{R^*}(c)\cup\{c\}\subseteq \dom t_c$.
+    Assim, $t|\pred_{R}(b)=t_c|\pred_{R}(b)$, e, portanto, $t(b)=G(p, t|\pred_{R}(b), b)=G(p, t_c|\pred_{R}(b), b)=t_c(b)$.
+\end{proof}
+
+Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneira mais precisa.
+
+\begin{theorem}[$\ZFmPI$](Esquema da recursão transfinita)
+    Suponha que um símbolo de função binário $G(p, s, a)$ seja introduzido por definição.
+
+    Seja $F^G$ o símbolo de função binário introduzido por definição tal que:
+    \[
+        \forall a \forall p \forall y\bigg(F^G_{p}(a)=y \leftrightarrow \exists t\big(\Ap_G(t, p, a)\wedge t(a)=y\big)\bigg).
+    \]
+    Então $\forall a \forall p \Big( F^G_{p}(a)=G(p, F^G_p|\pred_{R^*}(a), a)\Big)$.
+\end{theorem}
+\begin{proof}
+    Primeiro, notemos que $F^G$ é bem definida: dado $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$, e, se $t'$ é outro tal que $\Ap_G(t', p, a)$, então $t'$ e $t$ são compatíveis, e, portanto, $t'(a)=t(a)$.
+
+    Segundo, dado $a$ e $p$, seja $t$ tal que $\Ap_G(t, p, a)$.
+    Então, para todo $b\in \pred_{R}(a)$, temos que $\Ap_G(t, p, b)$, e, portanto, $t|\pred_{R}(a)=F^G_p|\pred_{R}(a)$.
+    Assim, $F^G_p(a)=t(a)=G(p, t|\pred_{R}(a), a)=G(p, F^G_p|\pred_{R}(a), a)$.
+\end{proof}
 
 \section*{Exercícios}
 \begin{exercise}\label{ex:fechoTransitivo}
