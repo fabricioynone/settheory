@@ -33,3 +33,4 @@ finitário
 tollens
 metaproposição
 ários
+transitivização
