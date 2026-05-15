@@ -155,21 +155,23 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \end{proof}
 
 
-\begin{theorem}[$\ZFmPI$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
-    Suponha que um símbolo de função binário $G(p, s, a)$ seja introduzido por definição.
+\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
 
-    Então é possível introduzir um símbolo de função binário $F(p, a)$ de modo que
+    Então é possível introduzir um símbolo funcional binário $F(p, a)$ de modo que
     \[
-        \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R^*}(a), a)\Big).
+        \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R}(a), a)\Big).
     \]
 \end{theorem}
 Para provar esse teorema, façamos as seguintes definições auxiliares.
 
-\begin{definition}[$\ZFmPI$]
+\begin{definition}[$\ZFmP$]
     Seja $R$ uma relação definida set-like.
+    Seja $G(p, s, a)$ um símbolo funcional ternário introduzido por definição.
     Dizemos que um conjunto $E$ é $R$-fechado se, e somente se, para todo $x\in E$, $\pred_{R}(x)\subseteq E$.
 
-    Dados conjuntos $t, a, p$, escrevemos $\Ap_G(t, p, a)$ e dizemos que \emph{$t$ é uma computação parcial de domínio $E$ em $a$ com parâmetro $p$ baseada em $G$} se, e somente se,
+    Dados conjuntos $t, a, p$, escrevemos $\Ap_G(t, p, a)$ e dizemos que \emph{$t$ é uma computação parcial em $a$ com parâmetro $p$ baseada em $G$} se, e somente se,
     \begin{itemize}
         \item $t$ é uma função,
         \item $\dom(t)$ é $R$-fechado,
