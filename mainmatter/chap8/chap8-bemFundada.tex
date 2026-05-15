@@ -7,10 +7,11 @@ Uma relação definida é um símbolo de predicado binário da linguagem em uso,
 
     Ou seja, se $\pred_{R}(x)=\{z: R(z,x)\}$ é um conjunto para todo $x$.
 
+    Dado um conjunto $X$, um elemento $x\in X$ é dito $R$-minimal em $X$ se, e somente se, $\forall y\in X\,\neg R(y,x)$.
     $R$ é dita bem fundada se:
 
     \[
-        \forall X\big(X\neq \emptyset \rightarrow \exists x\in X \, \forall y\big(y\in X \rightarrow \neg R(y,x)\big)\big)
+        \forall X\big(X\neq \emptyset \rightarrow \exists x\in X \, \forall y\big(y\in X \rightarrow \neg R(y,x)\big)\big).
     \]
 
     Ou seja, $R$ é bem fundada se todo conjunto não vazio possui um elemento $R$-minimal.
@@ -35,6 +36,18 @@ Para cada possível símbolo de predicado binário $R$, temos uma definição de
 
 \begin{example}[$\BST$]
     A relação $=$ é set-like, pois $\pred_{=}(x)=\{x\}$ é um conjunto para todo $x$.
+
+    Porém, $=$ não é bem fundado, pois, para todo $x$, $\{x\}$ não possui um elemento $=$-minimal uma vez que $x = x$.
+    Por essa mesma razão, nenhuma relação reflexiva é bem fundada.
+\end{example}
+
+\begin{example}
+    A relação $<$ de comparação de ordinais é bem-fundada e set-like.
+    Lembremos que
+    \[
+        \forall \alpha \forall \beta\bigg(\alpha<\beta \leftrightarrow \alpha\in \ON \land\, \beta\in \ON \land\, \alpha\in \beta\bigg).
+    \]
+    Assim, $<$ é a restrição de $\in$ a $\ON$, e, portanto, é set-like.
 \end{example}
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
