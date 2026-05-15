@@ -1,11 +1,11 @@
 \section{Relações bem fundadas}
 
-Uma relação definida é um símbolo de predicado binário introduzido por definição.
+Uma relação definida é um símbolo de predicado binário da linguagem em uso, seja ele primitivo, como $\in$ e $=$, seja ele inserido por definição.
 
 \begin{definition}[$\BST$]
     Uma relação definida $R$ é dita \emph{set-like} se para todo $x$ existe um (único) conjunto $y$ tal que, para todo $z$, $R(z,x)$ se, e somente se, $z\in y$.
 
-    Ou seja, se $y_\downarrow=\pred_{R}(x)=\{z: R(z,x)\}$ é um conjunto para todo $x$.
+    Ou seja, se $\pred_{R}(x)=\{z: R(z,x)\}$ é um conjunto para todo $x$.
 
     $R$ é dita bem fundada se:
 
@@ -13,7 +13,7 @@ Uma relação definida é um símbolo de predicado binário introduzido por defi
         \forall X\big(X\neq \emptyset \rightarrow \exists x\in X \, \forall y\big(y\in X \rightarrow \neg R(y,x)\big)\big)
     \]
 
-    Ou seja, $R$ é bem fundada se todo subconjunto não vazio possui um elemento $R$-minimal.
+    Ou seja, $R$ é bem fundada se todo conjunto não vazio possui um elemento $R$-minimal.
 \end{definition}
 
 A definição acima é, em realidade, um esquema de definições.
@@ -23,28 +23,36 @@ Para cada possível símbolo de predicado binário $R$, temos uma definição de
 \begin{example}[$\BST$]A relação $\in$ é set-like, pois para todo $x$, $\pred_{\in}(x)=\{z: z\in x\}=x$ é um conjunto.
 \end{example}
 
-\begin{example}[$\BST$]A relação $\preceq$ não é set-like, pois para todo singleton $\{x\}$, temos $\{x\}\preceq 1$, desse modo, se $\pred_{\preceq}(1)$ fosse um conjunto, ele conteria todos os singletons, o que é impossível.
+\begin{example}[$\BST$]
+    A relação $\preceq$, ``injeta em'', não é set-like, pois, para todo $x$, temos $\{x\}\preceq 1$.
+    Desse modo, se $\pred_{\preceq}(1)$ fosse um conjunto, ele conteria todos os singletos, o que é impossível conforme visto no Lema~\ref{lem:naoExisteConjuntoDeSingletos}.
 \end{example}
 
 \begin{example}[$\BST$]
     A relação $\subseteq$ é set-like se, e somente se, vale o Axioma da Potência.
     Nesse caso, $\pred_{\subseteq}(x)=\mathcal{P}(x)$.
 \end{example}
+
+\begin{example}[$\BST$]
+    A relação $=$ é set-like, pois $\pred_{=}(x)=\{x\}$ é um conjunto para todo $x$.
+\end{example}
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
 
     Para cada número natural $n\geq 2$ e cada $a, b$, um $R$-caminho de comprimento $n$ de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n-1})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i<n-1$, em que $x_0=a$ e $x_{n-1}=b$.
 
-    Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$ para algum número natural $n$ que começa em $x$ e termina em $y$.
+    Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$, para algum número natural $n\geq 2$, que começa em $x$ e termina em $y$.
 
     $R^*$ é o \emph{fecho transitivo} de $R$, ou a \emph{transitivização} de $R$.
 \end{definition}
+
+Observação: a definição acima está marcada como factível em $\BST$ apesar de usar a noção de número natural pois é possível definir números naturais mesmo sem estar de posse do Axioma do Infinito (ver Exercício~\ref{exr:caracterizacaoDeNaturaisComoOrdinais}).
 
 As proposições abaixo são esquemas de proposições.
 Ou seja, para cada possível símbolo de predicado binário $R$ satisfazendo as hipóteses, temos uma proposição.
 
 \begin{proposition}[$\BST$]
-    Se $R$ é uma relação definida set-like, então $R^*$ é uma relação transitiva que estende $R$.
+    Se $R$ é uma relação definida, então $R^*$ é uma relação transitiva que estende $R$.
 \end{proposition}
 \begin{proof}
     Se $x R y$, então $x R^* y$, pois $(x,y)$ é um $R$-caminho de comprimento $2$ de $x$ até $y$.
@@ -60,7 +68,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \end{proposition}
 
 \begin{proof}
-    Por indução em $n$, vejamos que para todo $n\in \omega$, existe um (único) conjunto $y$ tal que, para todo $z$, $R^*(z,x)$ se, e somente se, existe um $R$-caminho de comprimento $n$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
+    Por indução em $n$, vejamos que para todo $n$ natural, existe um (único) conjunto $y$ tal que, para todo $z$, $R^*(z,x)$ se, e somente se, existe um $R$-caminho de comprimento $n\geq 2$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
 
     Para $n=0$ ou $n=1$, note que $\pred^n_{R}(x)=\emptyset$.
 
@@ -240,10 +248,79 @@ Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneir
     Assim, $F^G_p(a)=t(a)=G(p, t|\pred_{R}(a), a)=G(p, F^G_p|\pred_{R}(a), a)$.
 \end{proof}
 
+Com isso, podemos definir o rank com respeito a uma relação definida set-like e bem fundada $R$.
+\begin{definition}[$\ZFmPI$]
+    Seja $R$ uma relação definida set-like e bem fundada.
+    O \emph{rank} de um conjunto $x$ com respeito a $R$, denotado por $\rank_R(x)$, é definido recursivamente pela relação $R$ a partir da seguinte fórmula.
+
+    \[
+        \rank_R(x)=\bigcup\{\rank_R(y)+1: y R x\}.
+    \]
+\end{definition}
+
+A definição acima pode ser formalizada a partir do teorema da recursão transfinita, tomando
+\[
+    G(p, s, a)=\bigcup\{s(b)+1: b\in \dom s \land b R a\}.
+\]
+O Teorema da Recursão nos define um símbolo funcional binário $F(p, a)$ tal que, para todos $p, a$:
+\[
+    F_p(a)=G(p, F_p|\pred_{R^*}(a), a)=\bigcup\{F_p(b)+1: b R a\}.
+\]
+
+Tome $p$ qualquer, digamos, $p=\emptyset$, e seja $\rank_R(a)=F_p(a)$.
+Então $\rank_R(a)=\bigcup\{\rank_R(b)+1: b R a\}$, como queríamos.
+
+Tal função é, em algum sentido, a única função que satisfaz essa fórmula (ver Exercício~\ref{ex:rankBemDefinido}).
+
+\begin{lemma}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like.
+    \begin{enumerate}[label=(\roman*)]
+        \item Para todo $x$, $\rank_R(x)$ é um ordinal.
+        \item Para todo $x$, $\rank_R(x)=\sup\{\rank_R(y)+1: y R x\}$.
+        \item Para todos $x$ e $y$, se $y R x$, então $\rank_R(y)<\rank_R(x)$.
+        \item Para todos $x$ e $y$, se $y R^* x$, então $\rank_R(y)<\rank_R(x)$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Para (i), por $R$-indução, para todo $x$, $\rank_R(x)$ é um ordinal.
+    Dado $x$, suponha que, para todo $y R x$, $\rank_R(y)$ é um ordinal.
+    Então $\rank_R(x)=\bigcup\{\rank_R(y)+1: y R x\}$ é um ordinal.
+
+    Para (ii), de (i), temos que $\rank_R(x)=\bigcup\{\rank_R(y)+1: y R x\}=\sup\{\rank_R(y)+1: y R x\}$, pois o supremo de um conjunto de ordinais é sua união.
+
+    Para (iii), se $yRx$, temos que $\rank_R(y)+1\leq \rank_R(x)$ pela definição de $\rank_R(x)$, e, portanto, $\rank_R(y)<\rank_R(x)$.
+
+    Para (iv), suponha que $y R^* x$.
+    Então existe $n\geq 2$ e um $R$-caminho de comprimento $n$ de $y$ até $x$, digamos, $(x_0, \dots, x_{n-1})$, em que $x_0=y$ e $x_{n-1}=x$.
+    Por (iii), $\rank_R(x_0)<\rank_R(x_1)<\cdots <\rank_R(x_{n-1})$, e, portanto, $\rank_R(y)=\rank_R(x_0)<\rank_R(x_{n-1})=\rank_R(x)$.
+\end{proof}
+
+\begin{corollary}[$\ZFmP$]
+    Se $R$ é uma relação definida set-like e bem fundada, então $R^*$ é set-like e bem fundada.
+\end{corollary}
+\begin{proof}
+    Já vimos que $R^*$ é set-like.
+
+    Para ver que $R^*$ é bem fundada, seja $X$ um conjunto não vazio.
+    Seja $O=\{\rank_R(x): x\in X\}$.
+    Como $O$ é um conjunto de ordinais, existe um ordinal $\alpha$ tal que $\alpha=\min O$.
+    Seja $x\in X$ tal que $\rank_R(x)=\alpha$.
+    Se $y R^* x$, então $\rank_R(y)<\rank_R(x)=\alpha=\min O$, e, portanto, $\rank_R(y)\notin O$.
+    Daí, segue que $y\notin X$, e, portanto, $x$ é um elemento $R^*$-minimal de $X$.
+\end{proof}
 \section*{Exercícios}
 \begin{exercise}\label{ex:fechoTransitivo}
     Sejam $R$ e $S$ relações definidas.
     Mostre que se $S$ estende $R$ e é transitiva, então $S$ estende $R^*$.
 
     Conclua que se $R$ é uma relação definida transitiva, então $R$ e $R^*$ coincidem.
+\end{exercise}
+
+\begin{exercise}\label{ex:rankBemDefinido}
+    Seja $R$ uma relação definida bem-fundada e set-like.
+    Suponha que $F$ é um símbolo de função unário introduzido por definição tal que, para todo $x$, $F(x)=\bigcup\{F(y)+1: y R x\}$.
+    Mostre que, para todo $x$,
+    \[
+        F(x)=\rank_R(x).
+    \]
 \end{exercise}
