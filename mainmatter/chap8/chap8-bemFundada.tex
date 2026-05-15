@@ -48,6 +48,8 @@ Para cada possível símbolo de predicado binário $R$, temos uma definição de
         \forall \alpha \forall \beta\bigg(\alpha<\beta \leftrightarrow \alpha\in \ON \land\, \beta\in \ON \land\, \alpha\in \beta\bigg).
     \]
     Assim, $<$ é a restrição de $\in$ a $\ON$, e, portanto, é set-like.
+    Se $X$ é um conjunto não vazio, todo elemento de $X$ que não é ordinal é minimal, pois não se compara com nenhum conjunto via $<$.
+    Caso $X$ seja um conjunto de ordinais, existe um ordinal $\alpha$ tal que $\alpha=\min X$, e tal $\alpha$ é $<$-minimal, pois, para todo $\beta\in X$, $\alpha\leq \beta$, e, portanto, $\neg \beta<\alpha$.
 \end{example}
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
@@ -81,7 +83,8 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \end{proposition}
 
 \begin{proof}
-    Por indução em $n$, vejamos que para todo $n$ natural, existe um (único) conjunto $y$ tal que, para todo $z$, $R^*(z,x)$ se, e somente se, existe um $R$-caminho de comprimento $n\geq 2$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
+    Fixe $x$ um conjunto qualquer.
+    Por indução em $n$, vejamos que para todo $n$ natural, existe um (único) conjunto $y$ tal que, para todo $z$, $z\in y$ se, e somente se, existe um $R$-caminho de comprimento $n\geq 2$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
 
     Para $n=0$ ou $n=1$, note que $\pred^n_{R}(x)=\emptyset$.
 
@@ -336,4 +339,10 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
     \[
         F(x)=\rank_R(x).
     \]
+\end{exercise}
+\begin{exercise}[$\BST$]\label{exr:transitivizacaoEInfinito}
+    Seja $R$ a relação dada por $y R x$ se, e somente se, $y\in x$ ou $y=S(x)$.
+    Mostre que $R$ é uma relação definida set-like.
+
+    Mostre que se $R^*$ é uma relação definida set-like, então vale o Axioma do Infinito.
 \end{exercise}
