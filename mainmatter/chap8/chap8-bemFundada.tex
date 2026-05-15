@@ -181,16 +181,22 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     \end{itemize}
 \end{definition}
 
-\begin{lemma}[$\ZFmPI$]
-    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
+\begin{lemma}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
 
-    Se $t_1$, $t_2$, $a$, $p$ são tais que $\Ap_G(t_1, p, a)$ e $\Ap_G(t_2, p, a)$, então $t_1$ e $t_2$ são compatíveis.
+    Se $t_1$, $t_2$, $a_1$, $a_2$, $p$ são tais que $\Ap_G(t_1, p, a_1)$ e $\Ap_G(t_2, p, a_2)$, então $t_1$ e $t_2$ são compatíveis.
 \end{lemma}
 \begin{proof}
     Suponha por absurdo que não.
-    Então seja $x \in \dom(t_1)\cap \dom(t_2)$ $R$-minimal tal que $t_1(x)\neq t_2(x)$.
+    Então o conjunto
+    \[
+        X=\{x\in \dom(t_1)\cap \dom(t_2): t_1(x)\neq t_2(x)\}
+    \]
+    é não vazio.
+    Seja $x$ um elemento $R$-minimal de $X$.
 
-    Dessa forma, para todo $yRx$, temos que $y\in \dom(t_1)\cap \dom(t_2)$, pois $\dom(t_1)$ e $\dom(t_2)$ são $R$-fechados, e, portanto, $t_1(y)=t_2(y)$ pela minimalidade de $x$.
+    Dessa forma, para todo $y R x$, temos que $y\in \dom(t_1)\cap \dom(t_2)$, pois $\dom(t_1)$ e $\dom(t_2)$ são $R$-fechados, e, portanto, $t_1(y)=t_2(y)$ pela minimalidade de $x$.
+    Logo, $t_1|\pred_{R}(x)=t_2|\pred_{R}(x)$.
     Daí, segue que:
     \[
         t_1(x)=G(p, t_1|\pred_{R}(x), x)=G(p, t_2|\pred_{R}(x), x)=t_2(x),
@@ -198,7 +204,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     o que é uma contradição.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[$\ZFmP$]
     Seja $R$ uma relação definida set-like.
 
     Seja $a$ um conjunto.
@@ -210,7 +216,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     Devemos ver que $\pred_{R}(x)\subseteq \pred_{R^*}(a)\cup\{a\}$.
     Se $x=a$, então $\pred_{R}(x)\subseteq \pred_{R^*}(a)\cup\{a\}$, pois $\pred_{R}(x)\subseteq \pred_{R^*}(a)$.
     Se $x\in \pred_{R^*}(a)$, tome $y\in \pred_{R}(x)$.
-    Temos que $yRxR^*a$, e, portanto, $y\in \pred_{R^*}(a)$.
+    Temos que $y R x R^* a$, e, portanto, $y\in \pred_{R^*}(a)$.
 
     Agora vamos provar a segunda afirmação.
     Dado $b\in \pred_{R^*}(a)$, existe um $R$-caminho de comprimento $n$ de $b$ até $a$, digamos, $(x_0, \dots, x_{n-1})$, em que $x_0=b$ e $x_{n-1}=a$.
@@ -219,19 +225,22 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     Assim, $x_{i+1}\in E$ e $x_i R x_{i+1}$, o que é uma contradição.
 \end{proof}
 
-\begin{corollary}
-    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
+\begin{corollary}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
 
     Sejam $a$ e $p$ conjuntos.
     Se existe $t$ tal que $\Ap_G(t, p, a)$, então existe um único $t'$ tal que $\Ap_G(t', p, a)$ e $\dom(t')=\pred_{R^*}(a)\cup\{a\}$.
 \end{corollary}
 \begin{proof}
-    Para a existência, fixado $t$, tome $t'=t|\pred_{R^*}(a)\cup\{a\}$.
+    Para a existência, fixado $t$, tome $t'=t|(\pred_{R^*}(a)\cup\{a\})$.
+    Pelo lema anterior, $\pred_{R^*}(a)\cup\{a\}$ é $R$-fechado.
+    Além disso, se $b\in \dom(t')$, então $\pred_{R}(b)\subseteq \dom(t')$, de modo que $t'|\pred_{R}(b)=t|\pred_{R}(b)$.
+    Assim, $t'$ satisfaz as mesmas equações recursivas que $t$ em todos os pontos de seu domínio.
 
     Para a unicidade, se $t'$ e $t''$ são tais que $\Ap_G(t', p, a)$ e $\Ap_G(t'', p, a)$ e $\dom(t')=\dom(t'')=\pred_{R^*}(a)\cup\{a\}$, então $t'$ e $t''$ são compatíveis, e, portanto, $t'=t''$.
 \end{proof}
-\begin{lemma}
-    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
+\begin{lemma}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
 
     Para todo $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$.
 \end{lemma}
