@@ -99,13 +99,13 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
     Seja $\pred^{n+1}_{R}(x)=\bigcup\{\pred_{R}(y): y\in \pred^n_{R}(x)\}$.
 
     Se $z\in \pred^{n+1}_{R}(x)$, então $z\in \pred_{R}(y)$ para algum $y\in \pred^n_{R}(x)$, e, portanto, existe um $R$-caminho de comprimento $n$ de $y$ até $x$, digamos, $(x_0, \dots, x_{n-1})$.
-    Considere $(z, x_0, \dots, x_{n-1})$.
+    Como $x_0=y$ e $z R y$, segue que $(z, x_0, \dots, x_{n-1})$ é um $R$-caminho de comprimento $n+1$ de $z$ até $x$.
 
     Reciprocamente, seja $(x_0, x_1, \dots, x_n)$ um $R$-caminho de comprimento $n+1$ de $x_0$ até $x_n=x$.
     Então $(x_1, \dots, x_n)$ é um $R$-caminho de comprimento $n$ de $x_1$ até $x$, e, portanto, $x_1\in \pred^n_{R}(x)$.
     Como $x_0 R x_1$, $x_0\in \pred_{R}(x_1)$, e, portanto, $x_0\in \pred^{n+1}_{R}(x)$.
 
-    Considere $Z=\bigcup_{n\in \omega} \pred^n_{R}(x)$.
+    Pelo Esquema da Substituição, considere $Z=\bigcup_{n\in \omega} \pred^n_{R}(x)$.
     Temos que, para todo $z$, $R^*(z,x)$ se, e somente se, $z\in Z$.
 \end{proof}
 
