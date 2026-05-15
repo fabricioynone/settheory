@@ -1,4 +1,4 @@
-\section{Relações bem fundadas}
+\section{Relações bem-fundadas}
 
 Uma relação definida é um símbolo de predicado binário da linguagem em uso, seja ele primitivo, como $\in$ e $=$, seja ele inserido por definição.
 
@@ -8,17 +8,17 @@ Uma relação definida é um símbolo de predicado binário da linguagem em uso,
     Ou seja, se $\pred_{R}(x)=\{z: R(z,x)\}$ é um conjunto para todo $x$.
 
     Dado um conjunto $X$, um elemento $x\in X$ é dito $R$-minimal em $X$ se, e somente se, $\forall y\in X\,\neg R(y,x)$.
-    $R$ é dita bem fundada se:
+    $R$ é dita bem-fundada se:
 
     \[
         \forall X\big(X\neq \emptyset \rightarrow \exists x\in X \, \forall y\big(y\in X \rightarrow \neg R(y,x)\big)\big).
     \]
 
-    Ou seja, $R$ é bem fundada se todo conjunto não vazio possui um elemento $R$-minimal.
+    Ou seja, $R$ é bem-fundada se todo conjunto não vazio possui um elemento $R$-minimal.
 \end{definition}
 
 A definição acima é, em realidade, um esquema de definições.
-Para cada possível símbolo de predicado binário $R$, temos uma definição de $R$ ser set-like e uma definição de $R$ ser bem fundada.
+Para cada possível símbolo de predicado binário $R$, temos uma definição de $R$ ser set-like e uma definição de $R$ ser bem-fundada.
 
 
 \begin{example}[$\BST$]A relação $\in$ é set-like, pois para todo $x$, $\pred_{\in}(x)=\{z: z\in x\}=x$ é um conjunto.
@@ -37,8 +37,8 @@ Para cada possível símbolo de predicado binário $R$, temos uma definição de
 \begin{example}[$\BST$]
     A relação $=$ é set-like, pois $\pred_{=}(x)=\{x\}$ é um conjunto para todo $x$.
 
-    Porém, $=$ não é bem fundado, pois, para todo $x$, $\{x\}$ não possui um elemento $=$-minimal uma vez que $x = x$.
-    Por essa mesma razão, nenhuma relação reflexiva é bem fundada.
+    Porém, $=$ não é bem-fundada, pois, para todo $x$, $\{x\}$ não possui um elemento $=$-minimal uma vez que $x = x$.
+    Por essa mesma razão, nenhuma relação reflexiva é bem-fundada.
 \end{example}
 
 \begin{example}
@@ -105,7 +105,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \end{proof}
 
 \begin{proposition}[$\ZFmP$](Princípio da minimalidade)\label{prop:principioDaMinimalidade}
-    Seja $R$ uma relação definida set-like e bem fundada.
+    Seja $R$ uma relação definida set-like e bem-fundada.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
     Então:
@@ -126,7 +126,7 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 \end{proof}
 
 \begin{corollary}[$\ZFmP$](Princípio da indução)\label{cor:principioDaInducao}
-    Seja $R$ uma relação definida set-like e bem fundada.
+    Seja $R$ uma relação definida set-like e bem-fundada.
     
     Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
     Então:
@@ -170,7 +170,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
 \end{definition}
 
 \begin{lemma}[$\ZFmPI$]
-    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
 
     Se $t_1$, $t_2$, $a$, $p$ são tais que $\Ap_G(t_1, p, a)$ e $\Ap_G(t_2, p, a)$, então $t_1$ e $t_2$ são compatíveis.
 \end{lemma}
@@ -208,7 +208,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
 \end{proof}
 
 \begin{corollary}
-    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
 
     Sejam $a$ e $p$ conjuntos.
     Se existe $t$ tal que $\Ap_G(t, p, a)$, então existe um único $t'$ tal que $\Ap_G(t', p, a)$ e $\dom(t')=\pred_{R^*}(a)\cup\{a\}$.
@@ -219,7 +219,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     Para a unicidade, se $t'$ e $t''$ são tais que $\Ap_G(t', p, a)$ e $\Ap_G(t'', p, a)$ e $\dom(t')=\dom(t'')=\pred_{R^*}(a)\cup\{a\}$, então $t'$ e $t''$ são compatíveis, e, portanto, $t'=t''$.
 \end{proof}
 \begin{lemma}
-    Seja $R$ uma relação definida set-like e bem fundada e $G$ um símbolo de função binário introduzido por definição.
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo de função binário introduzido por definição.
 
     Para todo $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$.
 \end{lemma}
@@ -261,9 +261,9 @@ Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneir
     Assim, $F^G_p(a)=t(a)=G(p, t|\pred_{R}(a), a)=G(p, F^G_p|\pred_{R}(a), a)$.
 \end{proof}
 
-Com isso, podemos definir o rank com respeito a uma relação definida set-like e bem fundada $R$.
+Com isso, podemos definir o rank com respeito a uma relação definida set-like e bem-fundada $R$.
 \begin{definition}[$\ZFmPI$]
-    Seja $R$ uma relação definida set-like e bem fundada.
+    Seja $R$ uma relação definida set-like e bem-fundada.
     O \emph{rank} de um conjunto $x$ com respeito a $R$, denotado por $\rank_R(x)$, é definido recursivamente pela relação $R$ a partir da seguinte fórmula.
 
     \[
@@ -309,12 +309,12 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 \end{proof}
 
 \begin{corollary}[$\ZFmP$]
-    Se $R$ é uma relação definida set-like e bem fundada, então $R^*$ é set-like e bem fundada.
+    Se $R$ é uma relação definida set-like e bem-fundada, então $R^*$ é set-like e bem-fundada.
 \end{corollary}
 \begin{proof}
     Já vimos que $R^*$ é set-like.
 
-    Para ver que $R^*$ é bem fundada, seja $X$ um conjunto não vazio.
+    Para ver que $R^*$ é bem-fundada, seja $X$ um conjunto não vazio.
     Seja $O=\{\rank_R(x): x\in X\}$.
     Como $O$ é um conjunto de ordinais, existe um ordinal $\alpha$ tal que $\alpha=\min O$.
     Seja $x\in X$ tal que $\rank_R(x)=\alpha$.
