@@ -252,38 +252,66 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     Dado $a$, basta ver que se a tese vale para todo $b\in \pred_{R}(a)$, então vale para $a$.
 
     Suponha que, para todo $c\in \pred_{R}(a)$, existe um $t$ tal que $\Ap_G(t, p, c)$.
-    Seja $t_c$ o único $t$ tal que $\Ap_G(t, p, c)$ e $\dom(t)=\pred_{R^*}(c)\cup\{c\}$.
-    Seja $t'=\bigcup_{c\in \pred_{R}(a)} t_c$ e $t=t'\cup\{(a, G(p, t'|\pred_{R}(a), a))\}$.
+    Pelo corolário anterior, para cada $c\in \pred_{R}(a)$, seja $t_c$ o único $t$ tal que $\Ap_G(t, p, c)$ e $\dom(t)=\pred_{R^*}(c)\cup\{c\}$.
+    Pela Substituição, podemos considerar a família $\{t_c: c\in \pred_{R}(a)\}$.
 
-    Temos que $\dom t=\bigcup_{c\in \pred_{R}(a)} \dom t_c \cup \{a\}=\bigcup_{c\in \pred_{R}(a)} (\pred_{R^*}(c)\cup\{c\})\cup \{a\}=\pred_{R^*}(a)\cup\{a\}$, é fechado e $a\in \dom t$.
+    Pelo lema de compatibilidade, os $t_c$ são dois a dois compatíveis.
+    Portanto,
+    \[
+        t'=\bigcup_{c\in \pred_{R}(a)} t_c
+    \]
+    é uma função.
+    Além disso,
+    \[
+        \dom(t')=\bigcup_{c\in \pred_{R}(a)} \dom(t_c)
+        =\bigcup_{c\in \pred_{R}(a)}(\pred_{R^*}(c)\cup\{c\})
+        =\pred_{R^*}(a).
+    \]
 
-    Dado $b\in \dom t$, se $b=a$, então $t(a)=G(p, t|\pred_{R}(a), a)=G(p, t'|\pred_{R}(a), a)$.
+    Como $R$ é bem-fundada, temos $a\notin \pred_{R^*}(a)$; caso contrário, os elementos de um $R$-caminho de $a$ até $a$ formariam um conjunto não vazio sem elemento $R$-minimal.
+    Seja
+    \[
+        t=t'\cup\{(a, G(p, t'|\pred_{R}(a), a))\}.
+    \]
+    Então $t$ é função, $\dom(t)=\pred_{R^*}(a)\cup\{a\}$, esse domínio é $R$-fechado e $a\in \dom(t)$.
 
-    Já se $b\neq a$, existe um $c\in \pred_{R}(a)$ tal que $b\in \pred_{R^*}(c)\cup\{c\}$, e, portanto, $\pred_{R}(b)\subseteq \pred_{R^*}(c)\cup\{c\}\subseteq \dom t_c$.
-    Assim, $t|\pred_{R}(b)=t_c|\pred_{R}(b)$, e, portanto, $t(b)=G(p, t|\pred_{R}(b), b)=G(p, t_c|\pred_{R}(b), b)=t_c(b)$.
+    Dado $b\in \dom(t)$, se $b=a$, então $\pred_{R}(a)\subseteq \dom(t')$, de modo que $t|\pred_{R}(a)=t'|\pred_{R}(a)$ e
+    \[
+        t(a)=G(p, t'|\pred_{R}(a), a)=G(p, t|\pred_{R}(a), a).
+    \]
+
+    Já se $b\neq a$, existe um $c\in \pred_{R}(a)$ tal que $b\in \pred_{R^*}(c)\cup\{c\}$.
+    Como $\dom(t_c)$ é $R$-fechado, $\pred_{R}(b)\subseteq \dom(t_c)$.
+    Além disso, $t$ e $t_c$ coincidem em $\dom(t_c)$.
+    Portanto,
+    \[
+        t(b)=t_c(b)=G(p, t_c|\pred_{R}(b), b)=G(p, t|\pred_{R}(b), b).
+    \]
 \end{proof}
 
 Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneira mais precisa.
 
-\begin{theorem}[$\ZFmPI$](Esquema da recursão transfinita)
-    Suponha que um símbolo de função binário $G(p, s, a)$ seja introduzido por definição.
+\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
 
-    Seja $F^G$ o símbolo de função binário introduzido por definição tal que:
+    Seja $F^G$ o símbolo funcional binário introduzido por definição tal que:
     \[
         \forall a \forall p \forall y\bigg(F^G_{p}(a)=y \leftrightarrow \exists t\big(\Ap_G(t, p, a)\wedge t(a)=y\big)\bigg).
     \]
-    Então $\forall a \forall p \Big( F^G_{p}(a)=G(p, F^G_p|\pred_{R^*}(a), a)\Big)$.
+    Então $\forall a \forall p \Big( F^G_{p}(a)=G(p, F^G_p|\pred_{R}(a), a)\Big)$.
 \end{theorem}
 \begin{proof}
     Primeiro, notemos que $F^G$ é bem definida: dado $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$, e, se $t'$ é outro tal que $\Ap_G(t', p, a)$, então $t'$ e $t$ são compatíveis, e, portanto, $t'(a)=t(a)$.
 
     Segundo, dado $a$ e $p$, seja $t$ tal que $\Ap_G(t, p, a)$.
-    Então, para todo $b\in \pred_{R}(a)$, temos que $\Ap_G(t, p, b)$, e, portanto, $t|\pred_{R}(a)=F^G_p|\pred_{R}(a)$.
+    Então, para todo $b\in \pred_{R}(a)$, temos $b\in \dom(t)$ e, portanto, $\Ap_G(t, p, b)$.
+    Pela definição de $F^G$, segue que $t|\pred_{R}(a)=F^G_p|\pred_{R}(a)$.
     Assim, $F^G_p(a)=t(a)=G(p, t|\pred_{R}(a), a)=G(p, F^G_p|\pred_{R}(a), a)$.
 \end{proof}
 
 Com isso, podemos definir o rank com respeito a uma relação definida set-like e bem-fundada $R$.
-\begin{definition}[$\ZFmPI$]
+\begin{definition}[$\ZFmP$]
     Seja $R$ uma relação definida set-like e bem-fundada.
     O \emph{rank} de um conjunto $x$ com respeito a $R$, denotado por $\rank_R(x)$, é definido recursivamente pela relação $R$ a partir da seguinte fórmula.
 
@@ -298,7 +326,7 @@ A definição acima pode ser formalizada a partir do teorema da recursão transf
 \]
 O Teorema da Recursão nos define um símbolo funcional binário $F(p, a)$ tal que, para todos $p, a$:
 \[
-    F_p(a)=G(p, F_p|\pred_{R^*}(a), a)=\bigcup\{F_p(b)+1: b R a\}.
+    F_p(a)=G(p, F_p|\pred_{R}(a), a)=\bigcup\{F_p(b)+1: b R a\}.
 \]
 
 Tome $p$ qualquer, digamos, $p=\emptyset$, e seja $\rank_R(a)=F_p(a)$.
@@ -307,7 +335,7 @@ Então $\rank_R(a)=\bigcup\{\rank_R(b)+1: b R a\}$, como queríamos.
 Tal função é, em algum sentido, a única função que satisfaz essa fórmula (ver Exercício~\ref{ex:rankBemDefinido}).
 
 \begin{lemma}[$\ZFmP$]
-    Seja $R$ uma relação definida set-like.
+    Seja $R$ uma relação definida set-like e bem-fundada.
     \begin{enumerate}[label=(\roman*)]
         \item Para todo $x$, $\rank_R(x)$ é um ordinal.
         \item Para todo $x$, $\rank_R(x)=\sup\{\rank_R(y)+1: y R x\}$.
@@ -322,7 +350,7 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 
     Para (ii), de (i), temos que $\rank_R(x)=\bigcup\{\rank_R(y)+1: y R x\}=\sup\{\rank_R(y)+1: y R x\}$, pois o supremo de um conjunto de ordinais é sua união.
 
-    Para (iii), se $yRx$, temos que $\rank_R(y)+1\leq \rank_R(x)$ pela definição de $\rank_R(x)$, e, portanto, $\rank_R(y)<\rank_R(x)$.
+    Para (iii), se $y R x$, temos que $\rank_R(y)+1\leq \rank_R(x)$ pela definição de $\rank_R(x)$, e, portanto, $\rank_R(y)<\rank_R(x)$.
 
     Para (iv), suponha que $y R^* x$.
     Então existe $n\geq 2$ e um $R$-caminho de comprimento $n$ de $y$ até $x$, digamos, $(x_0, \dots, x_{n-1})$, em que $x_0=y$ e $x_{n-1}=x$.
@@ -351,13 +379,14 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 \end{exercise}
 
 \begin{exercise}\label{ex:rankBemDefinido}
-    Seja $R$ uma relação definida bem-fundada e set-like.
-    Suponha que $F$ é um símbolo de função unário introduzido por definição tal que, para todo $x$, $F(x)=\bigcup\{F(y)+1: y R x\}$.
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que $F$ é um símbolo funcional unário introduzido por definição tal que, para todo $x$, $F(x)=\bigcup\{F(y)+1: y R x\}$.
     Mostre que, para todo $x$,
     \[
         F(x)=\rank_R(x).
     \]
 \end{exercise}
+
 \begin{exercise}[$\BST$]\label{exr:transitivizacaoEInfinito}
     Seja $R$ a relação dada por $y R x$ se, e somente se, $y\in x$ ou $y=S(x)$.
     Mostre que $R$ é uma relação definida set-like.
