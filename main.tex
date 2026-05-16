@@ -9,9 +9,13 @@
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage[most]{tcolorbox}
+\tcbset{shield externalize}
+
 \usepackage{tikz}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+
 \usetikzlibrary{positioning,decorations.pathreplacing, cd, calc, external}
 \tikzexternalize[prefix=figures/]
 \usepackage{caption}
@@ -39,6 +43,33 @@
 \newcommand{\nat}{\operatorname{nat}}
 \newcommand{\Con}{\operatorname{Con}}
 \newcommand{\pred}{\operatorname{pred}}
+
+\definecolor{defback}{HTML}{FDFDFC}
+\definecolor{defline}{HTML}{8A8A82}
+
+\tcbset{
+    definitionStyle/.style={
+      enhanced,
+      breakable,
+      colback=defback,
+      colframe=defline,
+      boxrule=0.15pt,
+      leftrule=1.6pt,
+      arc=1.5pt,
+      left=5pt,
+      right=5pt,
+      top=6pt,
+      bottom=6pt,
+      before skip=10pt,
+      after skip=10pt
+    }
+}
+\tcolorboxenvironment{metadefinition}{
+    definitionStyle
+}
+\tcolorboxenvironment{definition}{
+    definitionStyle
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definição}[section]
