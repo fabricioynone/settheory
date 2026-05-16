@@ -92,7 +92,15 @@ Para tornar seu enunciado ainda mais simples, omitiremos o conjunto $X$, que pod
     Em símbolos:
 
     \[
-    \forall P\Bigl(\forall a, b \in P(a\neq b \Rightarrow \nexists x(x\in a \wedge x\in b)) \rightarrow \exists T\,\forall a\in P\,\exists! x(x\in T \wedge x\in a)\Bigr).
+        \begin{aligned}
+            \forall A\, \Bigl(
+                &\Bigl(
+                    \forall x \in A\, \exists y\, (y \in x) \\
+                    &\land \forall x \in A\, \forall y \in A\, \bigl(x \neq y \rightarrow \neg \exists z\, (z \in x \land z \in y)\bigr)
+                \Bigr) \\
+                &\rightarrow \exists C\, \forall x \in A\, \exists! y\, (y \in x \land y \in C)
+            \Bigr).
+        \end{aligned}
     \]
 \end{axiom}
 

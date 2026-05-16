@@ -138,24 +138,24 @@ No Capítulo~\ref{chap:axiomaDaEscolha}, veremos também formulações em termos
         \item $\BST$, ou \emph{Basic Set Theory}, é a teoria formada pelos seguintes axiomas e esquemas: Extensão, Compreensão, União, Par, e o Axioma dos Pares Internos (ver abaixo).\index{BST}
         \item $\BSTI$ é a teoria $\BST$ acrescida do Axioma do Infinito.\index{BSTI}
     \end{itemize}
-
-    O Axioma dos Pares Internos, nessa formulação e sob esse nome, não é um axioma padrão da literatura.
-    Ele será utilizado neste texto para fins didáticos e organizacionais.
-
-    Este princípio isola o fechamento que será usado para construir produtos cartesianos e manipular relações elementares sem recorrer, neste ponto do texto, ao Axioma da Potência nem ao Esquema da Substituição.
-    Sobre Extensão, Compreensão, Par e União, o Axioma dos Pares Internos é consequência tanto do Axioma da Potência quanto do Esquema da Substituição, sendo, neste contexto, equivalente à afirmação de que $A \times B$ existe para quaisquer conjuntos $A$ e $B$.
-
-    É importante ressaltar que a sigla $\BST$ possui variações na literatura e está longe de ser universal.
-    Em alguns tratamentos de teorias fracas de conjuntos, princípios próximos aparecem formulados diretamente como existência de produtos cartesianos.
-    Estamos agrupando estes axiomas sob a sigla $\BST$ para fins didáticos e organizacionais compatíveis com a estrutura do restante deste texto.
 \end{metadefinition}
+
+O Axioma dos Pares Internos, nessa formulação e sob esse nome, não é um axioma padrão da literatura.
+Ele será utilizado neste texto para fins didáticos e organizacionais.
+
+Este princípio isola o fechamento que será usado para construir produtos cartesianos e manipular relações elementares sem recorrer, neste ponto do texto, ao Axioma da Potência nem ao Esquema da Substituição.
+Sobre Extensão, Compreensão, Par e União, o Axioma dos Pares Internos é consequência tanto do Axioma da Potência quanto do Esquema da Substituição, sendo, neste contexto, equivalente à afirmação de que $A \times B$ existe para quaisquer conjuntos $A$ e $B$.
+
+É importante ressaltar que a sigla $\BST$ possui variações na literatura e está longe de ser universal.
+Em alguns tratamentos de teorias fracas de conjuntos, princípios próximos aparecem formulados diretamente como existência de produtos cartesianos.
+Estamos agrupando estes axiomas sob a sigla $\BST$ para fins didáticos e organizacionais compatíveis com a estrutura do restante deste texto.
 
 \begin{displayaxiom}{Axioma dos Pares Internos}\index{axioma!dos pares internos}
     \[
         \begin{aligned}
             \forall x\, \exists y\, \forall a\, \forall b\, \Bigl(
-                &(a \in x \land b \in x) \\
-                &\rightarrow \exists z\, \bigl(
+                &(a \in x \land b \in x) 
+                \rightarrow \exists z\, \bigl(
                     z \in y
                     \land
                     \forall w\, (w \in z \leftrightarrow (w = a \lor w = b))

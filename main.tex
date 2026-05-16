@@ -9,7 +9,8 @@
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage[most]{tcolorbox}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable, external}
 \tcbset{shield externalize}
 
 \usepackage{tikz}
@@ -44,9 +45,33 @@
 \newcommand{\Con}{\operatorname{Con}}
 \newcommand{\pred}{\operatorname{pred}}
 
-\definecolor{defback}{HTML}{FDFDFC}
-\definecolor{defline}{HTML}{8A8A82}
+\definecolor{defback}{HTML}{FFFEFA}
+\definecolor{defline}{HTML}{8A7A5E}
 
+\definecolor{resultback}{HTML}{F8FBFF}
+\definecolor{resultline}{HTML}{2F5368}
+
+\definecolor{exampleline}{HTML}{D8D4C8}
+
+\tcbset{
+    exampleStyle/.style={
+      shield externalize,
+      enhanced,
+      breakable,
+      blanker,
+      borderline south={0.35pt}{0pt}{exampleline},
+      left=0pt,
+      right=0pt,
+      top=7pt,
+      bottom=12pt,
+      before skip=10pt,
+      after skip=10pt
+    }
+}
+
+\tcolorboxenvironment{example}{
+    exampleStyle
+}
 \tcbset{
     definitionStyle/.style={
       enhanced,
@@ -61,16 +86,69 @@
       top=6pt,
       bottom=6pt,
       before skip=10pt,
-      after skip=10pt
+      after skip=10pt,
+      toprule at break=0pt,
+      bottomrule at break=0pt,
+    },
+  resultStyle/.style={
+    shield externalize,
+    enhanced,
+    breakable,
+    colback=resultback,
+    colframe=resultline,
+    boxrule=0.15pt,
+    leftrule=1.8pt,
+    arc=1.5pt,
+    left=5pt,
+    right=5pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=10pt,
+    after skip=10pt,
+    toprule at break=0pt,
+    bottomrule at break=0pt,
     }
 }
+
 \tcolorboxenvironment{metadefinition}{
     definitionStyle
 }
 \tcolorboxenvironment{definition}{
     definitionStyle
 }
-
+\tcolorboxenvironment{convention}{
+    definitionStyle
+}
+\tcolorboxenvironment{axiom}{
+    definitionStyle
+}
+\tcolorboxenvironment{displayaxiominner}{
+    definitionStyle
+}
+\tcolorboxenvironment{metatheorem}{
+    resultStyle
+}
+\tcolorboxenvironment{theorem}{
+    resultStyle
+}
+\tcolorboxenvironment{metalemma}{
+    resultStyle
+}
+\tcolorboxenvironment{lemma}{
+    resultStyle
+}
+\tcolorboxenvironment{metaproposition}{
+    resultStyle
+}
+\tcolorboxenvironment{proposition}{
+    resultStyle
+}
+\tcolorboxenvironment{metacorollary}{
+    resultStyle
+}
+\tcolorboxenvironment{corollary}{
+    resultStyle
+}
 \theoremstyle{definition}
 \newtheorem{definition}{Definição}[section]
 \newtheorem{metadefinition}[definition]{Metadefinição}
