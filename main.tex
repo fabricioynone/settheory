@@ -53,6 +53,12 @@
 
 \definecolor{exampleline}{HTML}{D8D4C8}
 
+\newlength{\bookparindent}
+\setlength{\bookparindent}{\parindent}
+
+\newlength{\bookparskip}
+\setlength{\bookparskip}{\parskip}
+
 \tcbset{
     exampleStyle/.style={
       shield externalize,
@@ -89,6 +95,10 @@
       after skip=10pt,
       toprule at break=0pt,
       bottomrule at break=0pt,
+      before upper={%
+        \setlength{\parindent}{\bookparindent}%
+        \setlength{\parskip}{\bookparskip}%
+      },
     },
   resultStyle/.style={
     shield externalize,
@@ -107,6 +117,10 @@
     after skip=10pt,
     toprule at break=0pt,
     bottomrule at break=0pt,
+    before upper={%
+      \setlength{\parindent}{\bookparindent}%
+      \setlength{\parskip}{\bookparskip}%
+    },
     }
 }
 
