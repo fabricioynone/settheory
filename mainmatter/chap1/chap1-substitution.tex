@@ -1,0 +1,739 @@
+\section{Substituição de variáveis}
+\label{sec:substituicao}
+Para trabalharmos com quantificadores, precisaremos da noção de substituição de símbolos em fórmulas, feita como se segue.
+Por razões técnicas e a fim de evitar fazer o mesmo trabalho duas vezes, também definiremos a substituição de constantes.
+
+\begin{convention}\label{conv:mapaDeSubstituicao}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem.
+    Um $\mathcal L$-mapeamento de variáveis e constantes é um mapeamento $\rho$ que associa cada elemento $x$ de alguma coleção finita $X$ de variáveis ou constantes de $\mathcal L$ a um $\mathcal L$-termo $\rho(x)$.
+    A coleção $X$ é denominada \emph{domínio} de $\rho$, e dizemos que $\rho$ \emph{está definido} em $X$.
+
+    Se $X$ possui apenas variáveis, dizemos que $\rho$ é um $\mathcal L$-mapeamento de variáveis.
+
+    Se $X$ é, digamos, composto das variáveis ou constantes $x_1, \dots, x_n$, sem repetições, então $\rho$ pode ser denotada por $(x_1, \dots, x_n)\to (t_1, \dots, t_n)$, em que $t_i$ é $\rho(x_i)$ para cada $i\in\{1,\dots,n\}$.
+
+    O mapeamento vazio é o mapeamento $\rho$ cujo domínio é a coleção vazia, ou seja, aquele que não associa nenhum elemento a nada.
+
+
+    Dizemos que $\rho$ é um mapeamento \emph{trivial} se $\rho(x)$ é $x$ para cada $x \in X$.
+\end{convention}
+
+Com a convenção acima, podemos definir a substituição de variáveis e constantes em termos e fórmulas.
+Iniciaremos com a substituição em termos.
+
+\begin{metadefinition}[Substituição em termos]\label{mdef:substituicaoEmTermos}\index{substituição!em termos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $X$ uma coleção finita de variáveis ou constantes, e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+
+    Dado um $\mathcal L$-termo $t$, $t[\rho]$ é o termo obtido a partir de $t$ substituindo-se todas as ocorrências de elementos $x$ de $X$ por $\rho(x)$.
+    Formalmente, define-se $t[\rho]$ por indução sobre a estrutura de $t$, como se segue.
+    \begin{itemize}
+        \item Se $t$ é algum $x \in X$, então $t[\rho]$ é $\rho(x)$.
+        \item Se $t$ é uma variável ou constante diferente de todo $x \in X$, então $t[\rho]$ é $t$.
+        \item Se $t$ é $fe_1 \dots e_n$, em que $f$ é um símbolo funcional $n$-ário e $e_1, \dots, e_n$ são termos para os quais $e_1[\rho], \dots, e_n[\rho]$ já foram definidos, então $t[\rho]$ é $fe_1[\rho] \dots e_n[\rho]$.
+    \end{itemize}
+
+    Se $\rho$ é $(x_1, \dots, x_n)\to (t_1, \dots, t_n)$, a notação $t[x_1/t_1, \dots, x_n/t_n]$ denota $t[\rho]$.
+\end{metadefinition}
+
+Devemos provar que, na notação anterior, $t[\rho]$ é um $\mathcal L$-termo.
+
+\begin{metalemma}\label{mlem:substituicaoEmTermos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $t$ um $\mathcal L$-termo, e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+    Então:
+    \begin{enumerate}[label=(\alph*)]
+        \item $t[\rho]$ é um $\mathcal L$-termo.
+        \item Para toda variável ou constante $z$, $z$ ocorre em $t[\rho]$ se, e somente se,
+        \begin{itemize}
+            \item $z$ ocorre em $t$ e não está em $X$, ou
+            \item existe algum $x \in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$.
+        \end{itemize}
+    \end{enumerate}
+\end{metalemma}
+\begin{proof}
+    Provaremos simultaneamente os dois itens por indução sobre a estrutura de $t$.
+
+    Suponha primeiro que $t$ é uma variável ou constante $w$.
+
+    (a) Se $w\in X$, então $t[\rho]$ é $\rho(w)$, que é um $\mathcal L$-termo.
+    Já se $w\notin X$, então $t[\rho]$ é $w$, que é um $\mathcal L$-termo.
+
+    (b) Se $z$ é uma variável ou constante que ocorre em $t[\rho]$, e não existe algum $x\in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$, então $w$ não está em $X$, de modo que $t[\rho]$ é $w$, e, portanto, $z$ é $w$, que ocorre em $t$.
+
+    Reciprocamente, se $z$ é uma variável ou constante que ocorre em $t$ e não está em $X$, então $z$ é $w$ e $w$ não está em $X$, de modo que $t[\rho]$ é $w$, e, portanto, $z$ ocorre em $t[\rho]$.
+    Já se existe algum $x\in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$, então $x$ é $w$, e $t[\rho]$ é $\rho(w)=\rho(x)$, de modo que $z$ ocorre em $t[\rho]$.
+    \smallskip
+    Agora suponha que $t$ é $fe_1\dots e_n$, em que $f$ é um símbolo funcional $n$-ário com $n\geq 1$ e $e_1,\dots,e_n$ são termos.
+
+    (a) Pela hipótese indutiva, $e_i[\rho]$ é um $\mathcal L$-termo para cada $i\in\{1,\dots,n\}$.
+    Portanto,
+    \[
+        t[\rho]=fe_1[\rho]\dots e_n[\rho]
+    \]
+    é um $\mathcal L$-termo.
+
+    (b) Uma variável ou constante $z$ ocorre em $t[\rho]$ se, e somente se, $z$ ocorre em algum $e_i[\rho]$.
+    Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+    \begin{itemize}
+        \item $z$ ocorre em $e_i$ e $z\notin X$;
+        \item existe algum $x\in X$ tal que $x$ ocorre em $e_i$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+
+    Como as ocorrências de variáveis e constantes em $t=fe_1\dots e_n$ são exatamente as ocorrências que aparecem em algum dos termos $e_i$, isso equivale a dizer que uma das condições abaixo ocorre:
+    \begin{itemize}
+        \item $z$ ocorre em $t$ e $z\notin X$, ou
+        \item existe algum $x\in X$ tal que $x$ ocorre em $t$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+
+    Isso conclui a indução.
+\end{proof}
+Sigamos para alguns exemplos.
+
+\begin{example}\label{exa:substituicaoEmTermos}
+    Considere o léxico da teoria dos anéis do Exemplo~\ref{exa:exemplosLexicos}.
+    \begin{itemize}
+        \item $x_1[x_1/0]$ é $0$.
+        \item $x[y/0]$ é $x$.
+        \item $(x_1 + x_7)[x_1/0, x_7/x_2]$ é $0 + x_2$.
+        \item $(x_1 + x_2)[x_1/x_2, x_2/(x_1 + x_2)]$ é $x_2 + (x_1 + x_2)$.
+        \item $(x_1 + 0)[0/(x_1 + x_2)]$ é $x_1 + (x_1 + x_2)$.
+    \end{itemize}
+\end{example}
+
+Convém estabelecer uma convenção mais usual sobre a notação de substituição em termos, compatível com a prática matemática usual.
+\begin{convention}\label{conv:substituicaoEmTermos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, e $s=s(x_1, \dots, x_n)$ um $\mathcal L$-termo.
+
+    Sejam $t_1, \dots, t_n$ $\mathcal L$-termos.
+    
+    Ao escrevermos $s(t_1, \dots, t_n)$, em que $t_1, \dots, t_n$ são $\mathcal L$-termos, estaremos nos referindo ao $\mathcal L$-termo $s[x_1/t_1, \dots, x_n/t_n]$.
+\end{convention}
+
+Refaçamos alguns dos exemplos anteriores e alguns novos.
+
+\begin{example}\label{exa:substituicaoEmTermos2}
+    Considere o léxico da teoria dos anéis do Exemplo~\ref{exa:exemplosLexicos}.
+    Considere, em cada item, o termo $s$ indicado.
+    \begin{itemize}
+        \item Se $s(x_1)$ é $x_1$, então $s(0)$ é $0$.
+        \item Se $s(x, y)$ é $x$, então $s(x, 0)$ é $x$.
+        \item Se $s(x_1, x_7)$ é $x_1 + x_7$, então $s(0, x_2)$ é $0 + x_2$.
+        \item Se $s(x_1, x_2)$ é $x_1 + x_2$, então $s(x_2, x_1+x_2)$ é $x_2 + (x_1 + x_2)$.
+        \item Se $s(x, y)$ é $x+y$, então $s(z_1, z_2)$ é $z_1 + z_2$.
+        \item Se $s(y, x)$ é $x+y$, então $s(z_1, z_2)$ é $z_2 + z_1$.
+    \end{itemize}
+\end{example}
+
+É importante ressaltar que ao escrever que $s=s(x_1, \dots, x_n)$, estamos estabelecendo uma convenção de ordem para $x_1, \dots, x_n$, conforme ilustrado pelos dois últimos itens do exemplo acima.
+
+A substituição em fórmulas traz um cuidado adicional: variáveis que aparecem nos termos inseridos podem passar a ficar no escopo de quantificadores já presentes na fórmula.
+
+Optaremos por definir primeiro a substituição formal em fórmulas sem impedir esse fenômeno e, em seguida, definir a noção de \emph{substituição válida}, que delimita os casos em que tal captura não ocorre.
+
+Primeiro, mais algumas convenções.
+\begin{convention}\label{conv:substituicaoEmFormulas}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, e seja $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em uma coleção finita $X$.
+
+    Para cada variável $z$, escrevemos $X\setminus\{z\}$ para denotar a coleção dos elementos de $X$ distintos de $z$.
+
+    Denotamos por $\rho_{-z}$ o $\mathcal L$-mapeamento definido em $X\setminus\{z\}$ que associa a cada elemento $x$ de $X\setminus\{z\}$ o termo $\rho(x)$.
+\end{convention}
+
+Na convenção acima, $z$ pode ou não estar em $X$.
+\begin{metadefinition}[Substituição em fórmulas]\label{mdef:substituicaoEmFormulas}\index{substituição!em fórmulas}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+
+    Dada uma fórmula $\varphi$, $\varphi[\rho]$ é a fórmula obtida por uma substituição literal: substituem-se as ocorrências livres das variáveis de $X$ e todas as ocorrências das constantes de $X$ por suas respectivas imagens por $\rho$.
+
+    Formalmente, define-se $\varphi[\rho]$ por indução sobre a estrutura de $\varphi$ pelo algoritmo a seguir.
+    Supondo definido $\psi[\rho_{-y}]$ e  $\psi[\rho]$ para toda subfórmula própria $\psi$ de $\varphi$ e toda variável $y$ sobre a qual age algum quantificador em $\varphi$, define-se $\varphi[\rho]$ como segue.
+    \begin{itemize}
+        \item Se $\varphi$ é $P e_1 \dots e_n$, em que $P$ é um símbolo de predicado $n$-ário ($n>0$) e $e_1, \dots, e_n$ são termos, então $\varphi[\rho]$ é $P e_1[\rho] \dots e_n[\rho]$.
+        \item Se $\varphi$ é um símbolo de predicado 0-ário, então $\varphi[\rho]$ é $\varphi$.
+        \item Se $\varphi$ é $\neg \psi$, então $\varphi[\rho]$ é $\neg \psi[\rho]$.
+        \item Se $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, então $\varphi[\rho]$ é $\psi[\rho] \square \theta[\rho]$.
+        \item Se $\varphi$ é $\forall y \psi$ ou $\exists y \psi$, em que $y$ é uma variável, então $\varphi[\rho]$ é $\forall y \psi[\rho_{-y}]$ ou $\exists y \psi[\rho_{-y}]$.
+    \end{itemize}
+
+    Se $\rho$ é $(x_1, \dots, x_n)\to (t_1, \dots, t_n)$, a notação $\varphi[x_1/t_1, \dots, x_n/t_n]$ denota $\varphi[\rho]$.
+\end{metadefinition}
+
+Novamente, por uma indução, prova-se que se $\varphi$ é uma fórmula, então $\varphi[\rho]$ é uma fórmula.
+
+\begin{metalemma}\label{mlem:substituicaoEmFormulas}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $\varphi$ uma $\mathcal L$-fórmula, e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+    Então $\varphi[\rho]$ é uma $\mathcal L$-fórmula.
+\end{metalemma}
+\begin{proof}
+
+    Suponha primeiro que $\varphi$ é uma fórmula atômica $R(e_1, \dots, e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
+
+    Pelo Metalema~\ref{mlem:substituicaoEmTermos}, $e_i[\rho]$ é um $\mathcal L$-termo para cada $i\in\{1,\dots,n\}$.
+    Segue que $\varphi[\rho]$ é $R(e_1[\rho], \dots, e_n[\rho])$, que é uma $\mathcal L$-fórmula.
+    \smallskip
+
+    Agora suponha que $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário.
+    
+    $\varphi[\rho]$ é $R$, que é uma $\mathcal L$-fórmula.
+    \smallskip
+
+    Suponha que $\varphi$ é $\neg \psi$ e a tese já foi demonstrada para $\psi$.
+    $\varphi[\rho]$ é $\neg \psi[\rho]$, que é uma $\mathcal L$-fórmula.
+    \smallskip
+
+    Suponha que $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, e a tese já foi demonstrada para $\psi$ e para $\theta$.
+
+    $\varphi[\rho]$ é $\psi[\rho] \square \theta[\rho]$, que é uma $\mathcal L$-fórmula.
+    \smallskip
+
+    Suponha que $\varphi$ é $Qy\psi$, em que $Q$ é $\forall$ ou $\exists$, e a tese já foi demonstrada para $\psi$.
+
+    $\varphi[\rho]$ é $Qy\psi[\rho_{-y}]$, que é uma $\mathcal L$-fórmula.
+\end{proof}
+
+Note que a substituição ocorre mesmo que variáveis que ocorrem em $\rho(x)$ para algum $x$ em $X$ passem a ficar no escopo de quantificadores já presentes em $\varphi$.
+Conforme veremos nos exemplos a seguir, tais substituições podem ser problemáticas.
+A seguinte definição delimita as substituições em que tais problemas não ocorrem.
+
+\begin{metadefinition}\label{mdef:substituibilidade}\index{substituição!válida}\index{substituível}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, seja $\varphi$ uma $\mathcal L$-fórmula, seja $x$ uma variável ou constante e seja $t$ um $\mathcal L$-termo.
+    Dizemos que $x$ é substituível por $t$ em  $\varphi$ se nenhuma ocorrência livre de $x$ em $\varphi$ estiver no escopo de um quantificador que age em alguma variável que ocorre em $t$.
+
+    Se $\rho$ é um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$, dizemos que \emph{$\rho$ é uma substituição válida em $\varphi$}, ou que \emph{a substituição $\varphi[\rho]$ é válida}, se cada $x \in X$ for substituível por $\rho(x)$ em $\varphi$.
+
+    Lembrete: considera-se que toda ocorrência de uma constante é livre.
+\end{metadefinition}
+
+Ainda não apresentamos uma noção de verdade ou de dedução, mas, utilizando o conhecimento prévio do leitor, podemos justificar a Metadefinição~\ref{mdef:substituibilidade} com exemplos.
+
+\begin{example}\label{exa:substituicaoInvalida}
+    Considere a fórmula $\exists y \, \neg(x = y)$.
+
+    A variável $x$ não é substituível pelo termo $y$ nesta fórmula, pois a ocorrência livre de $x$ está no escopo de um quantificador que age em uma variável que ocorre em $y$ (o próprio $y$).
+
+    Notemos que, ao substituir $x$ por $y$ nessa fórmula, obtemos $\exists y \, \neg(y = y)$.
+\end{example}
+
+\begin{example}\label{exa:substituicaoSemVariaveisLivres}
+    Considere a fórmula $\varphi$ dada por $\forall x \exists y \, \neg(x = y)$.
+
+    A substituição de $x$ e $y$ por qualquer termo $t$ é válida, pois a fórmula não possui variáveis livres.
+    Notemos que, para qualquer termo $t$, $\varphi[x/t]$ é $\forall x \exists y \, \neg(x = y)$ e $\varphi[y/t]$ é $\forall x \exists y \, \neg(x = y)$, ou seja, a fórmula é invariante por tais substituições.
+\end{example}
+
+
+
+O metalema abaixo nos mostra critérios úteis em induções para demonstrar que certas substituições são válidas.
+
+\begin{metalemma}\label{mlem:criteriosSubstituibilidade}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem.
+    Sejam $\varphi$ e $\psi$ $\mathcal L$-fórmulas e seja $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+    Então:
+    \begin{itemize}
+        \item Se $\varphi$ é uma fórmula atômica, então a substituição $\varphi[\rho]$ é válida.
+        \item A substituição $\varphi[\rho]$ é válida se, e somente se, a substituição $(\neg \varphi)[\rho]$ é válida.
+        \item As substituições $\varphi[\rho]$ e $\psi[\rho]$ são válidas se, e somente se, a substituição $(\varphi\square\psi)[\rho]$ é válida, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$.
+        \item Suponha que $z$ é uma variável, que $Q$ é $\forall$ ou $\exists$.
+        Então a substituição $(Qz\varphi)[\rho]$ é válida se, e somente se, a substituição $\varphi[\rho_{-z}]$ é válida e, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\varphi$, então $z$ não ocorre em $\rho(x)$.
+    \end{itemize}
+\end{metalemma}
+\begin{proof}
+    Se $\varphi$ é atômica, então $\varphi$ não possui quantificadores.
+    Assim, a tese é imediata.
+
+    Para a negação, seja $x \in X$ e suponha que $y$ é uma variável que ocorre em $\rho(x)$.
+    Note que se $x$ ocorre livre no escopo de algum quantificador que age em $y$ em $\neg \varphi$, o mesmo ocorre em $\varphi$, e reciprocamente.
+    Logo, a substituição $(\neg \varphi)[\rho]$ é válida se, e somente se, a substituição $\varphi[\rho]$ é válida.
+    
+
+    Para os conectivos binários, seja $x \in X$ e suponha que $y$ é uma variável que ocorre em $\rho(x)$.
+    Note que $x$ ocorre livre no escopo de algum quantificador que age em $y$ em $\varphi \square \psi$ se, e somente se, isso ocorre em $\varphi$ ou em $\psi$, de modo que a substituição $(\varphi \square \psi)[\rho]$ é válida se, e somente se, as substituições $\varphi[\rho]$ e $\psi[\rho]$ são válidas.
+
+    Resta o caso dos quantificadores.
+    Suponha que $z$ é uma variável, que $Q$ é $\forall$ ou $\exists$, que $\varphi[\rho_{-z}]$ é válida e que, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\varphi$, então $z$ não ocorre em $\rho(x)$.
+
+    Seja $x \in X$ e suponha que $Q'y\chi$ é o escopo de um quantificador da fórmula $Qz\varphi$ em que $x$ ocorre livre com relação à fórmula $Qz\varphi$.
+    Veremos que $y$ não ocorre em $\rho(x)$.
+
+    Como $x$ ocorre livre em $Qz\varphi$, $x$ não é $z$.
+
+    Se $Q'y\chi$ é a própria fórmula $Qz\varphi$, então $y$ é $z$.
+    Além disso, $x\neq z$ ocorre livre em $\varphi$, e, por hipótese, $z$ não ocorre em $\rho(x)$.
+    Logo, $y$ não ocorre em $\rho(x)$.
+
+    Já se $Q'y\chi$ não é a própria fórmula $Qz\varphi$, então $Q'y\chi$ é o escopo de um quantificador da fórmula $\varphi$ em que $x\neq z$ ocorre livre com relação à fórmula $\varphi$.
+    Como $\varphi[\rho_{-z}]$ é válida e $\rho_{-z}(x)=\rho(x)$, temos que $y$ não ocorre em $\rho(x)$.
+
+    Reciprocamente, suponha que a substituição $(Qz\varphi)[\rho]$ é válida.
+    Então, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\varphi$, então $z$ não ocorre em $\rho(x)$.
+    De fato, se $z$ ocorresse em $\rho(x)$, então uma ocorrência livre de $x$ em $\varphi$ seria uma ocorrência livre de $x$ em $Qz\varphi$ no escopo do quantificador inicial, que age em $z$.
+
+    Vejamos agora que a substituição $\varphi[\rho_{-z}]$ é válida.
+    Seja $x\in X\setminus\{z\}$ e suponha que $y$ é uma variável que ocorre em $\rho_{-z}(x)=\rho(x)$.
+
+    Suponha, por absurdo, que $x$ ocorre livre no escopo de algum quantificador que age em $y$ em $\varphi$.
+    Como $x\neq z$, uma tal ocorrência de $x$ também é livre em $Qz\varphi$.
+    Assim, $x$ ocorre livre no escopo de um quantificador que age em uma variável que ocorre em $\rho(x)$ em $Qz\varphi$, contradizendo a validade de $(Qz\varphi)[\rho]$.
+\end{proof}
+
+\begin{metalemma}\label{mlem:substituicaoEmFormulas2}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $\varphi$ uma $\mathcal L$-fórmula, e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+    Então para toda variável ou constante $z$, $z$ ocorre livre em $\varphi[\rho]$ se, e somente se,
+    \begin{itemize}
+        \item $z$ ocorre livre em $\varphi$ e não está em $X$, ou
+        \item existe algum $x \in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre livre em $\varphi$.
+    \end{itemize}
+\end{metalemma}
+\begin{proof}
+Provaremos por indução sobre a estrutura de $\varphi$ que a tese vale para todo $\varphi$ como na hipótese indutiva.
+
+Suponha primeiro que $\varphi$ é uma fórmula atômica $R(e_1, \dots, e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
+
+Uma variável ou constante $z$ ocorre em $\varphi[\rho]$ se, e somente se, $z$ ocorre em algum $e_i[\rho]$.
+Pelo Metalema~\ref{mlem:substituicaoEmTermos}, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+\begin{itemize}
+    \item $z$ ocorre em $e_i$ e $z\notin X$;
+    \item existe algum $x\in X$ tal que $x$ ocorre em $e_i$ e $z$ ocorre em $\rho(x)$.
+\end{itemize}
+
+Como as ocorrências de variáveis e constantes em $R(e_1, \dots, e_n)$ são exatamente as ocorrências que aparecem em algum dos termos $e_i$, isso equivale a dizer que uma das condições abaixo ocorre:
+\begin{itemize}
+    \item $z$ ocorre em $t$ e $z\notin X$, ou
+    \item existe algum $x\in X$ tal que $x$ ocorre em $t$ e $z$ ocorre em $\rho(x)$.
+\end{itemize}
+\smallskip
+
+Agora suponha que $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário.
+
+$R$ não possui variáveis ou constantes, de modo que $z$ não ocorre em $\varphi[\rho]$ para toda variável ou constante $z$, e, portanto, o item (b) é satisfeito.
+\smallskip
+
+Suponha que $\varphi$ é $\neg \psi$ e a tese já foi demonstrada para $\psi$.
+
+Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$.
+Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+\begin{itemize}
+    \item $z$ ocorre livre em $\psi$ e $z\notin X$;
+    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
+\end{itemize}
+Como as ocorrências livres de variáveis e constantes em $\neg \psi$ correspondem às ocorrências livres de variáveis e constantes em $\psi$, assim, segue a tese.
+\smallskip
+
+Suponha que $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, e a tese já foi demonstrada para $\psi$ e para $\theta$.
+
+Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$ ou $z$ ocorre livre em $\theta[\rho]$.
+Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+\begin{itemize}
+    \item $z$ ocorre livre em $\psi$ e $z\notin X$;
+    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$;
+    \item $z$ ocorre livre em $\theta$ e $z\notin X$;
+    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\theta$ e $z$ ocorre em $\rho(x)$.
+\end{itemize}
+Como as ocorrências livres de variáveis e constantes em $\psi \square \theta$ correspondem às ocorrências livres de variáveis e constantes em $\psi$ ou às ocorrências livres de variáveis e constantes em $\theta$, segue a tese.
+\smallskip
+
+Suponha que $\varphi$ é $Qy\psi$, em que $Q$ é $\forall$ ou $\exists$, e a tese já foi demonstrada para $\psi$.
+
+Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho_{-y}]$ e $z$ é diferente de $y$.
+Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+
+\begin{itemize}
+    \item $z$ ocorre livre em $\psi$ e $z\notin X\setminus\{y\}$;
+    \item existe algum $x\in X\setminus\{y\}$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
+\end{itemize}
+Como as ocorrências livres de variáveis e constantes em $Qy\psi$ correspondem às ocorrências livres de variáveis e constantes em $\psi[\rho_{-y}]$ e $z$ é diferente de $y$, segue a tese.
+\end{proof}
+
+Agora vamos desenvolver a notação usada na prática.
+Começaremos com alguns lemas simples.
+\begin{metalemma}\label{mlem:substituicaoTrivialTermos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem e seja $\rho$ um $\mathcal L$-mapeamento trivial de variáveis e constantes.
+    Então, para todo $\mathcal L$-termo $t$, $t[\rho]$ é $t$.
+
+    Em particular, $t[x/x]$ é $t$ para todo $\mathcal L$-termo $t$ e toda variável ou constante $x$, e, sendo $\varepsilon$ o mapeamento vazio, $t[\varepsilon]$ é $t$ para todo $\mathcal L$-termo $t$.
+\end{metalemma}
+\begin{proof}
+    Prova-se por indução sobre a estrutura de $t$ que $t[\rho]=t$.
+    Seja $X$ a coleção de variáveis ou constantes para a qual $\rho$ é definido.
+
+    Se $z$ é uma variável ou constante, temos que $z[\rho]$ é $z$: se $z$ está em $X$, então $\rho(z)$ é $z$, e, se $z$ não está em $X$, então $z[\rho]$ é $z$ por definição.
+
+    Se $t$ é $fe_1 \dots e_n$, em que $f$ é um símbolo funcional $n$-ário e $e_1, \dots, e_n$ são termos para os quais $e_1[\rho]=e_1$, \dots, $e_n[\rho]=e_n$, então $t[\rho]$ é $fe_1[\rho] \dots e_n[\rho]$, que é $fe_1 \dots e_n$.
+\end{proof}
+
+\begin{metalemma}\label{mlem:substituicaoTrivial}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem e seja $\rho$ um $\mathcal L$-mapeamento trivial de variáveis e constantes.
+    Então, para toda $\mathcal L$-fórmula $\varphi$, $\varphi[\rho]$ é $\varphi$ e a substituição $\varphi[\rho]$ é válida.
+
+    Em particular, $\varphi[x/x]$ é $\varphi$ para toda $\mathcal L$-fórmula $\varphi$ e toda variável ou constante $x$, e, sendo $\varepsilon$ o mapeamento vazio, $\varphi[\varepsilon]$ é $\varphi$ para toda $\mathcal L$-fórmula $\varphi$.
+    Tais substituições são válidas.
+\end{metalemma}
+
+\begin{proof}
+    Prova-se por indução sobre a estrutura de $\varphi$ que, para todo $\mathcal L$-mapeamento trivial $\rho$ de variáveis e constantes, $\varphi[\rho]$ é $\varphi$ e a substituição $\varphi[\rho]$ é válida.
+
+    Considere uma fórmula atômica $R(e_1, \dots, e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
+    Por definição, $R(e_1, \dots, e_n)[\rho]$ é $R(e_1[\rho], \dots, e_n[\rho])$, que, pelo Metalema~\ref{mlem:substituicaoTrivialTermos}, é $R(e_1, \dots, e_n)$.
+    A substituição $R(e_1, \dots, e_n)[\rho]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+
+    Se $R$ é um símbolo de predicado 0-ário, então $R[\rho]$ é $R$.
+    A substituição $R[\rho]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+
+    Se $\varphi$ é $\neg \psi$ e a tese já foi demonstrada para $\psi$, então $\varphi[\rho]$ é $\neg \psi[\rho]$, que é $\neg \psi$.
+    A substituição $(\neg \psi)[\rho]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+
+    Se $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, e a tese já foi demonstrada para $\psi$ e para $\theta$, então $\varphi[\rho]$ é $\psi[\rho] \square \theta[\rho]$, que é $\psi \square \theta$.
+    A substituição $(\psi\square\theta)[\rho]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+    
+    Se $\varphi$ é $Q y \psi$, em que $Q$ é $\forall$ ou $\exists$ e $y$ é uma variável, e a tese já foi demonstrada para $\psi$, então $\varphi[\rho]$ é $Q y \psi[\rho_{-y}]$.
+    Como $\rho_{-y}$ é um mapeamento trivial de variáveis e constantes definido em $X\setminus\{y\}$, em que $X$ é o domínio de $\rho$, segue da hipótese indutiva que $\psi[\rho_{-y}]$ é $\psi$.
+    Logo, $\varphi[\rho]$ é $Q y \psi$, isto é, $\varphi$.
+    A substituição $(Q y \psi)[\rho]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, pois $\psi[\rho_{-y}]$ é válida por hipótese indutiva e, para todo $x\in X\setminus\{y\}$, se $x$ ocorre livre em $\psi$, então $y$ não ocorre em $\rho(x)$: de fato, $\rho(x)=x$, e $x$ é distinto de $y$ se for variável, enquanto, se $x$ for constante, o termo $x$ não possui variáveis.
+\end{proof}
+
+Extensões ``triviais'' de $\mathcal L$-mapeamentos não influenciam no resultado da substituição, como mostram os metalemas abaixo.
+
+\begin{metalemma}\label{mlem:substituicaoExtensaoTrivialEmTermos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $t$ um $\mathcal L$-termo e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+
+    Seja $\rho'$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X'$ estendendo $\rho$ tal que, para todo $x$ em $X'$ mas não em $X$:
+    \begin{itemize}
+        \item $x$ é uma variável ou constante que não ocorre em $t$, ou
+        \item $\rho'(x)$ é $x$.
+    \end{itemize}
+
+    Então $t[\rho']$ é $t[\rho]$.
+\end{metalemma}
+\begin{proof}
+    Prova-se por indução sobre a estrutura de $t$ que $t[\rho']=t[\rho]$.
+
+    Se $t$ é uma variável ou constante $z$ em $X$, como $\rho'(z)=\rho(z)$, temos que $z[\rho']=\rho'(z)=\rho(z)=z[\rho]$.
+
+    Se $t$ é uma variável ou constante $z$ em $X'$, mas não em $X$, então $z[\rho]$ é $z$ por definição, e $z[\rho']$ é $z$ por hipótese, já que, nesse caso, $\rho'(z)$ é $z$.
+
+    Se $t$ é uma variável ou constante $z$ fora de $X'$, então $z[\rho]$ e $z[\rho']$ são $z$ por definição.
+
+    Suponha agora que $t$ é $fe_1 \dots e_n$, em que $f$ é um símbolo funcional $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
+    Se a hipótese do enunciado é válida para $t$, então é válida para cada $e_i$.
+    Logo, pela hipótese indutiva, $e_i[\rho']=e_i[\rho]$ para cada $i\in\{1,\dots,n\}$, e $t[\rho']$ é $fe_1[\rho'] \dots e_n[\rho']$, que é $fe_1[\rho] \dots e_n[\rho]$, isto é, $t[\rho]$.
+\end{proof}
+
+\begin{metalemma}\label{mlem:substituicaoTrivialEmFormulas}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $\varphi$ uma $\mathcal L$-fórmula e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+
+    Seja $\rho'$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X'$ estendendo $\rho$ tal que, para todo $x$ em $X'$ mas não em $X$:
+    \begin{itemize}
+        \item $x$ é uma variável ou constante que não ocorre livre em $\varphi$, ou
+        \item $\rho'(x)$ é $x$.
+    \end{itemize}
+
+    Então $\varphi[\rho']$ é $\varphi[\rho]$ e a substituição $\varphi[\rho']$ é válida se, e somente se, a substituição $\varphi[\rho]$ é válida.
+\end{metalemma}
+\begin{proof}
+    Prova-se por indução sobre a estrutura de $\varphi$ que $\varphi[\rho']=\varphi[\rho]$ e que a substituição $\varphi[\rho']$ é válida se, e somente se, a substituição $\varphi[\rho]$ é válida, quaisquer que sejam $\rho$ e $\rho'$ que satisfaçam as hipóteses do enunciado.
+
+    Considere uma fórmula atômica $R(e_1,\dots,e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1,\dots,e_n$ são termos.
+    Para cada $i\in\{1,\dots,n\}$, a hipótese do enunciado é válida para $e_i$.
+    Logo, pelo Metalema~\ref{mlem:substituicaoExtensaoTrivialEmTermos}, temos $e_i[\rho']=e_i[\rho]$.
+    Portanto, $R(e_1,\dots,e_n)[\rho']$ é $R(e_1[\rho'],\dots,e_n[\rho'])$, que é $R(e_1[\rho],\dots,e_n[\rho])$, isto é, $R(e_1,\dots,e_n)[\rho]$.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade} ambas as substituições são válidas.
+
+    Se $\varphi$ é um símbolo de predicado 0-ário, então $\varphi[\rho']$ e $\varphi[\rho]$ são ambas $\varphi$.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade} ambas as substituições são válidas.
+
+    Se $\varphi$ é $\neg\psi$, então a hipótese do enunciado é válida para $\psi$.
+    Logo, pela hipótese indutiva, $\psi[\rho']=\psi[\rho]$.
+    Portanto, $(\neg\psi)[\rho']$ é $\neg\psi[\rho']$, que é $\neg\psi[\rho]$, isto é, $(\neg\psi)[\rho]$.
+    Também pela hipótese indutiva e pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $(\neg\psi)[\rho']$ é válida se, e somente se, a substituição $\psi[\rho']$ é válida, o que ocorre se, e somente se, a substituição $\psi[\rho]$ é válida, o que ocorre se, e somente se, a substituição $(\neg\psi)[\rho]$ é válida.
+
+    Se $\varphi$ é $\psi\square\theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, então a hipótese do enunciado é válida para $\psi$ e para $\theta$.
+    Logo, pela hipótese indutiva, $\psi[\rho']=\psi[\rho]$ e $\theta[\rho']=\theta[\rho]$.
+    Portanto, $(\psi\square\theta)[\rho']$ é $\psi[\rho']\square\theta[\rho']$, que é $\psi[\rho]\square\theta[\rho]$, isto é, $(\psi\square\theta)[\rho]$.
+    Também pela hipótese indutiva e pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $(\psi\square\theta)[\rho']$ é válida se, e somente se, as substituições $\psi[\rho']$ e $\theta[\rho']$ são válidas, o que ocorre se, e somente se, as substituições $\psi[\rho]$ e $\theta[\rho]$ são válidas, o que ocorre se, e somente se, a substituição $(\psi\square\theta)[\rho]$ é válida.
+
+    Resta o caso em que $\varphi$ é $Qz\psi$, em que $Q$ é $\forall$ ou $\exists$ e $z$ é uma variável.
+    Note que $\rho'_{-z}$ estende $\rho_{-z}$.
+    Além disso, a hipótese do enunciado é válida para $\psi$, $\rho_{-z}$ e $\rho'_{-z}$.
+    Logo, pela hipótese indutiva, $\psi[\rho'_{-z}]$ é $\psi[\rho_{-z}]$.
+    Portanto, $(Qz\psi)[\rho']$ é $Qz\psi[\rho'_{-z}]$, que é $Qz\psi[\rho_{-z}]$, isto é, $(Qz\psi)[\rho]$.
+    Também pela hipótese indutiva e pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $(Qz\psi)[\rho']$ é válida se, e somente se, a substituição $\psi[\rho'_{-z}]$ é válida e, para todo $x\in X'\setminus\{z\}$, se $x$ ocorre livre em $\psi$, então $z$ não ocorre em $\rho'(x)$.
+
+    Como $\psi[\rho'_{-z}]$ é válida se, e somente se, $\psi[\rho_{-z}]$ é válida, resta comparar as condições sobre os elementos de $X'\setminus\{z\}$ e de $X\setminus\{z\}$.
+
+    Para $x\in X\setminus\{z\}$, temos $\rho'(x)=\rho(x)$.
+    Por outro lado, se $x$ está em $X'$ mas não em $X$, $x\neq z$ e $x$ ocorre livre em $\psi$, então $x$ ocorre livre em $Qz\psi$.
+    Logo, pela hipótese sobre $\rho'$, temos $\rho'(x)=x$.
+    Como $x$ é distinto de $z$, segue que $z$ não ocorre em $\rho'(x)$.
+
+    Portanto, a condição
+    \[
+        \text{para todo }x\in X'\setminus\{z\},\text{ se }x\text{ ocorre livre em }\psi,\text{ então }z\text{ não ocorre em }\rho'(x)
+    \]
+    é equivalente à condição
+    \[
+        \text{para todo }x\in X\setminus\{z\},\text{ se }x\text{ ocorre livre em }\psi,\text{ então }z\text{ não ocorre em }\rho(x).
+    \]
+
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, isso ocorre se, e somente se, a substituição $(Qz\psi)[\rho]$ é válida.
+\end{proof}
+
+\begin{convention}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ e $\sigma$ um $\mathcal L$-mapeamento de variáveis e constantes.
+
+    O mapeamento $\rho\sigma$ é o $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ tal que, para todo $x\in X$, $(\rho\sigma)(x)$ é $\rho(x)[\sigma]$.
+\end{convention}
+
+Nesse contexto, vale o seguinte metalema.
+
+\begin{metalemma}\label{mlem:substituicaoCompostaTermos}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem e $t$ um $\mathcal L$-termo.
+    Seja $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ e seja $\sigma$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $Y$.
+
+    Suponha que nenhum elemento de $Y$ ocorre em $t$.
+    Então $t[\rho\sigma]$ é $t[\rho][\sigma]$.
+\end{metalemma}
+
+\begin{proof}
+    Provaremos por indução sobre a estrutura de $t$.
+
+    Se $t$ é uma variável ou constante $z$ fora de $X$, temos que $z[\rho\sigma]$ é $z$ por definição, e $z[\rho][\sigma]$ é $z[\sigma]$, que é $z$ por hipótese, já que nenhum elemento de $Y$ ocorre em $t$.
+
+    Se $t$ é uma variável ou constante $z$ em $X$, então $z[\rho\sigma]$ é $\rho(z)[\sigma]$, que é $(\rho\sigma)(z)$ por definição.
+    Portanto, $z[\rho][\sigma]$ é $z[\rho\sigma]$.
+
+    Se $t$ é $fe_1\dots e_n$ e nenhum elemento de $Y$ ocorre em $t$, então nenhum elemento de $Y$ ocorre em cada $e_i$.
+     Logo, pela hipótese indutiva aplicada a $e_1,\dots,e_n$, $e_i[\rho\sigma]$ é $e_i[\rho][\sigma]$ para cada $i\leq n$.
+     Portanto,
+    \[
+        t[\rho\sigma]
+        =
+        fe_1[\rho\sigma]\dots e_n[\rho\sigma]
+        =
+        fe_1[\rho][\sigma]\dots e_n[\rho][\sigma]
+        =(fe_1[\rho]\dots e_n[\rho])[\sigma]
+        =(fe_1\dots e_n)[\rho][\sigma]
+        =t[\rho][\sigma].
+    \]
+\end{proof}
+
+\begin{metalemma}\label{mlem:substituicaoComposta}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem e $\varphi$ uma $\mathcal L$-fórmula.
+    Seja $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ e seja $\sigma$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $Y$.
+
+    Suponha que nenhum elemento de $Y$ ocorre livre em $\varphi$ e que a substituição $\varphi[\rho]$ é válida.
+    Então $\varphi[\rho\sigma]$ é $\varphi[\rho][\sigma]$.
+
+    Além disso, se $\varphi[\rho][\sigma]$ é válida, então $\varphi[\rho\sigma]$ é válida.
+\end{metalemma}
+
+\begin{proof}
+    Provaremos a afirmação por indução sobre a estrutura de $\varphi$.
+
+    Se $\varphi$ é $R e_1\dots e_n$, em que $R$ é um símbolo de predicado $n$-ário ($n\geq 1$) e $e_1,\dots,e_n$ são termos, então, do Metalema~\ref{mlem:substituicaoCompostaTermos}, $e_i[\rho\sigma]$ é $e_i[\rho][\sigma]$ para cada $i\in\{1,\dots,n\}$.
+    Logo,
+    \[
+        \varphi[\rho\sigma]
+        =
+        R e_1[\rho\sigma]\dots e_n[\rho\sigma]
+        =
+        R e_1[\rho][\sigma]\dots e_n[\rho][\sigma]
+        =(R e_1[\rho]\dots e_n[\rho])[\sigma]
+        =(R e_1\dots e_n)[\rho][\sigma]
+        =\varphi[\rho][\sigma].
+    \]
+    Temos que a substituição $\varphi[\rho\sigma]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+
+    Se $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário, então ambas as substituições $\varphi[\rho\sigma]$ e $\varphi[\rho][\sigma]$ são $R$.
+    Temos que a substituição $\varphi[\rho\sigma]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+
+    Se $\varphi$ é $\neg\psi$, então, pela hipótese indutiva,
+    \[
+        \varphi[\rho\sigma]
+        =
+        \neg\psi[\rho\sigma]
+        =
+        \neg\psi[\rho][\sigma]
+        =
+        (\neg\psi)[\rho][\sigma]
+        =
+        \varphi[\rho][\sigma].
+    \]
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, a substituição $\psi[\rho\sigma]$ é válida.
+    Como $\neg\psi[\rho]$ é válida, temos que $\psi[\rho]$ é válida.
+    Como $(\neg\psi[\rho])[\sigma]$ é válida, temos que $\psi[\rho][\sigma]$ é válida.
+    Assim, por hipótese indutiva, $\psi[\rho\sigma]$ é válida, e, portanto, $\varphi[\rho\sigma]$ é válida.
+
+    Se $\varphi$ é $\psi\square\theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, então, pela hipótese indutiva,
+    \[
+        \varphi[\rho\sigma]
+        =
+        \psi[\rho\sigma]\square\theta[\rho\sigma]
+        =
+        \psi[\rho][\sigma]\square\theta[\rho][\sigma]
+        =
+        (\psi\square\theta)[\rho][\sigma]
+        =
+        \varphi[\rho][\sigma].
+    \]
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, as substituições $\psi[\rho\sigma]$ e $\theta[\rho\sigma]$ são válidas.
+    Como $(\psi\square\theta)[\rho]$ é válida, temos que $\psi[\rho]$ e $\theta[\rho]$ são válidas.
+    Como $((\psi\square\theta)[\rho])[\sigma]$ é válida, e a fórmula interna é $\psi[\rho]\square\theta[\rho]$, temos que $(\psi[\rho]\square\theta[\rho])[\sigma]$ é válida, e, portanto, $\psi[\rho][\sigma]$ e $\theta[\rho][\sigma]$ são válidas.
+    Assim, por hipótese indutiva, $\psi[\rho\sigma]$ e $\theta[\rho\sigma]$ são válidas, e, portanto, $\varphi[\rho\sigma]$ é válida.
+
+    Resta o caso em que $\varphi$ é $Qz\psi$, em que $Q$ é $\forall$ ou $\exists$ e $z$ é uma variável.
+
+    Como $(Qz\psi)[\rho]$ é válida, pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, temos que $\psi[\rho_{-z}]$ é válida e, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\psi$, então $z$ não ocorre em $\rho(x)$.
+
+    Como nenhum elemento de $Y$ ocorre livre em $Qz\psi$, nenhum elemento de $Y\setminus\{z\}$ ocorre livre em $\psi$.
+    Pela hipótese indutiva aplicada a $\psi$, $\rho_{-z}$ e $\sigma_{-z}$, temos
+    \[
+        \psi[\rho_{-z}\sigma_{-z}]
+        =
+        \psi[\rho_{-z}][\sigma_{-z}].
+    \]
+
+    Além disso, para todo $x\in X\setminus\{z\}$ que ocorre livre em $\psi$, temos que $z$ não ocorre em $\rho(x)$.
+    Logo, pelo Metalema~\ref{mlem:substituicaoTrivial}, temos
+    \[
+        \rho(x)[\sigma]=\rho(x)[\sigma_{-z}].
+    \]
+    Assim, as substituições $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ têm o mesmo efeito sobre as ocorrências livres de variáveis de $X\setminus \{z\}$ em $\psi$.
+    Portanto, novamente pelo Metalema~\ref{mlem:substituicaoTrivial}, temos:
+    \[
+        \psi[(\rho\sigma)_{-z}]
+        =
+        \psi[\rho_{-z}\sigma_{-z}].
+    \]
+
+    Consequentemente,
+    \[
+        (Qz\psi)[\rho\sigma]
+        =
+        Qz\psi[(\rho\sigma)_{-z}]
+        =
+        Qz\psi[\rho_{-z}\sigma_{-z}]
+        =
+        Qz\psi[\rho_{-z}][\sigma_{-z}]
+        =
+        (Qz\psi)[\rho][\sigma].
+    \]
+
+    Agora suponha que $(Qz\psi)[\rho][\sigma]$ é válida.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, temos que $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
+    Pela hipótese indutiva, segue que $\psi[\rho_{-z}\sigma_{-z}]$ é válida.
+    Como as substituições $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ têm o mesmo efeito sobre as ocorrências livres relevantes de $\psi$, obtemos que $\psi[(\rho\sigma)_{-z}]$ é válida.
+
+    Agora seja $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$.
+    Como $(Qz\psi)[\rho]$ é válida, temos que $z$ não ocorre em $\rho(x)$.
+    Devemos ver que $z$ não ocorre em $(\rho\sigma)(x)$, ou seja, que $z$ não ocorre em $\rho(x)[\sigma]$.
+
+    Suponha, por absurdo, que $z$ ocorre em $\rho(x)[\sigma]$.
+    Como $z$ não ocorre em $\rho(x)$, isso implica que existe algum $u\in Y\setminus\{z\}$ que ocorre em $\rho(x)$ e tal que $z$ ocorre em $\sigma(u)$.
+
+    Como $x$ ocorre livre em $\psi$ e a substituição $\psi[\rho_{-z}]$ é válida, tal ocorrência de $u$ em $\rho(x)$ dá origem a uma ocorrência livre de $u$ em $\psi[\rho_{-z}]$.
+    Mas a validade de $(Qz\psi)[\rho][\sigma]$ implica que, se $u$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(u)$.
+    Contradição.
+
+    Logo, $z$ não ocorre em $(\rho\sigma)(x)$.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, concluímos que $(Qz\psi)[\rho\sigma]$ é válida.
+\end{proof}
+
+
+\begin{metalemma}\label{mlem:substituicaoInversaEmFormulas}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem.
+
+    Seja $\rho$ o $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ tal que para cada $z\in X$, $\rho(z)$ é uma variável ou constante.
+    Suponha que $\rho$ é injetor, ou seja, que, para quaisquer $z_1, z_2\in X$, se $\rho(z_1)$ é igual a $\rho(z_2)$, então $z_1$ é $z_2$.
+    
+    Seja $Y$ a imagem de $\rho$, isto é, $Y$ é a coleção de variáveis ou constantes que são $\rho(z)$ para algum $z\in X$.
+    Seja $\sigma$ o $\mathcal L$-mapeamento de variáveis e constantes definido em $Y$ tal que, para todo $z\in Y$, $\sigma(z)$ é $x$, em que $x$ é a única variável ou constante tal que $\rho(x)$ é $z$.
+
+    \begin{enumerate}
+        \item Seja $t$ um $\mathcal L$-termo tal que, para todo $z\in X$, $\rho(z)$ não ocorre em $t$.
+        Então $t[\rho][\sigma]$ é $t$.
+        \item Seja $\varphi$ uma $\mathcal L$-fórmula tal que, para todo $z\in X$, $\rho(z)$ não ocorre livre em $\varphi$.
+        Se a substituição $\varphi[\rho]$ é válida, então $\varphi[\rho][\sigma]$ é $\varphi$ e a substituição $\varphi[\rho][\sigma]$ é válida.
+    \end{enumerate}
+\end{metalemma}
+\begin{proof}
+    (a) Pelo Metalema~\ref{mlem:substituicaoCompostaTermos}, $t[\rho][\sigma]$ é $t[\rho\sigma]$.
+    Note que para cada $x \in X$, $\rho\sigma(x)$ é $\rho(x)[\sigma]$, que é $x$ por definição de $\sigma$.
+    Assim, $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $t[\rho\sigma]$ é $t$ pelo Metalema~\ref{mlem:substituicaoTrivialEmTermos}.
+
+    (b) Pelo Metalema~\ref{mlem:substituicaoComposta}, $\varphi[\rho][\sigma]$ é $\varphi[\rho\sigma]$.
+    Como no item (a), $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $\varphi[\rho\sigma]$ é $\varphi$ pelo Metalema~\ref{mlem:substituicaoTrivialEmFormulas}.
+
+    Resta ver apenas que a substituição $\varphi[\rho][\sigma]$ é válida.
+    Provaremos isso por indução sobre a estrutura de $\varphi$.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, o único caso a ser verificado é o caso em que $\varphi$ é $Qz\psi$, em que $Q$ é $\forall$ ou $\exists$ e $z$ é uma variável.
+
+    Verifiquemos que a substituição $(Qz\psi)[\rho][\sigma]$ é válida.
+    Temos que $(Qz\psi)[\rho]$ é $Qz\psi[\rho_{-z}]$.
+    Assim, devemos ver que a substituição $(Qz\psi[\rho_{-z}])[\sigma]$ é válida.
+
+        Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, é suficiente ver que a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida e que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$.
+
+    Seja $X_0$ a coleção dos elementos de $X\setminus\{z\}$ que ocorrem livres em $\psi$.
+    Seja $\rho_0$ a restrição de $\rho$ a $X_0$.
+    Seja $Y_0$ a imagem de $\rho_0$ e seja $\sigma_0$ a restrição de $\sigma$ a $Y_0$.
+
+    Pela validade de $(Qz\psi)[\rho]$, temos que $\psi[\rho_{-z}]$ é válida e, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\psi$, então $z$ não ocorre em $\rho(x)$.
+    Assim, $z$ não está em $Y_0$.
+
+    Como $\rho_{-z}$ é uma extensão de $\rho_0$ por elementos que não ocorrem livres em $\psi$, segue do Metalema~\ref{mlem:substituicaoTrivialEmFormulas} que
+    \[
+        \psi[\rho_{-z}]=\psi[\rho_0]
+    \]
+    e que a substituição $\psi[\rho_0]$ é válida.
+
+    Para cada $x\in X_0$, temos que $\rho_0(x)=\rho(x)$ não ocorre livre em $\psi$.
+    De fato, como $\rho(x)$ é diferente de $z$, se $\rho(x)$ ocorresse livre em $\psi$, então ocorreria livre em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
+
+    Assim, pela hipótese indutiva aplicada a $\psi$, $\rho_0$ e $\sigma_0$, a substituição $\psi[\rho_0][\sigma_0]$ é válida.
+
+    Agora veremos que $\sigma_{-z}$ é uma extensão de $\sigma_0$ por elementos que não ocorrem livres em $\psi[\rho_0]$.
+    Seja $y\in (Y\setminus\{z\})$ que não está em $Y_0$.
+    Suponha, por absurdo, que $y$ ocorre livre em $\psi[\rho_0]$.
+    Pelo Metalema~\ref{mlem:substituicaoEmFormulas}, como $\psi[\rho_0]$ é válida, temos que uma das duas possibilidades ocorre:
+    \begin{itemize}
+        \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
+        \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y$ ocorre em $\rho_0(x)$.
+    \end{itemize}
+    A segunda possibilidade contradiz $y\notin Y_0$.
+    A primeira também é impossível, pois $y\in Y$, digamos $y=\rho(u)$ para algum $u\in X$, e, como $y\neq z$, uma ocorrência livre de $y$ em $\psi$ seria uma ocorrência livre de $\rho(u)$ em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
+
+    Logo, $y$ não ocorre livre em $\psi[\rho_0]$.
+    Pelo Metalema~\ref{mlem:substituicaoTrivialEmFormulas}, segue que
+    \[
+        \psi[\rho_0][\sigma_{-z}]
+        =
+        \psi[\rho_0][\sigma_0]
+    \]
+    e que a substituição $\psi[\rho_0][\sigma_{-z}]$ é válida.
+
+    Como $\psi[\rho_{-z}]=\psi[\rho_0]$, concluímos que a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
+
+    Resta verificar que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$, ou seja, que $z\neq \sigma(y)$, ou, equivalentemente, que $\rho(z)\neq y$.
+    Seja $y\in Y\setminus\{z\}$ tal que $y$ ocorre livre em $\psi[\rho_{-z}]=\psi[\rho_0]$.
+
+    Suponha, por absurdo, que $y=\rho(z)$.
+    Pelo Metalema~\ref{mlem:substituicaoEmFormulas}, aplicado à substituição válida $\psi[\rho_0]$, temos que uma das duas possibilidades ocorre:
+    \begin{itemize}
+        \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
+        \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y=\rho_0(x)$.
+    \end{itemize}
+    Na primeira possibilidade, como $y=\rho(z)$ e $y\neq z$, teríamos que $\rho(z)$ ocorre livre em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
+    Na segunda possibilidade, pela injetividade de $\rho$, segue que $x=z$, contradizendo $x\in X_0\subseteq X\setminus\{z\}$.
+    Portanto, $z$ não ocorre em $\sigma(y)$.
+\end{proof}
+\subsection*{Exercícios}
+
+\begin{exercise}\label{exr:substituicaoEmFormulas}
+    Considere a linguagem da teoria dos anéis do Exemplo~\ref{exa:exemplosLexicos}.
+    Em cada item, determine $\varphi[x/t]$ e se a substituição é válida.
+    \begin{enumerate}[label=(\alph*)]
+        \item $\varphi$ é $x = x \cdot y$ e $t$ é $y$.
+        \item $\varphi$ é $\forall x \, (x = x \cdot y)$ e $t$ é $y$.
+        \item $\varphi$ é $\forall x \, (x = x \cdot y \wedge \forall y\, \neg (x = x))$ e $t$ é $y$.
+        \item $\varphi$ é $ \neg (x+y =y+x) \wedge \forall y \, (x = x \cdot y)$ e $t$ é $y$.
+    \end{enumerate}
+\end{exercise}

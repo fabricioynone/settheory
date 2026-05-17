@@ -1,0 +1,95 @@
+\section{Variáveis ligadas e livres}\label{sec:variaveisLigadasELivres}
+\index{sintaxe}
+
+Nesta seção, trabalharemos as noções de variáveis ligadas e livres, de sentenças e de fechos universais.
+
+\begin{metadefinition}[Variáveis ligadas e livres]\label{mdef:variaveisLigadasELivres}\index{variável!ligada}\index{variável!livre}\index{sentença}
+    Dada uma fórmula $\varphi$ e uma ocorrência de um quantificador $Q$ (que pode ser $\forall$ ou $\exists$), dizemos que $Q$ \emph{age} em uma variável $x$ se o próximo símbolo de $\varphi$ após $Q$ for $x$ (ou seja, se o escopo desta ocorrência de $Q$ for da forma $Q x \psi$).
+
+    Dizemos que uma ocorrência de uma variável $x$ em $\varphi$ é \emph{ligada}, ou \emph{quantificada}, se ela estiver no escopo de um quantificador $Q$ que age em $x$.
+    Caso contrário, dizemos que a ocorrência de $x$ é \emph{livre}.
+
+    A ocorrência de $x$ que aparece imediatamente após o quantificador em uma fórmula da forma $Qx\,\psi$ também é considerada ligada.
+
+    Caso $\varphi$ não possua variáveis livres, dizemos que $\varphi$ é uma \emph{sentença}.
+\end{metadefinition}
+
+\begin{example}\label{exa:variaveisLigadasELivres}
+    Na fórmula $x_1 = x_2 \wedge \forall \textcolor{red}{x_1} (\textcolor{red}{x_1} \in x_3)$, a segunda e a terceira ocorrência de $x_1$ são ligadas (grafadas em vermelho).
+    Todas as outras ocorrências de variáveis são livres.
+\end{example}
+
+\begin{example}\label{exa:variaveisLigadasRepetidas}
+    Na fórmula
+    \[
+        \forall x\,(x = y \wedge \exists x\,(x = z)),
+    \]
+    a ocorrência de $x$ imediatamente após $\forall$, a ocorrência de $x$ em $x=y$, a ocorrência de $x$ imediatamente após $\exists$ e a ocorrência de $x$ em $x=z$ são ligadas.
+    A ocorrência de $x$ em $x=y$ está ligada pelo quantificador universal externo, enquanto a ocorrência de $x$ em $x=z$ está ligada pelo quantificador existencial interno.
+    As ocorrências de $y$ e de $z$ são livres.
+\end{example}
+
+\begin{example}\label{exa:sentencas}Sobre sentenças:
+\begin{itemize}
+        \item Se $P$ é um símbolo de predicado de aridade $0$, considere a fórmula $P$, que consiste neste único símbolo.
+        Então $P$ é uma sentença, pois não possui variáveis livres.
+    
+        \item A fórmula $\forall x (x = x)$ é uma sentença, pois a única variável que aparece nela é $x$, e todas as ocorrências de $x$ são ligadas.
+    
+        \item A fórmula $x = x \wedge \forall x \,(x \in x)$ não é uma sentença, pois as duas primeiras ocorrências de $x$ são livres.
+\end{itemize}
+\end{example}
+
+A seguinte convenção é muito útil nas mais diversas situações.
+
+\begin{convention}\label{conv:variaveisLivres}
+    Seja $\varphi$ uma fórmula.
+    A notação $\varphi(x_1, \dots, x_n)$ indica que todas as variáveis com ocorrência livre de $\varphi$ estão entre $x_1, \dots, x_n$ e $x_1, \dots, x_n$ são variáveis distintas.
+
+    Dessa forma, $x_1, \dots, x_n$ podem não ocorrer todas livres em $\varphi$ (não precisam nem mesmo ocorrer em $\varphi$).
+    Porém, nenhuma outra variável ocorre livre em $\varphi$.
+
+    Da mesma forma, se $t$ é um termo, a notação $t(x_1, \dots, x_n)$ indica que todas as variáveis com ocorrência em $t$ estão entre $x_1, \dots, x_n$, e $x_1, \dots, x_n$ são variáveis distintas.
+\end{convention}
+
+Nos axiomas lógicos de primeira ordem, que serão enunciados na Seção~\ref{sec:teoriasPrimeiraOrdem}, aparecerão fechos universais de instâncias de esquemas que podem envolver fórmulas com variáveis livres.
+Por isso, precisamos registrar a noção de fecho universal.
+
+\begin{metadefinition}[Fecho universal]\label{mdef:fechoUniversal}\index{fecho universal}
+    Dada uma fórmula $\varphi$, um \emph{fecho universal} de $\varphi$ é uma sentença
+    \[
+        \forall x_1 \dots \forall x_n \varphi,
+    \]
+    sem variáveis livres, em que $n\geq 0$ e $x_1,\dots,x_n$ são variáveis.
+    Repetições em $x_1,\dots,x_n$ são permitidas.
+
+    Em particular, se $\varphi$ já é uma sentença, então $\varphi$ é um fecho universal de si mesma, tomando $n=0$.
+    Também permitiremos quantificadores sobre variáveis que não ocorrem livres na fórmula e quantificadores repetidos.
+\end{metadefinition}
+
+Uma mesma fórmula pode possuir vários fechos universais distintos.
+A ordem das variáveis quantificadas pode variar, e também é permitido quantificar variáveis que não ocorrem livres na fórmula.
+
+\begin{example}\label{exa:fechoUniversal}
+    Se $\varphi$ é $x_1 = x_2$, então $\forall x_1 \forall x_2 \,(x_1 = x_2)$ é um fecho universal de $\varphi$.
+\end{example}
+
+\subsection*{Exercícios}
+
+\begin{exercise}\label{exr:variaveisLivresELigadas}
+    Determine quais são as ocorrências de variáveis livres e ligadas nas seguintes fórmulas.
+    \begin{enumerate}[label=(\alph*)]
+        \item $\forall x \, (x = x)$
+        \item $\exists x \, (x = y)$
+        \item $\forall x \, (x = y) \rightarrow \exists y \, (y = z \wedge x=y)$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exr:fechosUniversais}
+    Determine dois fechos universais distintos para cada uma das fórmulas abaixo.
+    \begin{enumerate}[label=(\alph*)]
+        \item $x = y$;
+        \item $\exists z\,\neg(x = z)$;
+        \item $(x = y) \wedge (z = x)$.
+    \end{enumerate}
+\end{exercise}
