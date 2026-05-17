@@ -277,6 +277,7 @@ O metalema abaixo nos mostra critérios úteis em induções para demonstrar que
 
 \begin{metalemma}\label{mlem:substituicaoEmFormulas2}
     Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem, $\varphi$ uma $\mathcal L$-fórmula, e $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$.
+    Suponha que a substituição $\varphi[\rho]$ é válida.
     Então para toda variável ou constante $z$, $z$ ocorre livre em $\varphi[\rho]$ se, e somente se,
     \begin{itemize}
         \item $z$ ocorre livre em $\varphi$ e não está em $X$, ou
@@ -284,63 +285,73 @@ O metalema abaixo nos mostra critérios úteis em induções para demonstrar que
     \end{itemize}
 \end{metalemma}
 \begin{proof}
-Provaremos por indução sobre a estrutura de $\varphi$ que a tese vale para todo $\varphi$ como na hipótese indutiva.
+    Provaremos a afirmação por indução sobre a estrutura de $\varphi$.
 
-Suponha primeiro que $\varphi$ é uma fórmula atômica $R(e_1, \dots, e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
+    Suponha primeiro que $\varphi$ é uma fórmula atômica $R(e_1, \dots, e_n)$, em que $R$ é um símbolo de predicado $n$-ário com $n\geq 1$ e $e_1, \dots, e_n$ são termos.
 
-Uma variável ou constante $z$ ocorre em $\varphi[\rho]$ se, e somente se, $z$ ocorre em algum $e_i[\rho]$.
-Pelo Metalema~\ref{mlem:substituicaoEmTermos}, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
-\begin{itemize}
-    \item $z$ ocorre em $e_i$ e $z\notin X$;
-    \item existe algum $x\in X$ tal que $x$ ocorre em $e_i$ e $z$ ocorre em $\rho(x)$.
-\end{itemize}
+    Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre em algum $e_i[\rho]$.
+    Pelo Metalema~\ref{mlem:substituicaoEmTermos}, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+    \begin{itemize}
+        \item $z$ ocorre em $e_i$ e $z\notin X$;
+        \item existe algum $x\in X$ tal que $x$ ocorre em $e_i$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
 
-Como as ocorrências de variáveis e constantes em $R(e_1, \dots, e_n)$ são exatamente as ocorrências que aparecem em algum dos termos $e_i$, isso equivale a dizer que uma das condições abaixo ocorre:
-\begin{itemize}
-    \item $z$ ocorre em $t$ e $z\notin X$, ou
-    \item existe algum $x\in X$ tal que $x$ ocorre em $t$ e $z$ ocorre em $\rho(x)$.
-\end{itemize}
-\smallskip
+    Como as ocorrências livres de variáveis e constantes em $R(e_1, \dots, e_n)$ são exatamente as ocorrências que aparecem em algum dos termos $e_i$, isso equivale à tese.
+    \smallskip
 
-Agora suponha que $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário.
+    Agora suponha que $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário.
 
-$R$ não possui variáveis ou constantes, de modo que $z$ não ocorre em $\varphi[\rho]$ para toda variável ou constante $z$, e, portanto, o item (b) é satisfeito.
-\smallskip
+    $R$ não possui variáveis ou constantes, de modo que $z$ não ocorre livre em $\varphi[\rho]$ para toda variável ou constante $z$.
+    Além disso, nenhuma variável ou constante ocorre livre em $\varphi$.
+    Logo, a tese é satisfeita.
+    \smallskip
 
-Suponha que $\varphi$ é $\neg \psi$ e a tese já foi demonstrada para $\psi$.
+    Suponha que $\varphi$ é $\neg \psi$ e a tese já foi demonstrada para $\psi$.
+    Como a substituição $(\neg\psi)[\rho]$ é válida, pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\psi[\rho]$ é válida.
 
-Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$.
-Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
-\begin{itemize}
-    \item $z$ ocorre livre em $\psi$ e $z\notin X$;
-    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
-\end{itemize}
-Como as ocorrências livres de variáveis e constantes em $\neg \psi$ correspondem às ocorrências livres de variáveis e constantes em $\psi$, assim, segue a tese.
-\smallskip
+    Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$.
+    Pela hipótese indutiva, isso ocorre se, e somente se,
+    \begin{itemize}
+        \item $z$ ocorre livre em $\psi$ e $z\notin X$; ou
+        \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+    Como as ocorrências livres de variáveis e constantes em $\neg \psi$ correspondem às ocorrências livres de variáveis e constantes em $\psi$, segue a tese.
+    \smallskip
 
-Suponha que $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, e a tese já foi demonstrada para $\psi$ e para $\theta$.
+    Suponha que $\varphi$ é $\psi \square \theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, e a tese já foi demonstrada para $\psi$ e para $\theta$.
+    Como a substituição $(\psi\square\theta)[\rho]$ é válida, pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, as substituições $\psi[\rho]$ e $\theta[\rho]$ são válidas.
 
-Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$ ou $z$ ocorre livre em $\theta[\rho]$.
-Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
-\begin{itemize}
-    \item $z$ ocorre livre em $\psi$ e $z\notin X$;
-    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$;
-    \item $z$ ocorre livre em $\theta$ e $z\notin X$;
-    \item existe algum $x\in X$ tal que $x$ ocorre livre em $\theta$ e $z$ ocorre em $\rho(x)$.
-\end{itemize}
-Como as ocorrências livres de variáveis e constantes em $\psi \square \theta$ correspondem às ocorrências livres de variáveis e constantes em $\psi$ ou às ocorrências livres de variáveis e constantes em $\theta$, segue a tese.
-\smallskip
+    Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho]$ ou $z$ ocorre livre em $\theta[\rho]$.
+    Pela hipótese indutiva, isso ocorre se, e somente se, uma das condições abaixo ocorre:
+    \begin{itemize}
+        \item $z$ ocorre livre em $\psi$ e $z\notin X$;
+        \item existe algum $x\in X$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$;
+        \item $z$ ocorre livre em $\theta$ e $z\notin X$;
+        \item existe algum $x\in X$ tal que $x$ ocorre livre em $\theta$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+    Como as ocorrências livres de variáveis e constantes em $\psi \square \theta$ correspondem às ocorrências livres de variáveis e constantes em $\psi$ ou em $\theta$, segue a tese.
+    \smallskip
 
-Suponha que $\varphi$ é $Qy\psi$, em que $Q$ é $\forall$ ou $\exists$, e a tese já foi demonstrada para $\psi$.
+    Suponha que $\varphi$ é $Qy\psi$, em que $Q$ é $\forall$ ou $\exists$, e a tese já foi demonstrada para $\psi$.
+    Pela validade de $(Qy\psi)[\rho]$ e pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\psi[\rho_{-y}]$ é válida e, para todo $x\in X\setminus\{y\}$, se $x$ ocorre livre em $\psi$, então $y$ não ocorre em $\rho(x)$.
 
-Uma variável ou constante $z$ ocorre livre em $\varphi[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho_{-y}]$ e $z$ é diferente de $y$.
-Pela hipótese indutiva, isso ocorre se, e somente se, para algum $i\in\{1,\dots,n\}$, uma das condições abaixo ocorre:
+    Se $z$ é a variável $y$, então $z$ não ocorre livre em $(Qy\psi)[\rho]$.
+    Além disso, $y$ não ocorre livre em $Qy\psi$, e, se algum $x\in X$ ocorre livre em $Qy\psi$, então $x\in X\setminus\{y\}$ e $x$ ocorre livre em $\psi$, de modo que $y$ não ocorre em $\rho(x)$.
+    Portanto, a tese vale nesse caso.
 
-\begin{itemize}
-    \item $z$ ocorre livre em $\psi$ e $z\notin X\setminus\{y\}$;
-    \item existe algum $x\in X\setminus\{y\}$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
-\end{itemize}
-Como as ocorrências livres de variáveis e constantes em $Qy\psi$ correspondem às ocorrências livres de variáveis e constantes em $\psi[\rho_{-y}]$ e $z$ é diferente de $y$, segue a tese.
+    Agora suponha que $z$ é diferente de $y$.
+    Uma variável ou constante $z$ ocorre livre em $(Qy\psi)[\rho]$ se, e somente se, $z$ ocorre livre em $\psi[\rho_{-y}]$.
+    Pela hipótese indutiva aplicada a $\psi$ e $\rho_{-y}$, isso ocorre se, e somente se,
+    \begin{itemize}
+        \item $z$ ocorre livre em $\psi$ e $z\notin X\setminus\{y\}$; ou
+        \item existe algum $x\in X\setminus\{y\}$ tal que $x$ ocorre livre em $\psi$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+    Como $z$ é diferente de $y$, isso equivale a dizer que
+    \begin{itemize}
+        \item $z$ ocorre livre em $Qy\psi$ e $z\notin X$; ou
+        \item existe algum $x\in X$ tal que $x$ ocorre livre em $Qy\psi$ e $z$ ocorre em $\rho(x)$.
+    \end{itemize}
+    Segue a tese.
 \end{proof}
 
 Agora vamos desenvolver a notação usada na prática.
@@ -591,13 +602,19 @@ Nesse contexto, vale o seguinte metalema.
         \psi[\rho_{-z}][\sigma_{-z}].
     \]
 
-    Além disso, para todo $x\in X\setminus\{z\}$ que ocorre livre em $\psi$, temos que $z$ não ocorre em $\rho(x)$.
-    Logo, pelo Metalema~\ref{mlem:substituicaoTrivial}, temos
+    Seja $X_0$ a coleção dos elementos de $X\setminus\{z\}$ que ocorrem livres em $\psi$.
+    Para todo $x\in X_0$, temos que $z$ não ocorre em $\rho(x)$.
+    Logo, pelo Metalema~\ref{mlem:substituicaoExtensaoTrivialEmTermos}, temos
     \[
         \rho(x)[\sigma]=\rho(x)[\sigma_{-z}].
     \]
-    Assim, as substituições $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ têm o mesmo efeito sobre as ocorrências livres de variáveis de $X\setminus \{z\}$ em $\psi$.
-    Portanto, novamente pelo Metalema~\ref{mlem:substituicaoTrivial}, temos:
+
+    Seja $\tau$ o $\mathcal L$-mapeamento de variáveis e constantes definido em $X_0$ tal que, para cada $x\in X_0$,
+    \[
+        \tau(x)=\rho(x)[\sigma]=\rho(x)[\sigma_{-z}].
+    \]
+    Então $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ são extensões de $\tau$ por elementos que não ocorrem livres em $\psi$.
+    Portanto, pelo Metalema~\ref{mlem:substituicaoTrivialEmFormulas}, temos:
     \[
         \psi[(\rho\sigma)_{-z}]
         =
@@ -620,7 +637,7 @@ Nesse contexto, vale o seguinte metalema.
     Agora suponha que $(Qz\psi)[\rho][\sigma]$ é válida.
     Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, temos que $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
     Pela hipótese indutiva, segue que $\psi[\rho_{-z}\sigma_{-z}]$ é válida.
-    Como as substituições $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ têm o mesmo efeito sobre as ocorrências livres relevantes de $\psi$, obtemos que $\psi[(\rho\sigma)_{-z}]$ é válida.
+    Como $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ são extensões de $\tau$ por elementos que não ocorrem livres em $\psi$, segue do Metalema~\ref{mlem:substituicaoTrivialEmFormulas} que $\psi[(\rho\sigma)_{-z}]$ é válida.
 
     Agora seja $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$.
     Como $(Qz\psi)[\rho]$ é válida, temos que $z$ não ocorre em $\rho(x)$.
@@ -660,7 +677,7 @@ Nesse contexto, vale o seguinte metalema.
     Assim, $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $t[\rho\sigma]$ é $t$ pelo Metalema~\ref{mlem:substituicaoTrivialTermos}.
 
     (b) Pelo Metalema~\ref{mlem:substituicaoComposta}, $\varphi[\rho][\sigma]$ é $\varphi[\rho\sigma]$.
-    Como no item (a), $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $\varphi[\rho\sigma]$ é $\varphi$ pelo Metalema~\ref{mlem:substituicaoTrivialEmFormulas}.
+    Como no item (a), $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $\varphi[\rho\sigma]$ é $\varphi$ pelo Metalema~\ref{mlem:substituicaoTrivial}.
 
     Resta ver apenas que a substituição $\varphi[\rho][\sigma]$ é válida.
     Provaremos isso por indução sobre a estrutura de $\varphi$.
@@ -693,7 +710,7 @@ Nesse contexto, vale o seguinte metalema.
     Agora veremos que $\sigma_{-z}$ é uma extensão de $\sigma_0$ por elementos que não ocorrem livres em $\psi[\rho_0]$.
     Seja $y\in (Y\setminus\{z\})$ que não está em $Y_0$.
     Suponha, por absurdo, que $y$ ocorre livre em $\psi[\rho_0]$.
-    Pelo Metalema~\ref{mlem:substituicaoEmFormulas}, como $\psi[\rho_0]$ é válida, temos que uma das duas possibilidades ocorre:
+    Pelo Metalema~\ref{mlem:substituicaoEmFormulas2}, como $\psi[\rho_0]$ é válida, temos que uma das duas possibilidades ocorre:
     \begin{itemize}
         \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
         \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y$ ocorre em $\rho_0(x)$.
@@ -712,11 +729,13 @@ Nesse contexto, vale o seguinte metalema.
 
     Como $\psi[\rho_{-z}]=\psi[\rho_0]$, concluímos que a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
 
-    Resta verificar que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$, ou seja, que $z\neq \sigma(y)$, ou, equivalentemente, que $\rho(z)\neq y$.
+    Resta verificar que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$, ou seja, que $z\neq \sigma(y)$.
     Seja $y\in Y\setminus\{z\}$ tal que $y$ ocorre livre em $\psi[\rho_{-z}]=\psi[\rho_0]$.
 
-    Suponha, por absurdo, que $y=\rho(z)$.
-    Pelo Metalema~\ref{mlem:substituicaoEmFormulas}, aplicado à substituição válida $\psi[\rho_0]$, temos que uma das duas possibilidades ocorre:
+    Se $z\notin X$, então $\sigma(y)\in X$, e, portanto, $z\neq\sigma(y)$.
+    Suponha então que $z\in X$ e, por absurdo, que $\sigma(y)=z$.
+    Equivalentemente, $y=\rho(z)$.
+    Pelo Metalema~\ref{mlem:substituicaoEmFormulas2}, aplicado à substituição válida $\psi[\rho_0]$, temos que uma das duas possibilidades ocorre:
     \begin{itemize}
         \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
         \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y=\rho_0(x)$.
