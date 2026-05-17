@@ -57,7 +57,10 @@ Devemos provar que, na notação anterior, $t[\rho]$ é um $\mathcal L$-termo.
     (a) Se $w\in X$, então $t[\rho]$ é $\rho(w)$, que é um $\mathcal L$-termo.
     Já se $w\notin X$, então $t[\rho]$ é $w$, que é um $\mathcal L$-termo.
 
-    (b) Se $z$ é uma variável ou constante que ocorre em $t[\rho]$, e não existe algum $x\in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$, então $w$ não está em $X$, de modo que $t[\rho]$ é $w$, e, portanto, $z$ é $w$, que ocorre em $t$.
+    (b) Suponha que $z$ é uma variável ou constante que ocorre em $t[\rho]$.
+    Nesse caso, $w=z$.
+    Suponha, ainda que não existe algum $x\in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$.
+    Nesse caso, então $w=z$ não está em $X$, e $w=z$ ocorre em $t$.
 
     Reciprocamente, se $z$ é uma variável ou constante que ocorre em $t$ e não está em $X$, então $z$ é $w$ e $w$ não está em $X$, de modo que $t[\rho]$ é $w$, e, portanto, $z$ ocorre em $t[\rho]$.
     Já se existe algum $x\in X$ tal que $z$ ocorre em $\rho(x)$ e $x$ ocorre em $t$, então $x$ é $w$, e $t[\rho]$ é $\rho(w)=\rho(x)$, de modo que $z$ ocorre em $t[\rho]$.
@@ -533,7 +536,7 @@ Nesse contexto, vale o seguinte metalema.
     Suponha que nenhum elemento de $Y$ ocorre livre em $\varphi$ e que a substituição $\varphi[\rho]$ é válida.
     Então $\varphi[\rho\sigma]$ é $\varphi[\rho][\sigma]$.
 
-    Além disso, se $\varphi[\rho][\sigma]$ é válida, então $\varphi[\rho\sigma]$ é válida.
+    Além disso, a substituição $\varphi[\rho][\sigma]$ é válida se, e somente se, a substituição $\varphi[\rho\sigma]$ é válida.
 \end{metalemma}
 
 \begin{proof}
@@ -551,10 +554,11 @@ Nesse contexto, vale o seguinte metalema.
         =(R e_1\dots e_n)[\rho][\sigma]
         =\varphi[\rho][\sigma].
     \]
-    Temos que a substituição $\varphi[\rho\sigma]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, ambas as substituições são válidas.
 
     Se $\varphi$ é $R$, em que $R$ é um símbolo de predicado $0$-ário, então ambas as substituições $\varphi[\rho\sigma]$ e $\varphi[\rho][\sigma]$ são $R$.
-    Temos que a substituição $\varphi[\rho\sigma]$ é válida pelo Metalema~\ref{mlem:criteriosSubstituibilidade}.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, ambas as substituições são válidas.
+
 
     Se $\varphi$ é $\neg\psi$, então, pela hipótese indutiva,
     \[
@@ -569,9 +573,11 @@ Nesse contexto, vale o seguinte metalema.
         \varphi[\rho][\sigma].
     \]
     Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, a substituição $\psi[\rho\sigma]$ é válida.
-    Como $\neg\psi[\rho]$ é válida, temos que $\psi[\rho]$ é válida.
-    Como $(\neg\psi[\rho])[\sigma]$ é válida, temos que $\psi[\rho][\sigma]$ é válida.
-    Assim, por hipótese indutiva, $\psi[\rho\sigma]$ é válida, e, portanto, $\varphi[\rho\sigma]$ é válida.
+    Também pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho][\sigma]$ é válida se, e somente se, a substituição $\psi[\rho][\sigma]$ é válida.
+    Como $\varphi[\rho]$ é válida, a substituição $\psi[\rho]$ é válida.
+    Além disso, nenhum elemento de $Y$ ocorre livre em $\psi$.
+    Assim, pela hipótese indutiva, a substituição $\psi[\rho\sigma]$ é válida se, e somente se, a substituição $\psi[\rho][\sigma]$ é válida.
+    Portanto, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, a substituição $\varphi[\rho][\sigma]$ é válida.
 
     Se $\varphi$ é $\psi\square\theta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, então, pela hipótese indutiva,
     \[
@@ -586,9 +592,11 @@ Nesse contexto, vale o seguinte metalema.
         \varphi[\rho][\sigma].
     \]
     Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, as substituições $\psi[\rho\sigma]$ e $\theta[\rho\sigma]$ são válidas.
-    Como $(\psi\square\theta)[\rho]$ é válida, temos que $\psi[\rho]$ e $\theta[\rho]$ são válidas.
-    Como $((\psi\square\theta)[\rho])[\sigma]$ é válida, e a fórmula interna é $\psi[\rho]\square\theta[\rho]$, temos que $(\psi[\rho]\square\theta[\rho])[\sigma]$ é válida, e, portanto, $\psi[\rho][\sigma]$ e $\theta[\rho][\sigma]$ são válidas.
-    Assim, por hipótese indutiva, $\psi[\rho\sigma]$ e $\theta[\rho\sigma]$ são válidas, e, portanto, $\varphi[\rho\sigma]$ é válida.
+    Também pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $\varphi[\rho][\sigma]$ é válida se, e somente se, as substituições $\psi[\rho][\sigma]$ e $\theta[\rho][\sigma]$ são válidas.
+    Como $\varphi[\rho]$ é válida, as substituições $\psi[\rho]$ e $\theta[\rho]$ são válidas.
+    Além disso, nenhum elemento de $Y$ ocorre livre em $\psi$ ou em $\theta$.
+    Assim, pela hipótese indutiva, $\psi[\rho\sigma]$ é válida se, e somente se, $\psi[\rho][\sigma]$ é válida, e $\theta[\rho\sigma]$ é válida se, e somente se, $\theta[\rho][\sigma]$ é válida.
+    Portanto, a substituição $\varphi[\rho\sigma]$ é válida se, e somente se, a substituição $\varphi[\rho][\sigma]$ é válida.
 
     Resta o caso em que $\varphi$ é $Qz\psi$, em que $Q$ é $\forall$ ou $\exists$ e $z$ é uma variável.
 
@@ -634,115 +642,83 @@ Nesse contexto, vale o seguinte metalema.
         (Qz\psi)[\rho][\sigma].
     \]
 
-    Agora suponha que $(Qz\psi)[\rho][\sigma]$ é válida.
-    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, temos que $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
-    Pela hipótese indutiva, segue que $\psi[\rho_{-z}\sigma_{-z}]$ é válida.
-    Como $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ são extensões de $\tau$ por elementos que não ocorrem livres em $\psi$, segue do Metalema~\ref{mlem:substituicaoTrivialEmFormulas} que $\psi[(\rho\sigma)_{-z}]$ é válida.
+    Resta comparar as condições de validade.
 
-    Agora seja $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$.
+    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $(Qz\psi)[\rho\sigma]$ é válida se, e somente se:
+    \begin{enumerate}[label=(\alph*)]
+        \item a substituição $\psi[(\rho\sigma)_{-z}]$ é válida;
+        \item para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\psi$, então $z$ não ocorre em $(\rho\sigma)(x)=\rho(x)[\sigma]$.
+    \end{enumerate}
+
+    Também pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, a substituição $(Qz\psi)[\rho][\sigma]$ é válida se, e somente se:
+    \begin{enumerate}[label=(\alph*')]
+        \item a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida;
+        \item para todo $u\in Y\setminus\{z\}$, se $u$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(u)$.
+    \end{enumerate}
+
+    Pela hipótese indutiva aplicada a $\psi$, $\rho_{-z}$ e $\sigma_{-z}$, a substituição $\psi[\rho_{-z}\sigma_{-z}]$ é válida se, e somente se, a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
+    Como $(\rho\sigma)_{-z}$ e $\rho_{-z}\sigma_{-z}$ são extensões de $\tau$ por elementos que não ocorrem livres em $\psi$, segue do Metalema~\ref{mlem:substituicaoTrivialEmFormulas} que a substituição $\psi[(\rho\sigma)_{-z}]$ é válida se, e somente se, a substituição $\psi[\rho_{-z}\sigma_{-z}]$ é válida.
+    Assim, ($a$) é equivalente a ($a'$).
+
+    Portanto, resta apenas comparar as condições ($b$) e ($b'$).
+
+    Suponha primeiro ($b'$).
+    Seja $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$.
     Como $(Qz\psi)[\rho]$ é válida, temos que $z$ não ocorre em $\rho(x)$.
-    Devemos ver que $z$ não ocorre em $(\rho\sigma)(x)$, ou seja, que $z$ não ocorre em $\rho(x)[\sigma]$.
-
     Suponha, por absurdo, que $z$ ocorre em $\rho(x)[\sigma]$.
-    Como $z$ não ocorre em $\rho(x)$, isso implica que existe algum $u\in Y\setminus\{z\}$ que ocorre em $\rho(x)$ e tal que $z$ ocorre em $\sigma(u)$.
+    Pelo Metalema~\ref{mlem:substituicaoEmTermos}, existe algum $u\in Y$ tal que $u$ ocorre em $\rho(x)$ e $z$ ocorre em $\sigma(u)$.
+    Como $z$ não ocorre em $\rho(x)$, temos $u\neq z$.
+    Logo, $u\in Y\setminus\{z\}$.
+    Como $\psi[\rho_{-z}]$ é válida, segue do Metalema~\ref{mlem:substituicaoEmFormulas2} que $u$ ocorre livre em $\psi[\rho_{-z}]$.
+    Assim, $z$ não ocorre em $\sigma(u)$, contradição.
+    Portanto, $z$ não ocorre em $\rho(x)[\sigma]$.
 
-    Como $x$ ocorre livre em $\psi$ e a substituição $\psi[\rho_{-z}]$ é válida, tal ocorrência de $u$ em $\rho(x)$ dá origem a uma ocorrência livre de $u$ em $\psi[\rho_{-z}]$.
-    Mas a validade de $(Qz\psi)[\rho][\sigma]$ implica que, se $u$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(u)$.
-    Contradição.
+    Reciprocamente, suponha ($b$).
+    Seja $u\in Y\setminus\{z\}$ tal que $u$ ocorre livre em $\psi[\rho_{-z}]$.
+    Como $\psi[\rho_{-z}]$ é válida, pelo Metalema~\ref{mlem:substituicaoEmFormulas2}, uma das duas possibilidades ocorre:
+    \begin{itemize}
+        \item $u$ ocorre livre em $\psi$ e $u\notin X\setminus\{z\}$;
+        \item existe algum $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$ e $u$ ocorre em $\rho(x)$.
+    \end{itemize}
 
-    Logo, $z$ não ocorre em $(\rho\sigma)(x)$.
-    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, concluímos que $(Qz\psi)[\rho\sigma]$ é válida.
+    A primeira possibilidade é impossível, pois nenhum elemento de $Y\setminus\{z\}$ ocorre livre em $\psi$.
+    Logo, existe algum $x\in X\setminus\{z\}$ tal que $x$ ocorre livre em $\psi$ e $u$ ocorre em $\rho(x)$.
+
+    Se $z$ ocorresse em $\sigma(u)$, então, pelo Metalema~\ref{mlem:substituicaoEmTermos}, $z$ ocorreria em $\rho(x)[\sigma]$, contrariando a hipótese.
+    Portanto, $z$ não ocorre em $\sigma(u)$.
+    Desse modo, a condição ($b'$) é satisfeita.
 \end{proof}
 
 
 \begin{metalemma}\label{mlem:substituicaoInversaEmFormulas}
     Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem.
 
-    Seja $\rho$ o $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ tal que para cada $z\in X$, $\rho(z)$ é uma variável ou constante.
-    Suponha que $\rho$ é injetor, ou seja, que, para quaisquer $z_1, z_2\in X$, se $\rho(z_1)$ é igual a $\rho(z_2)$, então $z_1$ é $z_2$.
-    
-    Seja $Y$ a imagem de $\rho$, isto é, $Y$ é a coleção de variáveis ou constantes que são $\rho(z)$ para algum $z\in X$.
-    Seja $\sigma$ o $\mathcal L$-mapeamento de variáveis e constantes definido em $Y$ tal que, para todo $z\in Y$, $\sigma(z)$ é $x$, em que $x$ é a única variável ou constante tal que $\rho(x)$ é $z$.
+    Seja $\rho$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $X$ e seja $\sigma$ um $\mathcal L$-mapeamento de variáveis e constantes definido em $Y$.
+    Suponha que $\rho\sigma$ é trivial, isto é, que, para todo $x\in X$,
+    \[
+        \rho(x)[\sigma]=x.
+    \]
 
     \begin{enumerate}
-        \item Seja $t$ um $\mathcal L$-termo tal que, para todo $z\in X$, $\rho(z)$ não ocorre em $t$.
+        \item Seja $t$ um $\mathcal L$-termo tal que nenhum elemento de $Y$ ocorre em $t$.
         Então $t[\rho][\sigma]$ é $t$.
-        \item Seja $\varphi$ uma $\mathcal L$-fórmula tal que, para todo $z\in X$, $\rho(z)$ não ocorre livre em $\varphi$.
+
+        \item Seja $\varphi$ uma $\mathcal L$-fórmula tal que nenhum elemento de $Y$ ocorre livre em $\varphi$.
         Se a substituição $\varphi[\rho]$ é válida, então $\varphi[\rho][\sigma]$ é $\varphi$ e a substituição $\varphi[\rho][\sigma]$ é válida.
     \end{enumerate}
 \end{metalemma}
 \begin{proof}
     (a) Pelo Metalema~\ref{mlem:substituicaoCompostaTermos}, $t[\rho][\sigma]$ é $t[\rho\sigma]$.
-    Note que para cada $x \in X$, $\rho\sigma(x)$ é $\rho(x)[\sigma]$, que é $x$ por definição de $\sigma$.
-    Assim, $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $t[\rho\sigma]$ é $t$ pelo Metalema~\ref{mlem:substituicaoTrivialTermos}.
+    Como $\rho\sigma$ é trivial, $t[\rho\sigma]$ é $t$ pelo Metalema~\ref{mlem:substituicaoTrivialTermos}.
+    Logo, $t[\rho][\sigma]$ é $t$.
 
-    (b) Pelo Metalema~\ref{mlem:substituicaoComposta}, $\varphi[\rho][\sigma]$ é $\varphi[\rho\sigma]$.
-    Como no item (a), $\rho\sigma$ é o mapeamento trivial de variáveis e constantes definido em $X$, de modo que $\varphi[\rho\sigma]$ é $\varphi$ pelo Metalema~\ref{mlem:substituicaoTrivial}.
+    (b) Pelo Metalema~\ref{mlem:substituicaoComposta}, temos que $\varphi[\rho][\sigma]$ é $\varphi[\rho\sigma]$.
+    Como $\rho\sigma$ é trivial, $\varphi[\rho\sigma]$ é $\varphi$ pelo Metalema~\ref{mlem:substituicaoTrivial}.
+    Logo, $\varphi[\rho][\sigma]$ é $\varphi$.
 
-    Resta ver apenas que a substituição $\varphi[\rho][\sigma]$ é válida.
-    Provaremos isso por indução sobre a estrutura de $\varphi$.
-    Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, o único caso a ser verificado é o caso em que $\varphi$ é $Qz\psi$, em que $Q$ é $\forall$ ou $\exists$ e $z$ é uma variável.
-
-    Verifiquemos que a substituição $(Qz\psi)[\rho][\sigma]$ é válida.
-    Temos que $(Qz\psi)[\rho]$ é $Qz\psi[\rho_{-z}]$.
-    Assim, devemos ver que a substituição $(Qz\psi[\rho_{-z}])[\sigma]$ é válida.
-
-        Pelo Metalema~\ref{mlem:criteriosSubstituibilidade}, é suficiente ver que a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida e que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$.
-
-    Seja $X_0$ a coleção dos elementos de $X\setminus\{z\}$ que ocorrem livres em $\psi$.
-    Seja $\rho_0$ a restrição de $\rho$ a $X_0$.
-    Seja $Y_0$ a imagem de $\rho_0$ e seja $\sigma_0$ a restrição de $\sigma$ a $Y_0$.
-
-    Pela validade de $(Qz\psi)[\rho]$, temos que $\psi[\rho_{-z}]$ é válida e, para todo $x\in X\setminus\{z\}$, se $x$ ocorre livre em $\psi$, então $z$ não ocorre em $\rho(x)$.
-    Assim, $z$ não está em $Y_0$.
-
-    Como $\rho_{-z}$ é uma extensão de $\rho_0$ por elementos que não ocorrem livres em $\psi$, segue do Metalema~\ref{mlem:substituicaoTrivialEmFormulas} que
-    \[
-        \psi[\rho_{-z}]=\psi[\rho_0]
-    \]
-    e que a substituição $\psi[\rho_0]$ é válida.
-
-    Para cada $x\in X_0$, temos que $\rho_0(x)=\rho(x)$ não ocorre livre em $\psi$.
-    De fato, como $\rho(x)$ é diferente de $z$, se $\rho(x)$ ocorresse livre em $\psi$, então ocorreria livre em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
-
-    Assim, pela hipótese indutiva aplicada a $\psi$, $\rho_0$ e $\sigma_0$, a substituição $\psi[\rho_0][\sigma_0]$ é válida.
-
-    Agora veremos que $\sigma_{-z}$ é uma extensão de $\sigma_0$ por elementos que não ocorrem livres em $\psi[\rho_0]$.
-    Seja $y\in (Y\setminus\{z\})$ que não está em $Y_0$.
-    Suponha, por absurdo, que $y$ ocorre livre em $\psi[\rho_0]$.
-    Pelo Metalema~\ref{mlem:substituicaoEmFormulas2}, como $\psi[\rho_0]$ é válida, temos que uma das duas possibilidades ocorre:
-    \begin{itemize}
-        \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
-        \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y$ ocorre em $\rho_0(x)$.
-    \end{itemize}
-    A segunda possibilidade contradiz $y\notin Y_0$.
-    A primeira também é impossível, pois $y\in Y$, digamos $y=\rho(u)$ para algum $u\in X$, e, como $y\neq z$, uma ocorrência livre de $y$ em $\psi$ seria uma ocorrência livre de $\rho(u)$ em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
-
-    Logo, $y$ não ocorre livre em $\psi[\rho_0]$.
-    Pelo Metalema~\ref{mlem:substituicaoTrivialEmFormulas}, segue que
-    \[
-        \psi[\rho_0][\sigma_{-z}]
-        =
-        \psi[\rho_0][\sigma_0]
-    \]
-    e que a substituição $\psi[\rho_0][\sigma_{-z}]$ é válida.
-
-    Como $\psi[\rho_{-z}]=\psi[\rho_0]$, concluímos que a substituição $\psi[\rho_{-z}][\sigma_{-z}]$ é válida.
-
-    Resta verificar que, para todo $y\in Y\setminus\{z\}$, se $y$ ocorre livre em $\psi[\rho_{-z}]$, então $z$ não ocorre em $\sigma(y)$, ou seja, que $z\neq \sigma(y)$.
-    Seja $y\in Y\setminus\{z\}$ tal que $y$ ocorre livre em $\psi[\rho_{-z}]=\psi[\rho_0]$.
-
-    Se $z\notin X$, então $\sigma(y)\in X$, e, portanto, $z\neq\sigma(y)$.
-    Suponha então que $z\in X$ e, por absurdo, que $\sigma(y)=z$.
-    Equivalentemente, $y=\rho(z)$.
-    Pelo Metalema~\ref{mlem:substituicaoEmFormulas2}, aplicado à substituição válida $\psi[\rho_0]$, temos que uma das duas possibilidades ocorre:
-    \begin{itemize}
-        \item $y$ ocorre livre em $\psi$ e $y$ não está em $X_0$;
-        \item existe $x\in X_0$ tal que $x$ ocorre livre em $\psi$ e $y=\rho_0(x)$.
-    \end{itemize}
-    Na primeira possibilidade, como $y=\rho(z)$ e $y\neq z$, teríamos que $\rho(z)$ ocorre livre em $Qz\psi$, contrariando a hipótese sobre $\varphi=Qz\psi$.
-    Na segunda possibilidade, pela injetividade de $\rho$, segue que $x=z$, contradizendo $x\in X_0\subseteq X\setminus\{z\}$.
-    Portanto, $z$ não ocorre em $\sigma(y)$.
+    Além disso, pelo Metalema~\ref{mlem:substituicaoComposta}, a substituição $\varphi[\rho][\sigma]$ é válida se, e somente se, a substituição $\varphi[\rho\sigma]$ é válida.
+    Como $\rho\sigma$ é trivial, a substituição $\varphi[\rho\sigma]$ é válida pelo Metalema~\ref{mlem:substituicaoTrivial}.
+    Portanto, a substituição $\varphi[\rho][\sigma]$ é válida.
 \end{proof}
 \subsection*{Exercícios}
 
