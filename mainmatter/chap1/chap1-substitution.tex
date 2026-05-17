@@ -732,3 +732,65 @@ Nesse contexto, vale o seguinte metalema.
         \item $\varphi$ é $ \neg (x+y =y+x) \wedge \forall y \, (x = x \cdot y)$ e $t$ é $y$.
     \end{enumerate}
 \end{exercise}
+\begin{exercise}\label{exr:substituicaoValidadeBasica}
+    Considere a linguagem da teoria dos anéis do Exemplo~\ref{exa:exemplosLexicos}.
+    Em cada item, determine $\varphi[\rho]$ e diga se a substituição é válida.
+    \begin{enumerate}[label=(\alph*)]
+        \item $\varphi$ é $\exists y\, (x+y=0)$ e $\rho$ é $(x)\to(y)$.
+        \item $\varphi$ é $\exists y\, (x+y=0)$ e $\rho$ é $(x)\to(z)$.
+        \item $\varphi$ é $\forall x\, (x+y=0)$ e $\rho$ é $(y)\to(x)$.
+        \item $\varphi$ é $\forall x\, (x+y=0)$ e $\rho$ é $(y)\to(z)$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exr:variaveisLivresAposSubstituicao}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem com símbolos funcionais $f$ e $g$ de aridade $2$ e $1$, respectivamente.
+    Considere uma fórmula $\varphi(x, y, z)$.
+    Suponha que a substituição
+    \[
+        \varphi(f(u,v), g(v), z)
+    \]
+    é válida.
+    Determine quais variáveis podem ocorrer livres na fórmula resultante.
+    Justifique usando o Metalema~\ref{mlem:substituicaoEmFormulas2}.
+\end{exercise}
+
+\begin{exercise}\label{exr:substituicaoCompostaExemplo}
+    Considere a linguagem da teoria dos anéis.
+    Seja $\varphi(x,y,z)$ a fórmula $x+y=z$.
+    Considere os mapeamentos
+    \[
+        \rho:\,(x,y)\to(y+z,0)
+    \]
+    e
+    \[
+        \sigma:\,(z)\to(x).
+    \]
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Calcule $\varphi[\rho][\sigma]$.
+        \item Calcule $\rho\sigma$.
+        \item Calcule $\varphi[\rho\sigma]$.
+        \item Explique por que este exemplo não contradiz o Metalema~\ref{mlem:substituicaoComposta}.
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exr:substituicaoInversa}
+    Seja $\mathcal L$ um léxico para uma linguagem de primeira ordem.
+    Considere o $\mathcal L$-mapeamento de variáveis
+    \[
+        \rho=(x,y)\to(u,v)
+    \]
+    e o $\mathcal L$-mapeamento
+    \[
+        \sigma=(u,v)\to(x,y).
+    \]
+
+    Suponha que $u$ e $v$ não ocorrem livres em uma fórmula $\varphi$ e que a substituição $\varphi[\rho]$ é válida.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Mostre que $\rho\sigma$ é um mapeamento trivial.
+        \item Conclua que $\varphi[\rho][\sigma]=\varphi$.
+        \item Explique por que a hipótese de validade de $\varphi[\rho]$ é necessária.
+    \end{enumerate}
+\end{exercise}
