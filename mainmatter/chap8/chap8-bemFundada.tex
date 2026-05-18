@@ -176,8 +176,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
         \item $t$ é uma função,
         \item $\dom(t)$ é $R$-fechado,
         \item $a \in \dom(t)$,
-        \item $G(p, t|\pred_{R}(b), b)$ é definido para todo $b\in \dom(t)$, e
-        \item $G(p, t|\pred_{R}(b), b)=t(b)$ para todo $b\in \dom(t)$.
+        \item $t(b)=G(p, t|\pred_{R}(b), b)$ para todo $b\in \dom(t)$.
     \end{itemize}
 \end{definition}
 
@@ -403,11 +402,11 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
     Dizemos que $R$ é bem-fundada em $A$ se, e somente se, $R_A$ é bem-fundada.
 \end{definition}
 
-Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R_A$, e não $(R_A)^*$.
+Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R_A$, e não $(R^*)_A$.
 
-\begin{lemma}
-    Seja $A$ uma classe.
-    Temos que $R$ é bem-fundada em $A$ se, e somente se, para todo conjunto $X\subseteq A$ não vazio, existe um elemento $R$-minimal de $X$.
+\begin{lemma}[$\BST$]
+    Seja $R$ uma relação definida e seja $A$ uma classe.
+    Então $R$ é bem-fundada em $A$ se, e somente se, para todo conjunto $X\subseteq A$ não vazio, existe um elemento $R$-minimal de $X$.
 \end{lemma}
 \begin{proof}
     Suponha que $R$ é bem-fundada em $A$ e seja $X\subseteq A$ um conjunto não vazio.
@@ -424,13 +423,13 @@ Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R
 
 \begin{proposition}[$\ZFmP$]\label{prop:rankRestricao}
     Seja $R$ uma relação bem-fundada e set-like e $A$ uma classe.
-    Se $x\in A$ é tal que $\pred_{R}(x)\subseteq A$, então $\rank_{R_A}(x)=\rank_R(x)$.
+    Se $x\in A$ é tal que $\pred_{R^*}(x)\subseteq A$, então $\rank_{R_A}(x)=\rank_R(x)$.
 \end{proposition}
 \begin{proof}
-    Seja dado $x\in A$ tal que a tese vale para todo $y R x$.
-    Suponha que $x \in A$ e que $\pred_{R}(x)\subseteq A$.
+    Por $R$-indução, seja dado $x$ tal que a tese vale para todo $y R x$.
+    Suponha que $x \in A$ e que $\pred_{R^*}(x)\subseteq A$.
 
-    Dado $y R x$, temos que $\pred_{R^*}(y)\subseteq \pred_{R^*}(x)\subseteq A$.
+    Dado $y R x$, temos que $y\in A$ e que $\pred_{R^*}(y)\subseteq \pred_{R^*}(x)\subseteq A$.
     Assim, $\rank_{R_A}(y)=\rank_R(y)$.
 
     Temos, ainda, que para todo $y$, $y R_A x$ se, e somente se, $y R x$, pois se $yR x$, então $y\in \pred_{R^*}(x)\subseteq A$, e, portanto, $y R_A x$.
@@ -469,4 +468,12 @@ Por fim, adotaremos por vezes a seguinte notação mais legível.
     Mostre que $R$ é uma relação definida set-like.
 
     Mostre que se $R^*$ é uma relação definida set-like, então vale o Axioma do Infinito.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]\label{ex:semCiclosBemFundada}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+
+    Mostre que não existem $x$ e $n\geq 2$ tais que existe um $R$-caminho de comprimento $n$ de $x$ até $x$.
+
+    Conclua que, para todo $x$, não vale $x R^* x$.
 \end{exercise}
