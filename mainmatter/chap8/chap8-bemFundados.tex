@@ -7,7 +7,7 @@
 \begin{definition}[$\ZFmP$]
     O fecho transitivo de um conjunto $x$ é o conjunto $\trcl(x)=\bigcup_{n\in\omega}\bigcup^n x$.
 
-    Um conjunto ou classe $X$ é \textit{bem fundada} se $\in_{\trcl(X)}$é bem fundada.
+    Um conjunto ou classe $X$ é \textit{bem fundada} se $\in$ é bem fundada em $\trcl(X)$.
 
     A classe dos conjuntos bem fundados é denotada por $\WF$.
 \end{definition}
@@ -23,7 +23,7 @@
 \end{lemma}
 \begin{proof}
     (a) Dado $y\in\trcl(x)$ e $z\in y$, temos que $z\in y\in^* x$.
-    Assim, $z\in^* x$, e, portanto $z\in \trcl(x)$.
+    Assim, $z\in^* x$, e, portanto, $z\in \trcl(x)$.
 
     (b) Imediato, pois para todo $y\in x$, $y\in^* x$.
 
@@ -51,6 +51,15 @@
     Como $\trcl(y)\subseteq \trcl(x)$, segue que $\in_{\trcl(y)}$ é bem fundada, e, portanto, $y\in \WF$.
 \end{proof}
 
+\begin{corollary}[$\ZFmP$]
+    Um conjunto ou classe $X$ é bem fundado se, e somente se, $\in$ é bem fundada em algum conjunto ou classe transitiva que contém $X$.
+\end{corollary}
+\begin{proof}
+    Se $X$ é bem fundado, então $\in$ é bem fundada em $\trcl(X)$, que é transitiva e contém $X$.
+
+    Já se $\in$ é bem fundada em algum conjunto ou classe transitiva $t$ que contém $X$, então $\in$ é bem fundada em $\trcl(X)$, pois $\trcl(X)\subseteq t$.
+\end{proof}
+
 \begin{lemma}[$\ZFmP$]\label{lem:conjuntosBemFundadosNaoFazemCiclos}
     Se $x$ é um conjunto bem fundado,$x\notin^* x$.
 \end{lemma}
@@ -70,7 +79,7 @@
 
 \begin{lemma}[$\ZFmP$]
     Seja $x$ um conjunto.
-    Então $x$ é bem fundado se, e somente se, $\in_{\trcl(x)\cup\{x\}}$ é bem fundada.
+    Então $x$ é bem fundado se, e somente se, $\in$ é bem fundada em $\trcl(x)\cup\{x\}$.
 \end{lemma}
 \begin{proof}
     ($\Leftarrow$) Imediato, pois $\trcl(x)\subseteq \trcl(x)\cup\{x\}$.
@@ -86,21 +95,24 @@
     Devemos ter também que $x\notin m$, do contrário teremos $x\in m\in^* x$, o que é absurdo pelo Lema~\ref{lem:conjuntosBemFundadosNaoFazemCiclos}.
 \end{proof}
 
-\begin{definition}
-    Se $x \in \WF$, então $\rank(x)=\rank_{\in_{\trcl(x)\cup\{x\}}}(x)$.
+\begin{definition}[$\ZFmP$]
+    Se $x \in \WF$, então $\rank(x)=\rank_{\in, \trcl(x)\cup\{x\}}(x)$.
 \end{definition}
 
-\begin{lemma}
-    Seja $A$ um conjunto ou classe transitiva e bem-fundada.
-    Então, para todo $x\in A$, $\rank(x)=\rank_{\in_A}(x)$.
-\end{lemma}
+\begin{proposition}[$\ZFmP$]
+    Se $T$ é uma classe ou conjunto transitivo e bem fundado, então $T\subseteq \WF$ e $\rank_{\in, T}(x)=\rank(x)$ para todo $x\in T$.
+\end{proposition}
 \begin{proof}
-    Como $A$ é transitivo, $\trcl(x)\cup\{x\}\subseteq A$.
-    Daí decorre da Proposição~\ref{prop:rankRestricao}.
+    Para cada $x\in T$, temos que $\trcl(x)\cup\{x\}\subseteq T$, pois $T$ é transitivo.
+    Como $T$ é transitiva e bem fundada, todo elemento de $\trcl(x)\cup\{x\}$ é bem fundado, e, portanto, $\trcl(x)\cup\{x\}\subseteq \WF$.
+    
+    Ademais, como para todo $y\in \trcl(x)\cup\{x\}$ temos que $\pred_{\in_{\trcl(x)\cup\{x\}}^*}(y)=\pred_{\in_T^*}(y)$, segue que $\rank_{\in, T}(x)=\rank_{\in, \trcl(x)\cup\{x\}}(x)=\rank(x)$.
 \end{proof}
 
-\begin{proposition}
+
+\begin{proposition}[$\ZFmP$]
     $\WF$ é uma classe transitiva e bem fundada.
+    Assim, $\WF$ é a maior classe transitiva e bem fundada.
 \end{proposition}
 \begin{proof}
     $\WF$ é transitiva, pois, se $x\in \WF$ e $y\in x$, então $y\in \WF$ já que $\in_{\trcl(y)}\subseteq \in_{\trcl(x)}$.
@@ -109,6 +121,68 @@
     Se $y\in x$, temos que $y\notin X$, pois $\rank(y)=\rank_{\in_{\trcl(y)\cup\{y\}}}(y)=\rank_{\in_{\trcl(x)\cup\{x\}}}(y)<\rank(x)$.
     Assim, $x$ é um elemento $\in$-minimal de $X$.
 \end{proof}
+\begin{corollary}[$\ZFmP$]
+    Se $x\in \WF$, então $\rank(x)=\sup\{\rank(y)+1: y\in x\}$.
+\end{corollary}
+\begin{proof}
+    Seja $x\in \WF$.
+    Temos que $\rank(x)=\sup\{\rank(y)+1: y\in_{\trcl(x)\cup\{x\}} y\in x\}=\sup\{\rank(y)+1: y\in x\}$.
+\end{proof}
+\begin{corollary}[$\ZFmP$]
+    Se $x, y \in \WF$ e $x\in^* y$, então $\rank(x)<\rank(y)$.
+\end{corollary}
+\begin{proof}
+    Seja $x, y \in \WF$.
+    É suficiente provar que se $x\in y$, então $\rank(x)<\rank(y)$.
+    Mas isso é imediato do corolário anterior.
+\end{proof}
+
+\begin{corollary}[$\ZFmP$]
+    Se $x, y \in \WF$ e $x\subseteq y$, então $\rank(x)\leq \rank(y)$.
+\end{corollary}
+\begin{proof}
+    Temos que $\rank(x)=\sup\{\rank(z)+1: z\in x\}\leq \sup\{\rank(z)+1: z\in y\}=\rank(y)$.
+\end{proof}
+\begin{corollary}[$\ZFmP$]
+    Para $x$ qualquer, temos que $x\in \WF$ se, e somente se, $x\subseteq \WF$.
+\end{corollary}
+\begin{proof}
+    Se $x\in \WF$, então $x\subseteq \WF$ pois $\WF$ é transitiva.
+
+    Se $x\subseteq \WF$, então $\trcl(x)\subseteq \WF$, pois $\WF$ é transitiva.
+    Como $\WF$ é bem fundada, então $\in$ é bem fundada em $\trcl(x)$, e, portanto, $x\in \WF$.
+\end{proof}
+
+\begin{lemma}[$\ZFmP$]
+    Para todo ordinal $\alpha$, $\alpha$ é bem fundado e $\rank(\alpha)=\alpha$.
+\end{lemma}
+\begin{proof}
+    Utilizamos indução transfinita.
+
+    Suponha que para todo $\beta<\alpha$, $\beta \in \WF$ e $\rank(\beta)=\beta$.
+    Então $\alpha=\{\beta: \beta<\alpha\}\subseteq \WF$, e, portanto, $\alpha\in \WF$.
+    Ademais, $\rank(\alpha)=\sup\{\rank(\beta)+1: \beta\in \alpha\}=\sup\{\beta+1: \beta< \alpha\}=\alpha$.
+
+    Para a última igualdade, com efeito, se $\beta<\alpha$, então $\beta+1\leq \alpha$, logo, $\alpha$ é um majorante de $A=\{\beta+1: \beta< \alpha\}$.
+    Esse é o menor majorante, pois se $\xi<\alpha$, então $\xi+1\in A$, e, portanto, $\xi$ não é um majorante de $A$.
+\end{proof}
+
+Assim, $\ON\subseteq \WF$.
+
+\begin{corollary}[$\ZFmP$]
+    Sejam $x, y\in \WF$.
+    Então:
+    \begin{enumerate}[label=(\alph*)]
+        \item $\rank(\{x, y\})=\max\{\rank(x), \rank(y)\}+1$.
+        \item $\rank(\langle x, y\rangle)=\max\{\rank(x), \rank(y)\}+2$.
+        \item $\bigcup x\in \WF$ e $\rank(\bigcup x)\leq \rank(x)$.
+        \item $x\cup y$ é bem fundado e $\rank(x\cup y)=\max\{\rank(x), \rank(y)\}$.
+        \item $\trcl(x)\in \WF$ e $\rank(\trcl(x))=\rank(x)$.
+        \item Se existe $\mathcal P(x)$, então $\mathcal P(x)\in \WF$ e $\rank(\mathcal P(x))=\rank(x)+1$.
+    \end{enumerate}
+\end{corollary}
+
+
 
 \subsection*{Exercícios}
 \begin{exercise}[$\ZFmP$]
