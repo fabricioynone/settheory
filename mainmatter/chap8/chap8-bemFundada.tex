@@ -370,6 +370,55 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
     Se $y R^* x$, então $\rank_R(y)<\rank_R(x)=\alpha=\min O$, e, portanto, $\rank_R(y)\notin O$.
     Daí, segue que $y\notin X$, e, portanto, $x$ é um elemento $R^*$-minimal de $X$.
 \end{proof}
+
+\begin{proposition}[$\BST$]\label{prop:relacoesComparaveis}
+    Sejam $R$ e $S$ relações definidas ou relações-conjunto tais que para todos $x$ e $y$, se $x R y$, então $x S y$ (o que se abrevia por $R\subseteq S$).
+    \begin{enumerate}[label=(\roman*)]
+        \item Se $S$ é set-like, então $R$ é set-like.
+        \item Se $S$ é bem-fundada, então $R$ é bem-fundada.
+        \item ($\ZFmP$) Se $S$ é set-like e bem-fundada, então para todo $x$, $\rank_R(x)\leq \rank_S(x)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (i) Para todo $x$, $\pred_{R}(x)=\{y\in \pred_{S}(x): y R x\}$.
+
+    (ii) Seja $A$ um conjunto não vazio.
+    Seja $m\in A$ um elemento $S$-minimal de $A$.
+    Então $m$ é um elemento $R$-minimal de $A$, pois, se $y R m$, então $y S m$, e, portanto, $y\notin A$.
+
+    (iii) Por $R$-indução, veremos que para todo $x$, $\rank_R(x)\leq \rank_S(x)$.
+    Dado $x$, suponha que, para todo $y R x$, $\rank_R(y)\leq \rank_S(y)$.
+    Então $\rank_R(x)=\sup\{\rank_R(y)+1: y R x\}\leq \sup\{\rank_S(y)+1: y R x\}\leq \sup\{\rank_S(y)+1: y S x\}=\rank_S(x)$.
+\end{proof}
+
+\begin{definition}[$\BST$]
+    Seja $R$ uma relação definida e $A$ uma classe definida.
+    A restrição de $R$ a $A$, denotada por $R_A$, é a relação definida dada por:
+    \[
+        \forall x \forall y\bigg(x R_A y \leftrightarrow (x R y \land x\in A \land y\in A)\bigg).
+    \]
+
+    Para todo conjunto $A$, a restrição de $R$ a $A$, denotada por $R_A$, é o conjunto $\{(x,y)\in A\times A: x R y\}$.
+\end{definition}
+
+Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R_A$, e não $(R_A)^*$.
+
+\begin{proposition}[$\ZFmP$]
+    Seja $R$ uma relação bem-fundada e set-like e $A$ uma classe definida ou conjunto.
+    Se $x\in A$ é tal que $\pred_{R}(x)\subseteq A$, então $\rank_{R_A}(x)=\rank_R(x)$.
+\end{proposition}
+\begin{proof}
+    Seja dado $x\in A$ tal que a tese vale para todo $y R x$.
+    Suponha que $x \in A$ e que $\pred_{R}(x)\subseteq A$.
+
+    Dado $y R x$, temos que $\pred_{R^*}(y)\subseteq \pred_{R^*}(x)\subseteq A$.
+    Assim, $\rank_{R_A}(y)=\rank_R(y)$.
+
+    Temos, ainda, que para todo $y$, $y R_A x$ se, e somente se, $y R x$, pois se $yR x$, então $y\in \pred_{R^*}(x)\subseteq A$, e, portanto, $y R_A x$.
+
+    Logo, $\rank_{R_A}(x)=\sup\{\rank_{R_A}(y)+1: y R_A x\}=\sup\{\rank_R(y)+1: y R x\}=\rank_R(x)$.    
+\end{proof}
+
 \section*{Exercícios}
 \begin{exercise}\label{ex:fechoTransitivo}
     Sejam $R$ e $S$ relações definidas.
