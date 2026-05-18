@@ -399,9 +399,28 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
     \]
 
     Para todo conjunto $A$, a restrição de $R$ a $A$, denotada por $R_A$, é o conjunto $\{(x,y)\in A\times A: x R y\}$.
+
+    Dizemos que $R$ é bem-fundada em $A$ se, e somente se, $R_A$ é bem-fundada.
 \end{definition}
 
 Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R_A$, e não $(R_A)^*$.
+
+\begin{lemma}
+    Seja $A$ um conjunto ou classe.
+    Temos que $R$ é bem-fundada em $A$ se, e somente se, para todo conjunto $X\subseteq A$ não vazio, existe um elemento $R$-minimal de $X$.
+\end{lemma}
+\begin{proof}
+    Suponha que $R$ é bem-fundada em $A$ e seja $X\subseteq A$ um conjunto não vazio.
+    Existe um elemento $R_A$-minimal de $X$.
+    Tal elemento é $R$-minimal, pois, se $y R x$ e $y\in A$, então $y R_A x$, e, portanto, $y\notin X$.
+
+    Agora suponha que, para todo conjunto $X\subseteq A$ não vazio, existe um elemento $R$-minimal de $X$.
+    Seja $Y$ um conjunto não vazio.
+    Se $Y\not\subseteq A$, tome $y \in Y\setminus A$.
+    Então $y$ é um elemento $R_A$-minimal de $Y$, pois não existe $z$ tal que $z R_A y$.
+    Agora, se $Y\subseteq A$, existe um elemento $R$-minimal de $Y$, digamos, $y$.
+    Temos que $y$ é um elemento $R_A$-minimal de $Y$, pois, se $z R_A y$, então $z R y$, e, portanto, $z\notin Y$.
+\end{proof}
 
 \begin{proposition}[$\ZFmP$]\label{prop:rankRestricao}
     Seja $R$ uma relação bem-fundada e set-like e $A$ uma classe definida ou conjunto.
