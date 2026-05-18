@@ -392,7 +392,7 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 \end{proof}
 
 \begin{definition}[$\BST$]
-    Seja $R$ uma relação definida e $A$ uma classe definida.
+    Seja $R$ uma relação definida e $A$ uma classe.
     A restrição de $R$ a $A$, denotada por $R_A$, é a relação definida dada por:
     \[
         \forall x \forall y\bigg(x R_A y \leftrightarrow (x R y \land x\in A \land y\in A)\bigg).
@@ -406,7 +406,7 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R_A$, e não $(R_A)^*$.
 
 \begin{lemma}
-    Seja $A$ um conjunto ou classe.
+    Seja $A$ uma classe.
     Temos que $R$ é bem-fundada em $A$ se, e somente se, para todo conjunto $X\subseteq A$ não vazio, existe um elemento $R$-minimal de $X$.
 \end{lemma}
 \begin{proof}
@@ -423,7 +423,7 @@ Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R
 \end{proof}
 
 \begin{proposition}[$\ZFmP$]\label{prop:rankRestricao}
-    Seja $R$ uma relação bem-fundada e set-like e $A$ uma classe definida ou conjunto.
+    Seja $R$ uma relação bem-fundada e set-like e $A$ uma classe.
     Se $x\in A$ é tal que $\pred_{R}(x)\subseteq A$, então $\rank_{R_A}(x)=\rank_R(x)$.
 \end{proposition}
 \begin{proof}
@@ -441,7 +441,7 @@ Convencionaremos que $R_A^*$ denota $(R_A)^*$, ou seja, o fecho transitivo de $R
 Por fim, adotaremos por vezes a seguinte notação mais legível.
 
 \begin{definition}
-    Seja $R$ uma relação definida e $A$ uma classe definida ou conjunto tal que $R_A$ é set-like.
+    Seja $R$ uma relação definida e $A$ uma classe definida tal que $R_A$ é set-like.
     Escrevemos, para $x \in A$, $\pred_{R, A}(x)=\pred_{R_A}(x)=\{y\in A: y R x\}$.
     
     Se $R$ é adicionalmente bem-fundada em $A$, escrevemos ainda $\rank_{R, A}(x)=\rank_{R_A}(x)$.
