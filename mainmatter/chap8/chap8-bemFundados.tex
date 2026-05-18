@@ -1,13 +1,11 @@
 \section{Conjuntos bem fundados}\label{sec:conjuntosBemFundados}
 
-\begin{definition}[$\BST$]
+\begin{definition}[$\ZFmP$]
     Seja $x$ um conjunto.
-    Para cada $n$ natural, definimos $\trcl(x)=\pred_{\in^*}(x)$, onde $\in^*$ é a transitivização de $\in$.
+    Definimos $\trcl(x)=\pred_{\in^*}(x)$, onde $\in^*$ é a transitivização de $\in$.
 \end{definition}
 \begin{definition}[$\ZFmP$]
-    O fecho transitivo de um conjunto $x$ é o conjunto $\trcl(x)=\bigcup_{n\in\omega}\bigcup^n x$.
-
-    Um conjunto ou classe $X$ é \textit{bem fundada} se $\in$ é bem fundada em $\trcl(X)$.
+    Um conjunto $x$ é \textit{bem fundado} se $\in$ é bem fundada em $\trcl(x)$.
 
     A classe dos conjuntos bem fundados é denotada por $\WF$.
 \end{definition}
@@ -16,9 +14,8 @@
     \begin{enumerate}[label=(\alph*)]
         \item $\trcl(x)$ é transitivo.
         \item $x\subseteq \trcl(x)$.
-        \item Para todo conjunto ou classe definida transitiva $t$, se $x\subseteq t$, então $\trcl(x)\subseteq t$.
+        \item Para toda classe transitiva $t$, se $x\subseteq t$, então $\trcl(x)\subseteq t$.
         \item Se $y\subseteq x$, então $\trcl(y)\subseteq \trcl(x)$.
-        \item Se $x\in \WF$ e $y\in x$, então $y\in \WF$.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -27,7 +24,7 @@
 
     (b) Imediato, pois para todo $y\in x$, $y\in^* x$.
 
-    (c) Seja $t$ um conjunto transitivo tal que $x\subseteq t$.
+    (c) Seja $t$ uma classe transitiva tal que $x\subseteq t$.
     Por indução em $n\geq 2$, mostraremos que para todo $y$ para o qual existe um $\in$-caminho de $y$ até $x$ de comprimento $n$, $y\in t$.
 
     Para $n=2$, seja $y$ tal que existe um $\in$-caminho de $y$ até $x$ de comprimento $2$.
@@ -45,19 +42,15 @@
 
     (d) Temos que $y\subseteq x\subseteq \trcl(x)$, sendo este último transitivo.
     Pelo item (c), segue que $\trcl(y)\subseteq \trcl(x)$.
-
-    (e) Suponha que $x\in \WF$ e $y\in x$.
-    Como $x \in \WF$, então $\in_{\trcl(x)}$ é bem fundada.
-    Como $\trcl(y)\subseteq \trcl(x)$, segue que $\in_{\trcl(y)}$ é bem fundada, e, portanto, $y\in \WF$.
 \end{proof}
 
 \begin{corollary}[$\ZFmP$]
-    Um conjunto ou classe $X$ é bem fundado se, e somente se, $\in$ é bem fundada em algum conjunto ou classe transitiva que contém $X$.
+    Um conjunto $X$ é bem fundado se, e somente se, $\in$ é bem fundada em alguma classe transitiva $t$ tal que $X\subseteq t$.
 \end{corollary}
 \begin{proof}
     Se $X$ é bem fundado, então $\in$ é bem fundada em $\trcl(X)$, que é transitiva e contém $X$.
 
-    Já se $\in$ é bem fundada em algum conjunto ou classe transitiva $t$ que contém $X$, então $\in$ é bem fundada em $\trcl(X)$, pois $\trcl(X)\subseteq t$.
+    Já se $\in$ é bem fundada em alguma classe transitiva $t$ que contém $X$, então $\in$ é bem fundada em $\trcl(X)$, pois $\trcl(X)\subseteq t$.
 \end{proof}
 
 \begin{lemma}[$\ZFmP$]\label{lem:conjuntosBemFundadosNaoFazemCiclos}
@@ -181,6 +174,17 @@ Assim, $\ON\subseteq \WF$.
         \item Se existe $\mathcal P(x)$, então $\mathcal P(x)\in \WF$ e $\rank(\mathcal P(x))=\rank(x)+1$.
     \end{enumerate}
 \end{corollary}
+
+\begin{proof}
+    (a) Temos que $\{x, y\}\subseteq \WF$, logo, $\{x, y\}\in \WF$.
+
+    Ademais, $\rank(\{x, y\})=\sup\{\rank(z)+1: z\in \{x, y\}\}=\max\{\rank(x)+1, \rank(y)+1\}=\max\{\rank(x), \rank(y)\}+1$.
+
+    (b) Como $\langle x, y\rangle=\{\{x\}, \{x, y\}\}$, temos que $\langle x, y\rangle\in \WF$ pelo item (a).
+    Ademais, $\rank(\langle x, y\rangle)=\sup\{\rank(z)+1: z\in \langle x, y\rangle\}=\sup\{\rank(\{x\})+1, \rank(\{x, y\})+1\}=\sup\{\rank(x)+2, \max\{\rank(x), \rank(y)\}+2\}=\max\{\rank(x), \rank(y)\}+2$.
+
+    (c)
+\end{proof}
 
 
 

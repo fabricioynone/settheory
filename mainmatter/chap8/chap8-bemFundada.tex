@@ -56,9 +56,9 @@ Para cada possível símbolo de predicado binário $R$, temos uma definição de
 \begin{definition}[$\BST$]
     Seja $R$ uma relação definida.
 
-    Para cada número natural $n\geq 2$ e cada $a, b$, um $R$-caminho de comprimento $n$ de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n-1})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i<n-1$, em que $x_0=a$ e $x_{n-1}=b$.
+    Para cada número natural $n\geq 1$ e cada $a, b$, um $R$-caminho com $n$ passos de $a$ até $b$ é uma sequência de elementos $(x_0, \dots, x_{n})$ tal que $x_i R x_{i+1}$ para todo $i$ com $i<n$, em que $x_0=a$ e $x_{n}=b$.
 
-    Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$, para algum número natural $n\geq 2$, que começa em $x$ e termina em $y$.
+    Define-se a relação $R^*$ por $x R^* y$ se, e somente se, existe um $R$-caminho de comprimento $n$, para algum número natural $n\geq 1$, que começa em $x$ e termina em $y$.
 
     $R^*$ é o \emph{fecho transitivo} de $R$, ou a \emph{transitivização} de $R$.
 \end{definition}
@@ -72,10 +72,10 @@ Ou seja, para cada possível símbolo de predicado binário $R$ satisfazendo as 
     Se $R$ é uma relação definida, então $R^*$ é uma relação transitiva que estende $R$.
 \end{proposition}
 \begin{proof}
-    Se $x R y$, então $x R^* y$, pois $(x,y)$ é um $R$-caminho de comprimento $2$ de $x$ até $y$.
+    Se $x R y$, então $x R^* y$, pois $(x,y)$ é um $R$-caminho de comprimento $1$ de $x$ até $y$.
 
-    Se $x R^* y$ e $y R^* z$, então existem $R$-caminhos de comprimento $n$ de $x$ até $y$, digamos, $(x_0, \dots, x_{n-1})$, e um $R$-caminho de comprimento $m$ de $y$ até $z$, digamos, $(y_0, \dots, y_{m-1})$, em que $n, m\geq 2$.
-    Então $(x_0, \dots, x_{n-1}, y_1, \dots, y_{m-1})$ é um $R$-caminho de comprimento $n+m-1$ de $x$ até $z$, e, portanto, $x R^* z$.
+    Se $x R^* y$ e $y R^* z$, então existem $R$-caminhos de $n$ passos de $x$ até $y$, digamos, $(x_0, \dots, x_{n})$, e um $R$-caminho de $m$ passos de $y$ até $z$, digamos, $(y_0, \dots, y_{m})$, em que $n, m\geq 1$.
+    Então $(x_0, \dots, x_{n-1}, y_1, \dots, y_{m})$ é um $R$-caminho de $n+m-1$ passos de $x$ até $z$, e, portanto, $x R^* z$.
 \end{proof}
 
 Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a menor relação transitiva que estende $R$ (ver Exercício~\ref{ex:fechoTransitivo}).
@@ -86,23 +86,23 @@ Na verdade, dada uma relação definida $R$, o fecho transitivo de $R$ é a meno
 
 \begin{proof}
     Fixe $x$ um conjunto qualquer.
-    Por indução em $n$, vejamos que para todo $n$ natural, existe um (único) conjunto $y$ tal que, para todo $z$, $z\in y$ se, e somente se, existe um $R$-caminho de comprimento $n\geq 2$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
+    Por indução em $n$, vejamos que para todo $n$ natural, existe um (único) conjunto $y$ tal que, para todo $z$, $z\in y$ se, e somente se, existe um $R$-caminho de comprimento $n\geq 1$ de $z$ até $x$, que chamaremos de $\pred^n_{R}(x)$.
 
-    Para $n=0$ ou $n=1$, note que $\pred^n_{R}(x)=\emptyset$.
+    Para $n=0$ note que $\pred^n_{R}(x)=\emptyset$.
 
-    Para $n=2$, note que $\pred^2_{R}(x)=\pred_{R}(x)$.
+    Para $n=1$, note que $\pred^1_{R}(x)=\pred_{R}(x)$.
 
-    Suponha que o resultado seja verdadeiro para $n\geq 2$.
+    Suponha que o resultado seja verdadeiro para $n\geq 1$.
     Provaremos para $n+1$.
 
     Por hipótese de indução, existe o conjunto $\pred^n_{R}(x)$ cujos elementos são exatamente os $z$ tais que existe um $R$-caminho de comprimento $n$ de $z$ até $x$.
     Seja $\pred^{n+1}_{R}(x)=\bigcup\{\pred_{R}(y): y\in \pred^n_{R}(x)\}$.
 
     Se $z\in \pred^{n+1}_{R}(x)$, então $z\in \pred_{R}(y)$ para algum $y\in \pred^n_{R}(x)$, e, portanto, existe um $R$-caminho de comprimento $n$ de $y$ até $x$, digamos, $(x_0, \dots, x_{n-1})$.
-    Como $x_0=y$ e $z R y$, segue que $(z, x_0, \dots, x_{n-1})$ é um $R$-caminho de comprimento $n+1$ de $z$ até $x$.
+    Como $x_0=y$ e $z R y$, segue que $(z, x_0, \dots, x_{n})$ é um $R$-caminho $n+1$ passos de $z$ até $x$.
 
-    Reciprocamente, seja $(x_0, x_1, \dots, x_n)$ um $R$-caminho de comprimento $n+1$ de $x_0$ até $x_n=x$.
-    Então $(x_1, \dots, x_n)$ é um $R$-caminho de comprimento $n$ de $x_1$ até $x$, e, portanto, $x_1\in \pred^n_{R}(x)$.
+    Reciprocamente, seja $(x_0, x_1, \dots, x_n, x_{n+1})$ um $R$-caminho de $n+1$ passos de $x_0$ até $x_{n+1}=x$.
+    Então $(x_1, \dots, x_{n+1})$ é um $R$-caminho de comprimento $n$ de $x_1$ até $x$, e, portanto, $x_1\in \pred^n_{R}(x)$.
     Como $x_0 R x_1$, $x_0\in \pred_{R}(x_1)$, e, portanto, $x_0\in \pred^{n+1}_{R}(x)$.
 
     Pelo Esquema da Substituição, considere $Z=\bigcup_{n\in \omega} \pred^n_{R}(x)$.
