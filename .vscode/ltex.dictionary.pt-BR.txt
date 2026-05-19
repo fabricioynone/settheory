@@ -34,3 +34,4 @@ tollens
 metaproposição
 ários
 transitivização
+rank
