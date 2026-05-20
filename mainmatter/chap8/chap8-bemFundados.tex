@@ -110,7 +110,10 @@ Agora iremos introduzir o conceito de rank de um conjunto bem-fundado.
 
     A relação $\in$ é bem-fundada em $\WF$: dado $X\subseteq \WF$ tal que $X\neq\emptyset$, pelo Esquema da Substituição, $\{\rank(z):z\in X\}$ é um conjunto não vazio de ordinais.
     Tome $x\in X$ tal que $\rank(x)$ seja mínimo.
-    Se $y\in x$, temos que $y\notin X$, pois $\rank(y)=\rank_{\in, \trcl(y)\cup\{y\}}(y)=\rank_{\in, \trcl(x)\cup\{x\}}(y)<\rank(x)$ pela Proposição~\ref{prop:rankRestricaoPertence}.
+    Se $y\in x$, temos que $y\notin X$, pois, pela Proposição~\ref{prop:rankRestricaoPertence},
+    \[
+        \rank(y)=\rank_{\in,\trcl(x)\cup\{x\}}(y)<\rank_{\in,\trcl(x)\cup\{x\}}(x)=\rank(x).
+    \]
     Assim, $x$ é um elemento $\in$-minimal de $X$.
 \end{proof}
 
@@ -126,7 +129,14 @@ Assim, para todo $x\in \WF$, $\rank(x)=\rank_{\in,\WF}(x)$ pela Proposição~\re
     Se $x, y \in \WF$ e $x\in^* y$, então $\rank(x)<\rank(y)$.
 \end{corollary}
 \begin{proof}
-    Decorre diretamente do Lema~\ref{lem:propriedadesRank}.
+    Como $\WF$ é transitiva, $\WF$ é $\in$-fechada.
+    Pelo Corolário~\ref{cor:RFechadaRStar}, temos $(\in_{\WF})^*=(\in^*)_{\WF}$.
+    Assim, de $x,y\in\WF$ e $x\in^* y$, segue que $x(\in_{\WF})^*y$.
+    Portanto, pelo item (iv) do Lema~\ref{lem:propriedadesRank}, aplicado à relação $\in_{\WF}$,
+    \[
+        \rank_{\in,\WF}(x)<\rank_{\in,\WF}(y).
+    \]
+    Pela Proposição~\ref{prop:rankRestricaoPertence}, segue que $\rank(x)<\rank(y)$.
 \end{proof}
 
 \begin{corollary}[$\ZFmP$]
@@ -167,25 +177,45 @@ Assim, $\ON\subseteq \WF$.
     \begin{enumerate}[label=(\alph*)]
         \item $\rank(\{x, y\})=\max\{\rank(x), \rank(y)\}+1$.
         \item $\rank(\langle x, y\rangle)=\max\{\rank(x), \rank(y)\}+2$.
+        \item $\trcl(x)\in \WF$ e $\rank(\trcl(x))=\rank(x)$.
         \item $\bigcup x\in \WF$ e $\rank(\bigcup x)\leq \rank(x)$.
         \item $x\cup y$ é bem-fundado e $\rank(x\cup y)=\max\{\rank(x), \rank(y)\}$.
-        \item $\trcl(x)\in \WF$ e $\rank(\trcl(x))=\rank(x)$.
         \item Se existe $\mathcal P(x)$, então $\mathcal P(x)\in \WF$ e $\rank(\mathcal P(x))=\rank(x)+1$.
     \end{enumerate}
 \end{corollary}
 
 \begin{proof}
     (a) Temos que $\{x, y\}\subseteq \WF$, logo, $\{x, y\}\in \WF$.
-
-    Ademais, $\rank(\{x, y\})=\sup\{\rank(z)+1: z\in \{x, y\}\}=\max\{\rank(x)+1, \rank(y)+1\}=\max\{\rank(x), \rank(y)\}+1$.
+    Ademais,
+    \[
+        \rank(\{x, y\})=\sup\{\rank(z)+1: z\in \{x, y\}\}=\max\{\rank(x)+1, \rank(y)+1\}=\max\{\rank(x), \rank(y)\}+1.
+    \]
 
     (b) Como $\langle x, y\rangle=\{\{x\}, \{x, y\}\}$, temos que $\langle x, y\rangle\in \WF$ pelo item (a).
-    Ademais, $\rank(\langle x, y\rangle)=\sup\{\rank(z)+1: z\in \langle x, y\rangle\}=\sup\{\rank(\{x\})+1, \rank(\{x, y\})+1\}=\sup\{\rank(x)+2, \max\{\rank(x), \rank(y)\}+2\}=\max\{\rank(x), \rank(y)\}+2$.
+    Também pelo item (a):
+    \[
+        \rank(\langle x, y\rangle)=\sup\{\rank(\{x\})+1, \rank(\{x, y\})+1\}=\max\{\rank(x), \rank(y)\}+2.
+    \]
 
-    (c)
+    (c) Como $\trcl(x)\subseteq \WF$, então $\trcl(x)\in \WF$.
+    Para todo $y \in \trcl(x)$, temos que $y\in \WF$ e $y\in^* x$, logo, $\rank(y)<\rank(x)$.
+    Logo, $\rank(\trcl(x))\leq \rank(x)$.
+    Por outro lado, como $x\subseteq \trcl(x)$, pelo corolário anterior temos $\rank(x)\leq \rank(\trcl(x))$.
+    Portanto, $\rank(\trcl(x))=\rank(x)$.
+
+    (d) Temos que $\bigcup x\subseteq \trcl(x)\subseteq \WF$, logo, $\bigcup x\in \WF$.
+    Ademais, $\rank(\bigcup x)\leq\rank(\trcl(x))=\rank(x)$.
+
+    (e) Pelos itens anteriores, $x\cup y=\bigcup\{x, y\}\in \WF$.
+    Ademais, $\rank(x\cup y)=\sup\{\rank(z)+1: z\in x\cup y\}=\sup\{\rank(z)+1: z\in x \vee z\in y\}=\sup\{\sup\{\rank(z)+1: z\in x\}, \sup\{\rank(z)+1: z\in y\}\}=\max\{\rank(x), \rank(y)\}$.
+
+    (f) Se $\mathcal P(x)$ existe, então $\mathcal P(x)\subseteq \WF$, pois dado $y \in \mathcal P(x)$, temos $y\subseteq x\subseteq \WF$, e, portanto, $y\in \WF$.
+    Ademais, dado $y\in \mathcal P(x)$, temos que $\rank(y)\leq \rank(x)$, e temos que $x\in \mathcal P(x)$.
+    Assim:
+    \[
+        \rank(\mathcal P(x))=\sup\{\rank(y)+1: y\in \mathcal P(x)\}=\rank(x)+1.
+    \]
 \end{proof}
-
-
 
 \subsection*{Exercícios}
 \begin{exercise}[$\ZFmP$]
@@ -197,4 +227,9 @@ Assim, $\ON\subseteq \WF$.
     \end{align*}    
 
     Mostre que $\trcl(x)=\bigcup_{n\in\omega}\bigcup^n x$.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]
+    Mostre que se $x, y \in \WF$, então $x\times y\in \WF$.
+    Calcule o rank de $x\times y$ em função dos ranks de $x$ e $y$.
 \end{exercise}

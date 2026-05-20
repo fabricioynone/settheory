@@ -1,0 +1,136 @@
+\section{A Hierarquia de Von Neumann e o Axioma da Regularidade}
+Até então, nada nesse capítulo exigiu o uso do Axioma da Potência.
+Nessa seção, de posse dele, daremos uma visão mais clara da estrutura dos conjuntos, introduzindo a hierarquia de Von Neumann para mostrar que a classe $\{x\in \WF: \rank(x)<\alpha\}$ é um conjunto para todo ordinal $\alpha$.
+
+\begin{proposition}
+    Assuma o Axioma da Potência.
+    Para cada ordinal $\alpha$, existe um (único) conjunto $V_\alpha\subseteq \WF$ tal que:
+    \[
+        \forall x\in \WF, x\in V_\alpha \leftrightarrow \rank(x)<\alpha.
+    \]
+    Vale que, para todo ordinal $\alpha$,
+    \begin{enumerate}[label=(\roman*)]
+        \item $V_0=\emptyset$.
+        \item $V_{\alpha+1}=\mathcal P(V_\alpha)$.
+        \item Se $\lambda$ é um ordinal limite, então $V_\lambda=\bigcup_{\alpha<\lambda} V_\alpha$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    A unicidade é imediata do Axioma da Extensão.
+
+    Provaremos a existência de $V_\alpha$ por indução transfinita sobre $\alpha$.
+
+    Suponha que a tese valha para todo ordinal $\alpha<\gamma$ e para cada um desses $\alpha$ seja $V_\alpha$ o único conjunto tal que
+    \[
+        \forall x\in \WF,\ x\in V_\alpha \leftrightarrow \rank(x)<\alpha.
+    \]
+    Notemos que a sequência $(V_\alpha)_{\alpha<\gamma}$ existe pelo Esquema da Substituição.
+    Mostraremos a existência de $V_\gamma$.
+
+    Se $\gamma=0$, seja $V_0=\emptyset$.
+    Como qualquer rank é $\geq 0$, temos que $V_0$ é como desejado.
+
+    Se $\gamma=\alpha+1$, seja $V_{\alpha+1}=\mathcal P(V_\alpha)$.
+    Mostremos que $V_{\alpha+1}$ é como desejado.
+
+    Como $V_\alpha\subseteq \WF$, temos que $V_{\alpha}\in \WF$ e, portanto, $V_{\alpha+1}\subseteq \WF$.
+
+    Se $x\in V_{\alpha+1}$, então $x\subseteq V_\alpha$, logo, para todo $y\in x$, $\rank(y)<\alpha$, e, portanto, $\rank(x)=\sup\{\rank(y)+1: y\in x\}\leq \alpha$, de modo que $\rank(x)<\alpha+1$.
+
+    Reciprocamente, se $x \in \WF$ e $\rank(x)<\alpha+1$, então $\rank(x)\leq \alpha$, de modo que, para todo $y\in x$, $\rank(y)<\alpha$, logo $y\in V_\alpha$ e, portanto, $x\subseteq V_\alpha$, de modo que $x\in \mathcal P(V_\alpha)=V_{\alpha+1}$.
+
+    Finalmente, se $\gamma$ é limite, então $\{V_\alpha: \alpha<\gamma\}$ é um conjunto pelo Esquema da Substituição.
+    Assim, podemos definir $V_\gamma=\bigcup_{\alpha<\gamma} V_\alpha$.
+    $V_\gamma$ é como desejado: de fato, se $x\in \WF$, como $\gamma$ é limite, temos que:
+
+    \[
+        \rank(x)<\gamma \leftrightarrow \exists \alpha<\gamma, \rank(x)<\alpha \leftrightarrow \exists \alpha<\gamma, x\in V_\alpha \leftrightarrow x\in \bigcup_{\alpha<\gamma} V_\alpha.
+    \]
+\end{proof}
+
+Dessa forma, em linguagem de classes,
+\[
+    \WF=\bigcup_{\alpha\in \ON} V_\alpha.
+\]
+Além disso, para todo $x\in\WF$,
+\[
+    \rank(x)=\min\{\alpha\in \ON: x\in V_{\alpha+1}\}.
+\]
+Equivalentemente,
+\[
+    \rank(x)=\min\{\alpha\in \ON: x\subseteq V_\alpha\}.
+\]
+
+Existem conjuntos fora de $\WF$?
+Examinemos o que os axiomas que temos até agora dizem sobre isso.
+
+Os Axiomas da Compreensão dizem que certos subconjuntos existem.
+Como $\WF$ é uma classe fechada por subconjuntos, os Axiomas da Compreensão não parecem dar meios de construir um conjunto fora de $\WF$.
+
+O Axioma do Par diz que dado $x$ e $y$, existe o conjunto $\{x, y\}$.
+Se $x$ e $y$ são bem-fundados, então $\{x, y\}$ é bem-fundado, logo, esse axioma também não parece dar meios de construir um conjunto fora de $\WF$.
+
+O Axioma da União diz que dado um conjunto $x$, existe o conjunto $\bigcup x$.
+Se $x\in \WF$, então $\bigcup x$ é bem-fundado.
+Novamente, esse axioma não parece dar meios de construir um conjunto fora de $\WF$.
+
+O Axioma da Potência diz que dado um conjunto $x$, existe o conjunto $\mathcal P(x)$.
+Se $x\in \WF$, então $\mathcal P(x)$ é bem-fundado.
+Como antes, esse axioma não parece dar meios de construir um conjunto fora de $\WF$.
+
+Os Axiomas da Substituição dizem que dado um conjunto $A$ e uma expressão que associa a cada $x\in A$ um único $y$, existe o conjunto de tais $y$.
+Ora, se cada um desses $y$ já estiver em $\WF$, o conjunto de tais $y$ também estará em $\WF$, logo, os Axiomas da Substituição também não parecem dar meios de construir um conjunto fora de $\WF$.
+
+O Axioma da Escolha diz que certas relações existem.
+Como produtos cartesianos de conjuntos bem-fundados são bem-fundados (verifique isso), e como as relações são subconjuntos de produtos cartesianos, o Axioma da Escolha também não parece dar meios de construir um conjunto fora de $\WF$.
+
+O Axioma da Extensão parece não ter relação direta com a questão: ele diz que se $x$ e $y$ são distintos, então existe um elemento que pertence a um deles e não ao outro.
+Mas, novamente, se $x$ e $y$ são bem-fundados, então tal elemento é bem-fundado, logo, o Axioma da Extensão também não parece dar meios de construir um conjunto fora de $\WF$.
+
+Temos ainda teoremas como os seguintes.
+\begin{theorem}[$\ZFCm$]
+    Todo grupo $G$ é isomorfo a um grupo $G'\in \WF$.
+    Todo espaço topológico $X$ é homeomorfo a um espaço topológico $X'\in \WF$.
+\end{theorem}
+\begin{proof}
+    Vamos assumir que um grupo é um par $G=(S, \cdot)$, em que $S$ é um conjunto e $\cdot$ é uma função de $S\times S$ em $S$ associativa, com elemento neutro e inversos.
+
+    Pelo Axioma da Escolha, existe um ordinal $\alpha$ e uma função bijetora $f: S \to \alpha$.
+    Defina $G'=(S', \cdot')$, em que $S'=\alpha$ e $\cdot'$ é a função de $\alpha\times \alpha$ em $\alpha$ tal que, para todo $x, y\in \alpha$, $x\cdot' y=f(f^{-1}(x)\cdot f^{-1}(y))$.
+    É rotina verificar que $G'$ é um grupo e que $f$ é um isomorfismo de $G$ em $G'$.
+
+    Temos que $\alpha \in \WF$, logo, $(\alpha\times \alpha)\times \alpha\in \WF$, e, portanto, $\cdot'\in \WF$.
+    Assim, $G'=(\alpha, \cdot')\in \WF$.
+
+    A afirmação sobre espaços topológicos é análoga, e deixamos a verificação para o leitor.
+\end{proof}
+
+Conclui-se que todas as ferramentas fundamentais de produção de conjuntos que temos até agora não parecem dar meios de construir um conjunto fora de $\WF$.
+Isso sugere que $\WF$ é a classe de todos os conjuntos, ou seja, que $\V=\WF$.
+O Axioma da Regularidade formaliza essa ideia.
+
+\begin{axiom}[Axioma da Regularidade]
+    Para todo conjunto $x$, se $\exists y(y\in x)$, então $\exists y(y\in x \wedge \neg\exists z(z\in y \wedge z\in x))$.
+    Em símbolos:
+
+    \[
+        \forall x(\exists y(y\in x)\rightarrow \exists y(y\in x \wedge \neg\exists z(z\in y \wedge z\in x))).
+    \]
+\end{axiom}
+
+\begin{proposition}[$\ZFmP$]São equivalentes:
+    \begin{enumerate}[label=(\roman*)]
+        \item O Axioma da Regularidade.
+        \item $\in$ é bem-fundada.
+        \item $\WF=\V$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (i) é literalmente a afirmação de que $\in$ é bem-fundada, logo (i) $\leftrightarrow$ (ii).
+
+    (iii) $\rightarrow$ (ii): Se $\WF=\V$, então, dado $x$ não vazio qualquer, temos que $x\in \WF$, logo, $x\subseteq \WF$.
+    Como $\in$ é bem-fundada em $\WF$ e $x\subseteq \WF$ é não-vazio, então $\in$ possui um elemento $\in$-minimal $y$, como desejado.
+
+    (ii) $\rightarrow$ (iii): Suponha que $\in$ seja bem-fundada e seja $x\in \V$.
+    Temos que $\in$ é bem-fundada em $\trcl(x)$, logo, $x \in \WF$.
+\end{proof}
