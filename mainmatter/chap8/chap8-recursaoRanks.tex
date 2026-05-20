@@ -5,6 +5,13 @@ Ao final, apresentaremos a noção de $R$-rank de um conjunto, em que $R$ é uma
 
 \subsection{Indução transfinita}
 
+Iniciaremos discutindo um princípio de minimalidade e um princípio de indução para relações definidas set-like e bem-fundadas.
+
+Pensamos em $a R b$ como ``$a$ é um $R$-predecessor de $b$'', ou ``$a$ $R$-precede $b$''.
+
+A proposição abaixo é uma generalização do princípio da boa ordenação do conjunto dos números naturais e da classe dos números ordinais.
+Ela diz que, dada uma fórmula $\phi(x, t_1, \dots, t_n)$, fixados parâmetros $t_1, \dots, t_n$, se existe um $x$ que satisfaz a fórmula $\phi(x, t_1, \dots, t_n)$, então existe um tal $x$ que é $R$-minimal nesse sentido: ou seja, nenhum $y$ que o $R$-precede satisfaz $\phi(y, t_1, \dots, t_n)$.
+
 \begin{proposition}[$\ZFmP$](Princípio da minimalidade)\label{prop:principioDaMinimalidade}
     Seja $R$ uma relação definida set-like e bem-fundada.
     
@@ -31,6 +38,10 @@ Ao final, apresentaremos a noção de $R$-rank de um conjunto, em que $R$ é uma
     Pela minimalidade de $x'$ em $X$, tal $y$ não pertence a $X$; logo, $\neg \phi(y, t_1, \dots, t_n)$.
 \end{proof}
 
+Como corolário, provamos o princípio da indução sobre uma relação definida set-like e bem-fundada $R$.
+
+Ele diz que, dada uma fórmula $\phi(x, t_1, \dots, t_n)$ e fixados os parâmetros $t_1, \dots, t_n$, se, para todo $x$, a validade de $\phi(z, t_1, \dots, t_n)$ em todos os $R$-predecessores $z$ de $x$ implica a validade de $\phi(x, t_1, \dots, t_n)$, então $\phi(x, t_1, \dots, t_n)$ vale para todo $x$.
+
 \begin{corollary}[$\ZFmP$](Princípio da indução)\label{cor:principioDaInducao}
     Seja $R$ uma relação definida set-like e bem-fundada.
     
@@ -50,7 +61,14 @@ Ao final, apresentaremos a noção de $R$-rank de um conjunto, em que $R$ é uma
     Aplicando isso para $x'$, temos que $\phi(x', t_1, \dots, t_n)$, o que é uma contradição.
 \end{proof}
 
+Ao utilizarmos indução em uma relação definida set-like e bem-fundada $R$, por vezes, escreveremos que faremos uso de uma \emph{$R$-indução}.
+
 \subsection{Recursão transfinita}
+Assim como a indução em uma relação set-like e bem-fundada $R$ permite provar propriedades assumindo que elas já valem nos $R$-predecessores, a recursão permite definir objetos assumindo que seus valores já foram definidos nesses predecessores.
+
+Formalmente, precisamos de uma operação $G(p, s, a)$ que recebe um parâmetro $p$, um ponto $a$ e um ``histórico'' $s$ de valores já definidos para os $R$-predecessores de $a$, e retorna o valor a ser definido em $a$.
+
+O Teorema da Recursão, na forma apresentada abaixo, diz que, dada uma tal $G$, é possível definir sua versão iterada $F(p, a)$, que, para cada $a$, retorna o valor definido para $a$ a partir de $G$, do parâmetro $p$ e do histórico $F_p|\pred_{R}(a)$ de valores definidos para os $R$-predecessores de $a$.
 
 \begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
     Seja $R$ uma relação definida set-like e bem-fundada.
@@ -98,6 +116,9 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     \]
     o que é uma contradição.
 \end{proof}
+
+O lema anterior garante a unicidade das computações parciais, pois ele diz que duas computações parciais construídas pela mesma regra recursiva nunca entram em conflito nos pontos em que ambas estão definidas.
+Por isso, mais adiante, quando reunirmos várias computações parciais, a união obtida continuará sendo uma função.
 
 \begin{corollary}[$\ZFmP$]
     Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
@@ -194,7 +215,7 @@ Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneir
 
 De posse da recursão transfinita, podemos definir o rank de um conjunto com respeito a uma relação definida set-like e bem-fundada.
 
-Com isso, podemos definir o rank com respeito a uma relação definida set-like e bem-fundada $R$.
+Intuitivamente, $\rank_R(x)$ mede a ``altura'' de $x$ na relação $R$: elementos sem $R$-predecessores terão rank $0$, e o rank de $x$ será sempre estritamente maior do que o rank de cada $R$-predecessor de $x$.
 \begin{definition}[$\ZFmP$]
     Seja $R$ uma relação definida set-like e bem-fundada.
     O \emph{rank} de um conjunto $x$ com respeito a $R$, denotado por $\rank_R(x)$, é definido recursivamente pela relação $R$ a partir da seguinte fórmula
@@ -251,10 +272,13 @@ Adotaremos a seguinte notação, em analogia à Definição~\ref{def:predRA}, pa
     Para $x\in A$, escrevemos $\rank_{R,A}(x)=\rank_{R_A}(x)$.
 \end{definition}
 
+A operação $\rank_R$ fornece uma medida ordinal que cresce estritamente com a relação $R$.
+Assim, para provar alguns resultados sobre $R$, por vezes, lança-se mão da tomada de elementos de rank mínimo.
+Esse artifício será utilizado na próxima demonstração.
 
-\begin{corollary}[$\ZFmP$]\label{cor:fechoTransitivoBemFundadoEmA}
+\begin{proposition}[$\ZFmP$]\label{prop:fechoTransitivoBemFundadoEmA}
     Se $A$ é uma classe $R$-fechada e $R$ é uma relação definida set-like e bem-fundada em $A$, então $R^*$ é set-like e é bem-fundada em $A$.
-\end{corollary}
+\end{proposition}
 \begin{proof}
     Já vimos que $R^*$ é set-like.
 
@@ -268,11 +292,13 @@ Adotaremos a seguinte notação, em analogia à Definição~\ref{def:predRA}, pa
     Assim, não existe $y\in X$ tal que $y R^* x$, e, portanto, $x$ é um elemento $R^*$-minimal de $X$.
 \end{proof}
 
-Tomando $A=\V$ no corolário anterior, segue que:
+Tomando $A=\V$ na proposição anterior, segue que:
 
 \begin{corollary}[$\ZFmP$]
     Se $R$ é uma relação definida set-like e bem-fundada, então $R^*$ é set-like e bem-fundada.
 \end{corollary}
+
+
 
 \begin{proposition}[$\ZFmP$]\label{prop:relacoesComparaveis2}
     Sejam $R$ e $S$ relações definidas ou relações-conjunto tais que $R\subseteq S$.
@@ -302,7 +328,6 @@ Tomando $A=\V$ no corolário anterior, segue que:
 
     Logo, $\rank_{R,A}(x)=\sup\{\rank_{R,A}(y)+1: y R_A x\}=\sup\{\rank_R(y)+1: y R x\}=\rank_R(x)$.
 \end{proof}
-
 \section*{Exercícios}
 
 \begin{exercise}[$\ZFmP$]\label{ex:rankBemDefinido}
