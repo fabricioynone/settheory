@@ -70,7 +70,7 @@ Formalmente, precisamos de uma operação $G(p, s, a)$ que recebe um parâmetro 
 
 O Teorema da Recursão, na forma apresentada abaixo, diz que, dada uma tal $G$, é possível definir sua versão iterada $F(p, a)$, que, para cada $a$, retorna o valor definido para $a$ a partir de $G$, do parâmetro $p$ e do histórico $F_p|\pred_{R}(a)$ de valores definidos para os $R$-predecessores de $a$.
 
-\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}\index{recursão transfinita}
+\begin{theoremDisplay}[$\ZFmP$](Esquema da recursão transfinita)\index{recursão transfinita}
     Seja $R$ uma relação definida set-like e bem-fundada.
     Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
 
@@ -78,7 +78,7 @@ O Teorema da Recursão, na forma apresentada abaixo, diz que, dada uma tal $G$, 
     \[
         \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R}(a), a)\Big).
     \]
-\end{theorem}
+\end{theoremDisplay}
 Para provar esse teorema, façamos as seguintes definições auxiliares.
 
 \begin{definition}[$\ZFmP$]
@@ -94,7 +94,7 @@ Para provar esse teorema, façamos as seguintes definições auxiliares.
     \end{itemize}
 \end{definition}
 
-\begin{lemma}[$\ZFmP$]
+\begin{lemma}[$\ZFmP$]\label{lem:compatibilidadeComputacoesParciais}
     Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
 
     Se $t_1$, $t_2$, $a_1$, $a_2$, $p$ são tais que $\Ap_G(t_1, p, a_1)$ e $\Ap_G(t_2, p, a_2)$, então $t_1$ e $t_2$ são compatíveis.
@@ -156,12 +156,8 @@ Por isso, mais adiante, quando reunirmos várias computações parciais, a uniã
     Pelo corolário anterior, para cada $c\in \pred_{R}(a)$, seja $t_c$ o único $t$ tal que $\Ap_G(t, p, c)$ e $\dom(t)=\pred_{R^*}(c)\cup\{c\}$.
     Pela Substituição, podemos considerar a família $\{t_c: c\in \pred_{R}(a)\}$.
 
-    Pelo lema de compatibilidade, os $t_c$ são dois a dois compatíveis.
-    Portanto,
-    \[
-        t'=\bigcup_{c\in \pred_{R}(a)} t_c
-    \]
-    é uma função.
+    Pelo Lema~\ref{lem:compatibilidadeComputacoesParciais}, os $t_c$ são dois a dois compatíveis.
+    Portanto, $t'=\bigcup_{c\in \pred_{R}(a)} t_c$ é uma função.
     Além disso,
     \[
         \dom(t')=\bigcup_{c\in \pred_{R}(a)} \dom(t_c)
@@ -169,8 +165,15 @@ Por isso, mais adiante, quando reunirmos várias computações parciais, a uniã
         =\pred_{R^*}(a).
     \]
 
-    Como $R$ é bem-fundada, temos $a\notin \pred_{R^*}(a)$; caso contrário, os elementos de um $R$-caminho de $a$ até $a$ formariam um conjunto não vazio sem elemento $R$-minimal.
-    Seja
+    Como $R$ é bem-fundada, temos $a\notin \pred_{R^*}(a)$.
+    De fato, se $a\in \pred_{R^*}(a)$, então existe um $R$-caminho $(a_0,\dots,a_n)$ de $a$ até $a$, com $n\geq 1$.
+    Assim, $a_0=a_n=a$.
+    Mas $\{a_0,\dots,a_{n-1}\}$ é um conjunto não vazio sem elemento $R$-minimal: se $i>0$, então $a_{i-1}Ra_i$, e, se $i=0$, então $a_{n-1}Ra_0$.
+    Contradição.
+
+    Assim, $\dom(t')$ é $R$-fechado e $a\notin \dom(t')$.
+
+    Tome
     \[
         t=t'\cup\{(a, G(p, t'|\pred_{R}(a), a))\}.
     \]
@@ -190,11 +193,16 @@ Por isso, mais adiante, quando reunirmos várias computações parciais, a uniã
     \]
 \end{proof}
 
-Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneira mais precisa.
+Agora podemos enunciar e provar precisamente o esquema da recursão transfinita.
 
-\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)
+\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}
     Seja $R$ uma relação definida set-like e bem-fundada.
     Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
+
+    Então vale:
+    \[
+        \forall a \forall p \exists!y \exists t\big(\Ap_G(t, p, a)\wedge t(a)=y\big).
+    \]
 
     Seja $F^G$ o símbolo funcional binário introduzido por definição tal que:
     \[
@@ -203,7 +211,14 @@ Abaixo, re-enunciamos o Teorema~\ref{thm:esquemaDaRecursaoTransfinita} de maneir
     Então $\forall a \forall p \Big( F^G_{p}(a)=G(p, F^G_p|\pred_{R}(a), a)\Big)$.
 \end{theorem}
 \begin{proof}
-    Primeiro, notemos que $F^G$ é bem definida: dado $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$, e, se $t'$ é outro tal que $\Ap_G(t', p, a)$, então $t'$ e $t$ são compatíveis, e, portanto, $t'(a)=t(a)$.
+    Primeiro, vejamos que, dados $a$ e $p$, existe um único $y$ tal que
+    \[
+        \exists t\big(\Ap_G(t,p,a)\wedge t(a)=y\big).
+    \]
+    A existência segue do lema anterior.
+    Para a unicidade, sejam $t$ e $t'$ tais que $\Ap_G(t,p,a)$ e $\Ap_G(t',p,a)$.
+    Pelo Lema~\ref{lem:compatibilidadeComputacoesParciais}, $t$ e $t'$ são compatíveis.
+    Como $a\in\dom(t)\cap\dom(t')$, segue que $t(a)=t'(a)$.
 
     Segundo, dado $a$ e $p$, seja $t$ tal que $\Ap_G(t, p, a)$.
     Então, para todo $b\in \pred_{R}(a)$, temos $b\in \dom(t)$ e, portanto, $\Ap_G(t, p, b)$.
@@ -267,7 +282,7 @@ Tal função é, em algum sentido, a única função que satisfaz essa fórmula 
 
 Adotaremos a seguinte notação, em analogia à Definição~\ref{def:predRA}, para nos referirmos ao rank de um elemento $x$ com respeito a uma relação definida $R$ restrita a uma classe $A$.
 
-\begin{definition}
+\begin{definition}[$\ZFmP$]
     Seja $R$ uma relação definida e seja $A$ uma classe tal que $R_A$ é set-like e bem-fundada.
     Para $x\in A$, escrevemos $\rank_{R,A}(x)=\rank_{R_A}(x)$.
 \end{definition}
@@ -328,6 +343,24 @@ Tomando $A=\V$ na proposição anterior, segue que:
 
     Logo, $\rank_{R,A}(x)=\sup\{\rank_{R,A}(y)+1: y R_A x\}=\sup\{\rank_R(y)+1: y R x\}=\rank_R(x)$.
 \end{proof}
+
+Concluiremos essa seção mostrando que a operação $\rank_R$, quando restrita à $\pred_{R^*}(x)$, é sobrejetora em $\rank_R(x)$, qualquer que seja $x$.
+
+\begin{proposition}[$\ZFmP$]\label{prop:rankSobrejetora}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Para todo $x$ e para todo $\beta<\rank_R(x)$, existe um $y\in \pred_{R^*}(x)$ tal que $\rank_R(y)=\beta$.
+\end{proposition}
+\begin{proof}
+    Por $R$-indução, seja dado $x$ tal que a tese vale para todo $y R x$.
+    Se $\beta<\rank_R(x)$, então $\beta<\sup\{\rank_R(y)+1: y R x\}$.
+    Logo, existe um $y$ tal que $y R x$ e $\beta<\rank_R(y)+1$, de modo que $\beta\leq \rank_R(y)$.
+    Se $\beta=\rank_R(y)$, então $y$ é o elemento desejado.
+
+    Caso contrário, $\beta<\rank_R(y)$.
+    Pela hipótese de indução, existe um $z\in \pred_{R^*}(y)$ tal que $\rank_R(z)=\beta$.
+    Como $y R x$, temos que $z R^* x$, e, portanto, $z\in \pred_{R^*}(x)$.
+    Assim, $z$ é o elemento desejado.
+\end{proof}
 \section*{Exercícios}
 
 \begin{exercise}[$\ZFmP$]\label{ex:rankBemDefinido}
@@ -350,4 +383,9 @@ Tomando $A=\V$ na proposição anterior, segue que:
     Mostre que não existem $x$ e $n\geq 1$ tais que existe um $R$-caminho com $n$ passos de $x$ até $x$.
 
     Conclua que, para todo $x$, não vale $x R^* x$.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]\label{ex:rankCaminho}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Mostre que para todo $x$, $\rank_R(x)=\rank_{R^*}(x)$.
 \end{exercise}
