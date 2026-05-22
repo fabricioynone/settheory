@@ -1,140 +1,142 @@
-\section{Conjuntos bem fundados}\label{sec:conjuntosBemFundados}
+\section{Conjuntos bem-fundados}\label{sec:conjuntosBemFundados}
+Nessa seção, introduziremos a classe dos conjuntos bem-fundados.
 
-\begin{definition}[$\BST$]
-    Seja $x$ um conjunto.
-    Para cada $n$ natural, definimos $\trcl(x)=\pred_{\in^*}(x)$, onde $\in^*$ é a transitivização de $\in$.
-\end{definition}
+Iniciaremos definindo o fecho transitivo de um conjunto.
 \begin{definition}[$\ZFmP$]
-    O fecho transitivo de um conjunto $x$ é o conjunto $\trcl(x)=\bigcup_{n\in\omega}\bigcup^n x$.
-
-    Um conjunto ou classe $X$ é \textit{bem fundada} se $\in$ é bem fundada em $\trcl(X)$.
-
-    A classe dos conjuntos bem fundados é denotada por $\WF$.
+    Seja $x$ um conjunto.
+    O \emph{fecho transitivo} de $x$ é o conjunto $\trcl(x)=\pred_{\in^*}(x)$, em que $\in^*$ é a transitivização de $\in$.
 \end{definition}
-\begin{lemma}[$\ZFmP$]
+
+A definição acima faz sentido pela Proposição~\ref{prop:fechoTransitivoDeRelacaoSetLike}, uma vez que $\in$ é set-like.
+
+Note que classes transitivas são sinônimos de classes $\in$-fechadas.
+\begin{proposition}[$\ZFmP$]\label{prop:propriedadesFechoTransitivo}
     Para quaisquer conjuntos $x$ e $y$:
     \begin{enumerate}[label=(\alph*)]
-        \item $\trcl(x)$ é transitivo.
-        \item $x\subseteq \trcl(x)$.
-        \item Para todo conjunto ou classe definida transitiva $t$, se $x\subseteq t$, então $\trcl(x)\subseteq t$.
-        \item Se $y\subseteq x$, então $\trcl(y)\subseteq \trcl(x)$.
-        \item Se $x\in \WF$ e $y\in x$, então $y\in \WF$.
+        \item $\trcl(x)$ é transitivo;
+        \item $x\subseteq \trcl(x)$;
+        \item se $T$ é uma classe transitiva e $x\subseteq T$, então $\trcl(x)\subseteq T$;
+        \item se $T$ é uma classe transitiva e $x\in T$, então $\trcl(x)\subseteq T$;
+        \item se $y\subseteq x$, então $\trcl(y)\subseteq \trcl(x)$;
+        \item se $y\in^* x$, então $\trcl(y)\subseteq \trcl(x)$;
+        \item $\trcl(x)=\bigcup_{y \in x}\bigl(\trcl(y)\cup\{y\}\bigr)$.
     \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Tudo decorre imediatamente do Lema~\ref{lem:predRStarFechado} aplicado à relação $\in$.
+\end{proof}
+
+\begin{definition}[$\ZFmP$]
+    Um conjunto $x$ é \textit{bem-fundado} se $\in$ é bem-fundada em $\trcl(x)$.
+
+    A classe dos conjuntos bem-fundados é denotada por $\WF$.
+\end{definition}
+
+Alertamos o leitor para tomar cuidado para não se confundir com a nomenclatura:
+$\in$ ser bem-fundada em $x$ não é o mesmo que $x$ ser bem-fundado.
+
+O lema abaixo dá uma visão alternativa sobre o conceito de conjunto bem-fundado.
+
+\begin{lemma}[$\ZFmP$]
+    Um conjunto $X$ é bem-fundado se, e somente se, $\in$ é bem-fundada em alguma classe transitiva $t$ tal que $X\subseteq t$.
 \end{lemma}
 \begin{proof}
-    (a) Dado $y\in\trcl(x)$ e $z\in y$, temos que $z\in y\in^* x$.
-    Assim, $z\in^* x$, e, portanto, $z\in \trcl(x)$.
+    Se $X$ é bem-fundado, então $\in$ é bem-fundada em $\trcl(X)$, que é transitiva e contém $X$.
 
-    (b) Imediato, pois para todo $y\in x$, $y\in^* x$.
-
-    (c) Seja $t$ um conjunto transitivo tal que $x\subseteq t$.
-    Por indução em $n\geq 2$, mostraremos que para todo $y$ para o qual existe um $\in$-caminho de $y$ até $x$ de comprimento $n$, $y\in t$.
-
-    Para $n=2$, seja $y$ tal que existe um $\in$-caminho de $y$ até $x$ de comprimento $2$.
-    Segue que $y \in x$.
-    Como $x\subseteq t$, segue que $y\in t$.
-
-    Suponha que a tese seja verdadeira para algum $n\geq 2$.
-    Veremos que também é verdadeira para $n+1$.
-
-    Seja $y$ tal que existe um $\in$-caminho de $y$ até $x$ de comprimento $n+1$.
-    Assim, existe $z$ tal que $y\in z$ e existe um $\in$-caminho de $z$ até $x$ de comprimento $n$.
-    Por hipótese de indução, $z\in t$.
-    Como $t$ é transitivo e $y\in z\in t$, segue que $y\in t$.
-
-
-    (d) Temos que $y\subseteq x\subseteq \trcl(x)$, sendo este último transitivo.
-    Pelo item (c), segue que $\trcl(y)\subseteq \trcl(x)$.
-
-    (e) Suponha que $x\in \WF$ e $y\in x$.
-    Como $x \in \WF$, então $\in_{\trcl(x)}$ é bem fundada.
-    Como $\trcl(y)\subseteq \trcl(x)$, segue que $\in_{\trcl(y)}$ é bem fundada, e, portanto, $y\in \WF$.
+    Já se $\in$ é bem-fundada em alguma classe transitiva $t$ que contém $X$, então $\in$ é bem-fundada em $\trcl(X)$, pois $\trcl(X)\subseteq t$.
 \end{proof}
 
-\begin{corollary}[$\ZFmP$]
-    Um conjunto ou classe $X$ é bem fundado se, e somente se, $\in$ é bem fundada em algum conjunto ou classe transitiva que contém $X$.
-\end{corollary}
-\begin{proof}
-    Se $X$ é bem fundado, então $\in$ é bem fundada em $\trcl(X)$, que é transitiva e contém $X$.
-
-    Já se $\in$ é bem fundada em algum conjunto ou classe transitiva $t$ que contém $X$, então $\in$ é bem fundada em $\trcl(X)$, pois $\trcl(X)\subseteq t$.
-\end{proof}
+Conjuntos bem-fundados não formam $\in$-ciclos, como formaliza o próximo lema.
 
 \begin{lemma}[$\ZFmP$]\label{lem:conjuntosBemFundadosNaoFazemCiclos}
-    Se $x$ é um conjunto bem fundado,$x\notin^* x$.
+    Se $x$ é um conjunto bem-fundado, então $x\notin^* x$.
 \end{lemma}
 \begin{proof}
-    Suponha que $x\in^* x$.
-    Existe um $\in$-caminho de $x$ até $x$, digamos, $(x_0,\dots,x_n)$, em que $x_0=x$ e $x_n=x$ e $n\geq 2$.
-
-    Temos que para cada $i\in\{0,\dots,n-1\}$, $x_i\in^* x$.
-    Assim, $x_i\in \trcl(x)$ para cada $i\leq n$.
-
-    Seja $X=\{x_i: i\in\{0,\dots,n-1\}\}$.
-    Então $X\subseteq \trcl(x)$ e $X\neq\emptyset$.
-    Seja $x_k$ um elemento $\in_{\trcl(x)}$-minimal de $X$.
-    Se $k=0$, temos que $x_0=x_n\ni x_{n-1}$, o que é absurdo.
-    Se $k>0$, temos que $x_{k-1}\in x_k$, o que é absurdo.
+    Suponha por absurdo que $x\in^* x$.
+    Então $x \in \trcl(x)$.
+    Mas $\{x\}\subseteq \trcl(x)$ é um conjunto não vazio sem elemento $\in^*$-minimal, contradizendo a Proposição~\ref{prop:fechoTransitivoBemFundadoEmA}.
 \end{proof}
 
 \begin{lemma}[$\ZFmP$]
     Seja $x$ um conjunto.
-    Então $x$ é bem fundado se, e somente se, $\in$ é bem fundada em $\trcl(x)\cup\{x\}$.
+    Então $x$ é bem-fundado se, e somente se, $\in$ é bem-fundada em $\trcl(x)\cup\{x\}$.
 \end{lemma}
 \begin{proof}
     ($\Leftarrow$) Imediato, pois $\trcl(x)\subseteq \trcl(x)\cup\{x\}$.
 
     ($\Rightarrow$) Seja $X\subseteq \trcl(x)\cup\{x\}$ tal que $X\neq\emptyset$.
-    Se $x\notin X$, então $X\subseteq \trcl(x)$, e, portanto, existe um elemento $\in_{\trcl(x)}$-minimal de $X$, que é também um elemento $\in_{\trcl(x)\cup\{x\}}$-minimal de $X$ uma vez que $x\notin X$.
+    Se $x\notin X$, então $X\subseteq \trcl(x)$, e, portanto, existe um elemento $\in$-minimal de $X$.
 
     Se $x\in X$, seja $Y=X\setminus\{x\}$.
-    Se $Y=\emptyset$, então $x$ é um elemento $\in_{\trcl(x)\cup\{x\}}$-minimal de $X$, pois $x\notin x$ pelo Lema~\ref{lem:conjuntosBemFundadosNaoFazemCiclos}.
+    Se $Y=\emptyset$, então $X=\{x\}$, e $x$ é um elemento $\in$-minimal de $X$ pelo Lema~\ref{lem:conjuntosBemFundadosNaoFazemCiclos}.
 
-    Se $Y\neq\emptyset$, então $Y\subseteq \trcl(x)$, e, portanto, existe um elemento $\in_{\trcl(x)}$-minimal $m$ de $Y$.
-    Assim, todo $y\in Y\setminus\{x\}$ é tal que $m\notin y$.
+    Se $Y\neq\emptyset$, então $Y\subseteq \trcl(x)$, e, portanto, existe um elemento $\in$-minimal $m$ de $Y$.
+    Assim, todo $y\in Y$ é tal que $y\notin m$.
     Devemos ter também que $x\notin m$, do contrário teremos $x\in m\in^* x$, o que é absurdo pelo Lema~\ref{lem:conjuntosBemFundadosNaoFazemCiclos}.
+    Logo, $m$ é um elemento $\in$-minimal de $X$.
 \end{proof}
+
+Agora iremos introduzir o conceito de rank de um conjunto bem-fundado.
 
 \begin{definition}[$\ZFmP$]
     Se $x \in \WF$, então $\rank(x)=\rank_{\in, \trcl(x)\cup\{x\}}(x)$.
 \end{definition}
 
-\begin{proposition}[$\ZFmP$]
-    Se $T$ é uma classe ou conjunto transitivo e bem fundado, então $T\subseteq \WF$ e $\rank_{\in, T}(x)=\rank(x)$ para todo $x\in T$.
+\begin{proposition}[$\ZFmP$]\label{prop:rankRestricaoPertence}
+    Se $T$ é uma classe transitiva tal que $\in$ é bem-fundada em $T$, então:
+    \begin{enumerate}[label=(\alph*)]
+        \item $T\subseteq \WF$.
+        \item $\rank_{\in, T}(x)=\rank(x)$ para todo $x\in T$.
+    \end{enumerate}
 \end{proposition}
 \begin{proof}
-    Para cada $x\in T$, temos que $\trcl(x)\cup\{x\}\subseteq T$, pois $T$ é transitivo.
-    Como $T$ é transitiva e bem fundada, todo elemento de $\trcl(x)\cup\{x\}$ é bem fundado, e, portanto, $\trcl(x)\cup\{x\}\subseteq \WF$.
+    (a) Para cada $x\in T$, temos que $\trcl(x)\cup\{x\}\subseteq T$, pois $T$ é transitivo.
+    Como $\in$ é bem-fundada em $T$, então $\in$ é bem-fundada em $\trcl(x)\cup\{x\}$, e, portanto, $x\in \WF$.
+
+    (b) Como $T$ é transitivo, dado $x \in T$, temos que $\trcl(x)\cup\{x\}\subseteq T$.
+    Seja $t=\trcl(x)\cup\{x\}$.
+    Temos que $(\in_{T})_t=\in_t$.
+    Temos ainda que $\pred_{(\in_T)^*}(x)\subseteq\pred_{\in^*}(x)=\trcl(x)\subseteq t$.
     
-    Ademais, como para todo $y\in \trcl(x)\cup\{x\}$ temos que $\pred_{\in_{\trcl(x)\cup\{x\}}^*}(y)=\pred_{\in_T^*}(y)$, segue que $\rank_{\in, T}(x)=\rank_{\in, \trcl(x)\cup\{x\}}(x)=\rank(x)$.
+    Pela Proposição~\ref{prop:rankRestricao}, $\rank(x)=\rank_{\in, t}(x)=\rank_{\in_T}(x)=\rank_{\in, T}(x)$.
 \end{proof}
 
 
 \begin{proposition}[$\ZFmP$]
-    $\WF$ é uma classe transitiva e bem fundada.
-    Assim, $\WF$ é a maior classe transitiva e bem fundada.
+    $\WF$ é uma classe transitiva e $\in$ é bem-fundada em $\WF$.
 \end{proposition}
 \begin{proof}
     $\WF$ é transitiva, pois, se $x\in \WF$ e $y\in x$, então $y\in \WF$ já que $\in_{\trcl(y)}\subseteq \in_{\trcl(x)}$.
 
-    $\WF$ é bem fundada: dado $X\subseteq \WF$ tal que $X\neq\emptyset$, seja $x\in X$ tal que $\rank(x)$ é mínimo.
-    Se $y\in x$, temos que $y\notin X$, pois $\rank(y)=\rank_{\in_{\trcl(y)\cup\{y\}}}(y)=\rank_{\in_{\trcl(x)\cup\{x\}}}(y)<\rank(x)$.
+    A relação $\in$ é bem-fundada em $\WF$: dado $X\subseteq \WF$ tal que $X\neq\emptyset$, pelo Esquema da Substituição, $\{\rank(z):z\in X\}$ é um conjunto não vazio de ordinais.
+    Tome $x\in X$ tal que $\rank(x)$ seja mínimo.
+    Se $y\in x$, temos que $y\notin X$, pois, pela Proposição~\ref{prop:rankRestricaoPertence},
+    \[
+        \rank(y)=\rank_{\in,\trcl(x)\cup\{x\}}(y)<\rank_{\in,\trcl(x)\cup\{x\}}(x)=\rank(x).
+    \]
     Assim, $x$ é um elemento $\in$-minimal de $X$.
 \end{proof}
+
+Assim, para todo $x\in \WF$, $\rank(x)=\rank_{\in,\WF}(x)$ pela Proposição~\ref{prop:rankRestricaoPertence}.
 \begin{corollary}[$\ZFmP$]
     Se $x\in \WF$, então $\rank(x)=\sup\{\rank(y)+1: y\in x\}$.
 \end{corollary}
 \begin{proof}
     Seja $x\in \WF$.
-    Temos que $\rank(x)=\sup\{\rank(y)+1: y\in_{\trcl(x)\cup\{x\}} y\in x\}=\sup\{\rank(y)+1: y\in x\}$.
+    Temos que $\rank(x)=\rank_{\in, \WF}(x)=\sup\{\rank(y)+1: y\in_{\WF} x\}=\sup\{\rank(y)+1: y\in x\}$.
 \end{proof}
 \begin{corollary}[$\ZFmP$]
     Se $x, y \in \WF$ e $x\in^* y$, então $\rank(x)<\rank(y)$.
 \end{corollary}
 \begin{proof}
-    Seja $x, y \in \WF$.
-    É suficiente provar que se $x\in y$, então $\rank(x)<\rank(y)$.
-    Mas isso é imediato do corolário anterior.
+    Como $\WF$ é transitiva, $\WF$ é $\in$-fechada.
+    Pelo Corolário~\ref{cor:RFechadaRStar}, temos $(\in_{\WF})^*=(\in^*)_{\WF}$.
+    Assim, de $x,y\in\WF$ e $x\in^* y$, segue que $x(\in_{\WF})^*y$.
+    Portanto, pelo item (iv) do Lema~\ref{lem:propriedadesRank}, aplicado à relação $\in_{\WF}$,
+    \[
+        \rank_{\in,\WF}(x)<\rank_{\in,\WF}(y).
+    \]
+    Pela Proposição~\ref{prop:rankRestricaoPertence}, segue que $\rank(x)<\rank(y)$.
 \end{proof}
 
 \begin{corollary}[$\ZFmP$]
@@ -150,11 +152,11 @@
     Se $x\in \WF$, então $x\subseteq \WF$ pois $\WF$ é transitiva.
 
     Se $x\subseteq \WF$, então $\trcl(x)\subseteq \WF$, pois $\WF$ é transitiva.
-    Como $\WF$ é bem fundada, então $\in$ é bem fundada em $\trcl(x)$, e, portanto, $x\in \WF$.
+    Como $\WF$ é bem-fundada, então $\in$ é bem-fundada em $\trcl(x)$, e, portanto, $x\in \WF$.
 \end{proof}
 
 \begin{lemma}[$\ZFmP$]
-    Para todo ordinal $\alpha$, $\alpha$ é bem fundado e $\rank(\alpha)=\alpha$.
+    Para todo ordinal $\alpha$, $\alpha$ é bem-fundado e $\rank(\alpha)=\alpha$.
 \end{lemma}
 \begin{proof}
     Utilizamos indução transfinita.
@@ -175,14 +177,45 @@ Assim, $\ON\subseteq \WF$.
     \begin{enumerate}[label=(\alph*)]
         \item $\rank(\{x, y\})=\max\{\rank(x), \rank(y)\}+1$.
         \item $\rank(\langle x, y\rangle)=\max\{\rank(x), \rank(y)\}+2$.
-        \item $\bigcup x\in \WF$ e $\rank(\bigcup x)\leq \rank(x)$.
-        \item $x\cup y$ é bem fundado e $\rank(x\cup y)=\max\{\rank(x), \rank(y)\}$.
         \item $\trcl(x)\in \WF$ e $\rank(\trcl(x))=\rank(x)$.
+        \item $\bigcup x\in \WF$ e $\rank(\bigcup x)\leq \rank(x)$.
+        \item $x\cup y$ é bem-fundado e $\rank(x\cup y)=\max\{\rank(x), \rank(y)\}$.
         \item Se existe $\mathcal P(x)$, então $\mathcal P(x)\in \WF$ e $\rank(\mathcal P(x))=\rank(x)+1$.
     \end{enumerate}
 \end{corollary}
 
+\begin{proof}
+    (a) Temos que $\{x, y\}\subseteq \WF$, logo, $\{x, y\}\in \WF$.
+    Ademais,
+    \[
+        \rank(\{x, y\})=\sup\{\rank(z)+1: z\in \{x, y\}\}=\max\{\rank(x)+1, \rank(y)+1\}=\max\{\rank(x), \rank(y)\}+1.
+    \]
 
+    (b) Como $\langle x, y\rangle=\{\{x\}, \{x, y\}\}$, temos que $\langle x, y\rangle\in \WF$ pelo item (a).
+    Também pelo item (a):
+    \[
+        \rank(\langle x, y\rangle)=\sup\{\rank(\{x\})+1, \rank(\{x, y\})+1\}=\max\{\rank(x), \rank(y)\}+2.
+    \]
+
+    (c) Como $\trcl(x)\subseteq \WF$, então $\trcl(x)\in \WF$.
+    Para todo $y \in \trcl(x)$, temos que $y\in \WF$ e $y\in^* x$, logo, $\rank(y)<\rank(x)$.
+    Logo, $\rank(\trcl(x))\leq \rank(x)$.
+    Por outro lado, como $x\subseteq \trcl(x)$, pelo corolário anterior temos $\rank(x)\leq \rank(\trcl(x))$.
+    Portanto, $\rank(\trcl(x))=\rank(x)$.
+
+    (d) Temos que $\bigcup x\subseteq \trcl(x)\subseteq \WF$, logo, $\bigcup x\in \WF$.
+    Ademais, $\rank(\bigcup x)\leq\rank(\trcl(x))=\rank(x)$.
+
+    (e) Pelos itens anteriores, $x\cup y=\bigcup\{x, y\}\in \WF$.
+    Ademais, $\rank(x\cup y)=\sup\{\rank(z)+1: z\in x\cup y\}=\sup\{\rank(z)+1: z\in x \vee z\in y\}=\sup\{\sup\{\rank(z)+1: z\in x\}, \sup\{\rank(z)+1: z\in y\}\}=\max\{\rank(x), \rank(y)\}$.
+
+    (f) Se $\mathcal P(x)$ existe, então $\mathcal P(x)\subseteq \WF$, pois dado $y \in \mathcal P(x)$, temos $y\subseteq x\subseteq \WF$, e, portanto, $y\in \WF$.
+    Ademais, dado $y\in \mathcal P(x)$, temos que $\rank(y)\leq \rank(x)$, e temos que $x\in \mathcal P(x)$.
+    Assim:
+    \[
+        \rank(\mathcal P(x))=\sup\{\rank(y)+1: y\in \mathcal P(x)\}=\rank(x)+1.
+    \]
+\end{proof}
 
 \subsection*{Exercícios}
 \begin{exercise}[$\ZFmP$]
@@ -194,4 +227,9 @@ Assim, $\ON\subseteq \WF$.
     \end{align*}    
 
     Mostre que $\trcl(x)=\bigcup_{n\in\omega}\bigcup^n x$.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]
+    Mostre que se $x, y \in \WF$, então $x\times y\in \WF$.
+    Calcule o rank de $x\times y$ em função dos ranks de $x$ e $y$.
 \end{exercise}

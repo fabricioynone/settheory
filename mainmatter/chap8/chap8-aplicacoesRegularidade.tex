@@ -1,0 +1,103 @@
+\section{Aplicações do Axioma da Regularidade}
+Nessa seção, exploraremos algumas consequências do Axioma da Regularidade.
+
+Iniciaremos com uma versão mais forte do Esquema da Substituição.
+\begin{theorem}[$\ZF$]
+    Seja $\phi(x, y, A, t_1, \ldots, t_n)$.
+    Então:
+    \[
+        \forall t_1\ldots \forall t_n \forall A \left( \forall x\in A \exists y \phi(x, y, A, t_1, \ldots, t_n) \rightarrow \exists C \forall x\in A \exists y\in C \phi(x, y, A, t_1, \ldots, t_n) \right).
+    \]
+\end{theorem}
+\begin{proof}
+    Seja $\psi(x, \alpha, A, t_1, \ldots, t_n)$ a fórmula $\alpha \in \ON \land \exists y \in V_\alpha \phi(x, y, A, t_1, \ldots, t_n) \land \forall \beta<\alpha \neg \exists y \in V_\beta \phi(x, y, A, t_1, \ldots, t_n)$.
+    
+    Pelo Esquema da Substituição aplicado à fórmula $\psi$, temos:
+    \begin{equation}\label{eq:substituicaoRegularidade}
+        \forall t_1\ldots \forall t_n \forall A \left( (\forall x\in A \exists!\alpha \psi(x, \alpha, A, t_1, \ldots, t_n)) \rightarrow \exists B \forall x\in A \exists \alpha \in B \psi(x, \alpha, A, t_1, \ldots, t_n) \right).
+    \end{equation}
+    Verificaremos que
+    \[
+        \forall t_1\ldots \forall t_n \forall A \left( \forall x\in A \exists y \phi(x, y, A, t_1, \ldots, t_n) \rightarrow \exists C \forall x\in A \exists y\in C \phi(x, y, A, t_1, \ldots, t_n) \right).
+    \]
+
+    Fixe $t_1, \ldots, t_n$ e $A$ arbitrários e suponha que $\forall x\in A \exists y \phi(x, y, A, t_1, \ldots, t_n)$.
+    Pelo Axioma da Regularidade, para cada $x\in A$, existe o menor ordinal $\alpha$ tal que $\exists y \in V_\alpha \phi(x, y, A, t_1, \ldots, t_n)$, pois cada tal $y$ está em algum $V_\alpha$.
+    Assim, para cada $x\in A$, existe um único $\alpha$ tal que $\psi(x, \alpha, A, t_1, \ldots, t_n)$.
+    Logo, pela fórmula~\eqref{eq:substituicaoRegularidade}, existe um conjunto $B$ tal que $\forall x\in A \exists \alpha \in B \psi(x, \alpha, A, t_1, \ldots, t_n)$.
+
+    Seja $D=B\cap \ON$.
+    Como $\psi(x,\alpha,A,t_1,\ldots,t_n)$ implica $\alpha\in\ON$, temos que, para todo $x\in A$, existe $\alpha\in D$ tal que
+    \[
+        \exists y\in V_\alpha\,\phi(x,y,A,t_1,\ldots,t_n).
+    \]
+
+    Tome $\beta=\sup D$.
+    Pela monotonicidade da hierarquia cumulativa, se $\alpha\in D$, então $V_\alpha\subseteq V_\beta$.
+    Portanto, para todo $x\in A$, existe $y\in V_\beta$ tal que
+    \[
+        \phi(x,y,A,t_1,\ldots,t_n).
+    \]
+
+    Seja $C=V_\beta$.
+    Segue a tese.
+\end{proof}
+
+\begin{theorem}[$\ZF$]
+    Assuma que para todo ordinal $\alpha$, o conjunto $\mathcal P(\alpha)$ é bem-ordenável.
+    Então vale o Axioma da Escolha.
+\end{theorem}
+\begin{proof}
+    É suficiente mostrar que todo conjunto é bem ordenável.
+    Como, pelo Axioma da Regularidade, todo conjunto é um subconjunto de algum $V_\alpha$, é suficiente mostrar que cada $V_\alpha$ é bem ordenável.
+
+    Fixe $\alpha$ um ordinal arbitrário.
+    Seja $\theta$ o número de Hartogs de $V_\alpha$, ou seja, o menor ordinal tal que não existe uma função injetora de $\theta$ em $V_\alpha$.
+
+    Seja $\prec$ uma boa ordem em $\mathcal P(\theta)$.
+
+    Definiremos, por recursão em $\gamma\leq\alpha$, uma boa ordem $\prec_\gamma$ em $V_\gamma$.
+
+    Para $\gamma=0$, seja $\prec_0$ a boa ordem vazia em $V_0=\emptyset$.
+
+    Suponha que $\prec_\gamma$ já foi definida e é uma boa ordem em $V_\gamma$.
+    Seja $\eta_\gamma=\tp(V_\gamma,\prec_\gamma)$, e seja
+    \[
+        e_\gamma:\eta_\gamma\to V_\gamma
+    \]
+    o único isomorfismo de ordem.
+    Como $V_\gamma\subseteq V_\alpha$, temos $\eta_\gamma<\theta$.
+    Para cada $X\in V_{\gamma+1}=\mathcal P(V_\gamma)$, defina
+    \[
+        c_\gamma(X)=e_\gamma^{-1}[X].
+    \]
+    Então $c_\gamma$ é uma bijeção entre $\mathcal P(V_\gamma)$ e $\mathcal P(\eta_\gamma)$.
+    Como $\eta_\gamma<\theta$, temos $\mathcal P(\eta_\gamma)\subseteq \mathcal P(\theta)$.
+    Definimos, para $X,Y\in V_{\gamma+1}$,
+    \[
+        X\prec_{\gamma+1}Y
+        \quad\text{se, e somente se,}\quad
+        c_\gamma(X)\prec c_\gamma(Y).
+    \]
+    Como $\prec$ é uma boa ordem em $\mathcal P(\theta)$, segue que $\prec_{\gamma+1}$ é uma boa ordem em $V_{\gamma+1}$.
+
+    Agora suponha que $\delta\leq\alpha$ é um ordinal limite e que $\prec_\gamma$ já foi definida para todo $\gamma<\delta$.
+    Definimos, para $x,y\in V_\delta$,
+    \[
+        x\prec_\delta y\leftrightarrow\begin{cases}
+            \rank(x)<\rank(y), & \text{se $\rank(x)\neq\rank(y)$},\\
+            x\prec_{\rank(x)+1}y, & \text{se $\rank(x)=\rank(y)$}.
+        \end{cases}
+    \]
+    É imediato verificar que $\prec_\delta$ é uma ordem total.
+    Essa é uma boa ordem em $V_\delta$: dado um subconjunto não vazio $S\subseteq V_\delta$, tome o menor valor de $\rank(x)$, com $x\in S$, digamos $\gamma$; então o menor elemento de
+    \[
+        S\cap\{x\in V_\delta:\rank(x)=\gamma\}
+    \]
+    segundo $\prec_{\gamma+1}$ é o menor elemento de $S$ segundo $\prec_\delta$.
+
+    Pela recursão transfinita, obtemos uma boa ordem $\prec_\alpha$ em $V_\alpha$.
+    Portanto, $V_\alpha$ é bem-ordenável.
+
+    Isso completa a recursão e, portanto, a prova.
+\end{proof}

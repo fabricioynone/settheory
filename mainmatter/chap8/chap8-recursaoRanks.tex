@@ -1,0 +1,391 @@
+
+\section{Indução e recursão em relações bem-fundadas e set-like}
+Nessa seção, estudaremos os princípios de indução e recursão em relações bem-fundadas e set-like.
+Ao final, apresentaremos a noção de $R$-rank de um conjunto, em que $R$ é uma relação definida set-like e bem-fundada.
+
+\subsection{Indução transfinita}
+
+Iniciaremos discutindo um princípio de minimalidade e um princípio de indução para relações definidas set-like e bem-fundadas.
+
+Pensamos em $a R b$ como ``$a$ é um $R$-predecessor de $b$'', ou ``$a$ $R$-precede $b$''.
+
+A proposição abaixo é uma generalização do princípio da boa ordenação do conjunto dos números naturais e da classe dos números ordinais.
+Ela diz que, dada uma fórmula $\phi(x, t_1, \dots, t_n)$, fixados parâmetros $t_1, \dots, t_n$, se existe um $x$ que satisfaz a fórmula $\phi(x, t_1, \dots, t_n)$, então existe um tal $x$ que é $R$-minimal nesse sentido: ou seja, nenhum $y$ que o $R$-precede satisfaz $\phi(y, t_1, \dots, t_n)$.
+
+\begin{proposition}[$\ZFmP$](Princípio da minimalidade)\label{prop:principioDaMinimalidade}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    
+    Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
+    Então:
+    \[
+        \forall t_1\dots \forall t_n\bigg(\exists x \, \phi(x, t_1, \dots, t_n) \rightarrow \exists x\bigg(\phi(x, t_1, \dots, t_n)\wedge \forall y\big(y R x \rightarrow \neg \phi(y, t_1, \dots, t_n)\big)\bigg)\bigg)
+    \]
+\end{proposition}
+
+\begin{proof}
+    Fixe $t_1, \dots, t_n$ e suponha que $\exists x\, \phi(x, t_1, \dots, t_n)$.
+    Fixe $x$ dessa forma.
+
+    Se $\forall y\big(y R x \rightarrow \neg \phi(y, t_1, \dots, t_n)\big)$, segue a tese.
+    Caso contrário, considere
+    \[
+        X=\{z \in \pred_{R^*}(x): \phi(z, t_1, \dots, t_n)\}.
+    \]
+    Temos que $X$ é um conjunto e $X\neq \emptyset$, pois $R^*$ estende $R$.
+    Logo, existe um elemento $R$-minimal de $X$, digamos, $x'$.
+    Temos que $\phi(x', t_1, \dots, t_n)$.
+    Além disso, se $y R x'$, então, como $x' R^* x$ e $R^*$ é transitiva e estende $R$, segue que $y\in \pred_{R^*}(x)$.
+    Pela minimalidade de $x'$ em $X$, tal $y$ não pertence a $X$; logo, $\neg \phi(y, t_1, \dots, t_n)$.
+\end{proof}
+
+Como corolário, provamos o princípio da indução sobre uma relação definida set-like e bem-fundada $R$.
+
+Ele diz que, dada uma fórmula $\phi(x, t_1, \dots, t_n)$ e fixados os parâmetros $t_1, \dots, t_n$, se, para todo $x$, a validade de $\phi(z, t_1, \dots, t_n)$ em todos os $R$-predecessores $z$ de $x$ implica a validade de $\phi(x, t_1, \dots, t_n)$, então $\phi(x, t_1, \dots, t_n)$ vale para todo $x$.
+
+\begin{corollary}[$\ZFmP$](Princípio da indução)\label{cor:principioDaInducao}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    
+    Seja $\phi(x, t_1, \dots, t_n)$ uma fórmula.
+    Então:
+    \[
+        \forall t_1\dots \forall t_n\bigg(\forall x \, \left(\forall z \in \pred_{R}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)\rightarrow \forall x\, \phi(x, t_1, \dots, t_n)\bigg)
+    \]
+\end{corollary}
+
+\begin{proof}
+    Fixe $t_1, \dots, t_n$ e suponha que existe $x$ tal que $\neg \phi(x, t_1, \dots, t_n)$.
+
+    Pela Proposição~\ref{prop:principioDaMinimalidade}, existe um elemento $R$-minimal $x'$ tal que $\neg \phi(x', t_1, \dots, t_n)$ e $\phi(z, t_1, \dots, t_n)$ para todo $z\in \pred_{R}(x')$.
+
+    Por hipótese, temos que $\forall x \, \left(\forall z \in \pred_{R}(x) \, \phi(z, t_1, \dots, t_n) \rightarrow \, \phi(x, t_1, \dots, t_n)\right)$.
+    Aplicando isso para $x'$, temos que $\phi(x', t_1, \dots, t_n)$, o que é uma contradição.
+\end{proof}
+
+Ao utilizarmos indução em uma relação definida set-like e bem-fundada $R$, por vezes, escreveremos que faremos uso de uma \emph{$R$-indução}.
+
+\subsection{Recursão transfinita}
+Assim como a indução em uma relação set-like e bem-fundada $R$ permite provar propriedades assumindo que elas já valem nos $R$-predecessores, a recursão permite definir objetos assumindo que seus valores já foram definidos nesses predecessores.
+
+Formalmente, precisamos de uma operação $G(p, s, a)$ que recebe um parâmetro $p$, um ponto $a$ e um ``histórico'' $s$ de valores já definidos para os $R$-predecessores de $a$, e retorna o valor a ser definido em $a$.
+
+O Teorema da Recursão, na forma apresentada abaixo, diz que, dada uma tal $G$, é possível definir sua versão iterada $F(p, a)$, que, para cada $a$, retorna o valor definido para $a$ a partir de $G$, do parâmetro $p$ e do histórico $F_p|\pred_{R}(a)$ de valores definidos para os $R$-predecessores de $a$.
+
+\begin{theoremDisplay}[$\ZFmP$](Esquema da recursão transfinita)\index{recursão transfinita}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
+
+    Então é possível introduzir um símbolo funcional binário $F(p, a)$ de modo que
+    \[
+        \forall a \forall p \Big( F_{p}(a)=G(p, F_p|\pred_{R}(a), a)\Big).
+    \]
+\end{theoremDisplay}
+Para provar esse teorema, façamos as seguintes definições auxiliares.
+
+\begin{definition}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like.
+    Seja $G(p, s, a)$ um símbolo funcional ternário introduzido por definição.
+
+    Dados conjuntos $t, a, p$, escrevemos $\Ap_G(t, p, a)$ e dizemos que \emph{$t$ é uma computação parcial em $a$ com parâmetro $p$ baseada em $G$} se, e somente se,
+    \begin{itemize}
+        \item $t$ é uma função,
+        \item $\dom(t)$ é $R$-fechado,
+        \item $a \in \dom(t)$,
+        \item $t(b)=G(p, t|\pred_{R}(b), b)$ para todo $b\in \dom(t)$.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[$\ZFmP$]\label{lem:compatibilidadeComputacoesParciais}
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
+
+    Se $t_1$, $t_2$, $a_1$, $a_2$, $p$ são tais que $\Ap_G(t_1, p, a_1)$ e $\Ap_G(t_2, p, a_2)$, então $t_1$ e $t_2$ são compatíveis.
+\end{lemma}
+\begin{proof}
+    Suponha por absurdo que não.
+    Então o conjunto
+    \[
+        X=\{x\in \dom(t_1)\cap \dom(t_2): t_1(x)\neq t_2(x)\}
+    \]
+    é não vazio.
+    Seja $x$ um elemento $R$-minimal de $X$.
+
+    Dessa forma, para todo $y R x$, temos que $y\in \dom(t_1)\cap \dom(t_2)$, pois $\dom(t_1)$ e $\dom(t_2)$ são $R$-fechados, e, portanto, $t_1(y)=t_2(y)$ pela minimalidade de $x$.
+    Logo, $t_1|\pred_{R}(x)=t_2|\pred_{R}(x)$.
+    Daí, segue que:
+    \[
+        t_1(x)=G(p, t_1|\pred_{R}(x), x)=G(p, t_2|\pred_{R}(x), x)=t_2(x),
+    \]
+    o que é uma contradição.
+\end{proof}
+
+O lema anterior garante a unicidade das computações parciais, pois ele diz que duas computações parciais construídas pela mesma regra recursiva nunca entram em conflito nos pontos em que ambas estão definidas.
+Por isso, mais adiante, quando reunirmos várias computações parciais, a união obtida continuará sendo uma função.
+
+\begin{corollary}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
+
+    Sejam $a$ e $p$ conjuntos.
+    Se existe $t$ tal que $\Ap_G(t, p, a)$, então existe um único $t'$ tal que $\Ap_G(t', p, a)$ e $\dom(t')=\pred_{R^*}(a)\cup\{a\}$.
+\end{corollary}
+\begin{proof}
+    Para a existência, fixado $t$, tome $t'=t|(\pred_{R^*}(a)\cup\{a\})$.
+    Como $\dom(t)$ é $R$-fechado e $a\in \dom(t)$, temos $\pred_R(a)\subseteq \dom(t)$.
+    Pelo Lema~\ref{lem:predRStarFechado} aplicado à $\dom(t)$, temos $\pred_{R^*}(a)\subseteq \dom(t)$.
+    Logo, $\pred_{R^*}(a)\cup\{a\}\subseteq \dom(t)$.
+
+    Além disso, $\dom(t')=\pred_{R^*}(a)\cup\{a\}$ é $R$-fechado.
+    De fato, se $b=a$, então $\pred_R(b)=\pred_R(a)\subseteq \pred_{R^*}(a)\subseteq \dom(t')$, e, se $b\in \pred_{R^*}(a)$, então $\pred_R(b)\subseteq \pred_{R^*}(a)$, pois $\pred_{R^*}(a)$ é $R$-fechado.
+
+    Portanto, se $b\in \dom(t')$, então $\pred_R(b)\subseteq \dom(t')$, de modo que $t'|\pred_R(b)=t|\pred_R(b)$.
+    Assim, $t'$ satisfaz as mesmas equações recursivas que $t$ em todos os pontos de seu domínio.
+
+    Para a unicidade, se $t'$ e $t''$ são tais que $\Ap_G(t', p, a)$ e $\Ap_G(t'', p, a)$ e $\dom(t')=\dom(t'')=\pred_{R^*}(a)\cup\{a\}$, então $t'$ e $t''$ são compatíveis, e, portanto, $t'=t''$.
+\end{proof}
+\begin{lemma}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada e $G$ um símbolo funcional ternário introduzido por definição.
+
+    Para todo $a$ e $p$, existe um $t$ tal que $\Ap_G(t, p, a)$.
+\end{lemma}
+
+\begin{proof}
+    Fixe $p$.
+    Provaremos por $R$-indução que, para todo $a$, existe um $t$ tal que $\Ap_G(t, p, a)$.
+
+    Dado $a$, basta ver que se a tese vale para todo $b\in \pred_{R}(a)$, então vale para $a$.
+
+    Suponha que, para todo $c\in \pred_{R}(a)$, existe um $t$ tal que $\Ap_G(t, p, c)$.
+    Pelo corolário anterior, para cada $c\in \pred_{R}(a)$, seja $t_c$ o único $t$ tal que $\Ap_G(t, p, c)$ e $\dom(t)=\pred_{R^*}(c)\cup\{c\}$.
+    Pela Substituição, podemos considerar a família $\{t_c: c\in \pred_{R}(a)\}$.
+
+    Pelo Lema~\ref{lem:compatibilidadeComputacoesParciais}, os $t_c$ são dois a dois compatíveis.
+    Portanto, $t'=\bigcup_{c\in \pred_{R}(a)} t_c$ é uma função.
+    Além disso,
+    \[
+        \dom(t')=\bigcup_{c\in \pred_{R}(a)} \dom(t_c)
+        =\bigcup_{c\in \pred_{R}(a)}(\pred_{R^*}(c)\cup\{c\})
+        =\pred_{R^*}(a).
+    \]
+
+    Como $R$ é bem-fundada, temos $a\notin \pred_{R^*}(a)$.
+    De fato, se $a\in \pred_{R^*}(a)$, então existe um $R$-caminho $(a_0,\dots,a_n)$ de $a$ até $a$, com $n\geq 1$.
+    Assim, $a_0=a_n=a$.
+    Mas $\{a_0,\dots,a_{n-1}\}$ é um conjunto não vazio sem elemento $R$-minimal: se $i>0$, então $a_{i-1}Ra_i$, e, se $i=0$, então $a_{n-1}Ra_0$.
+    Contradição.
+
+    Assim, $\dom(t')$ é $R$-fechado e $a\notin \dom(t')$.
+
+    Tome
+    \[
+        t=t'\cup\{(a, G(p, t'|\pred_{R}(a), a))\}.
+    \]
+    Então $t$ é função, $\dom(t)=\pred_{R^*}(a)\cup\{a\}$, esse domínio é $R$-fechado e $a\in \dom(t)$.
+
+    Dado $b\in \dom(t)$, se $b=a$, então $\pred_{R}(a)\subseteq \dom(t')$, de modo que $t|\pred_{R}(a)=t'|\pred_{R}(a)$ e
+    \[
+        t(a)=G(p, t'|\pred_{R}(a), a)=G(p, t|\pred_{R}(a), a).
+    \]
+
+    Já se $b\neq a$, existe um $c\in \pred_{R}(a)$ tal que $b\in \pred_{R^*}(c)\cup\{c\}$.
+    Como $\dom(t_c)$ é $R$-fechado, $\pred_{R}(b)\subseteq \dom(t_c)$.
+    Além disso, $t$ e $t_c$ coincidem em $\dom(t_c)$.
+    Portanto,
+    \[
+        t(b)=t_c(b)=G(p, t_c|\pred_{R}(b), b)=G(p, t|\pred_{R}(b), b).
+    \]
+\end{proof}
+
+Agora podemos enunciar e provar precisamente o esquema da recursão transfinita.
+
+\begin{theorem}[$\ZFmP$](Esquema da recursão transfinita)\label{thm:esquemaDaRecursaoTransfinita}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que um símbolo funcional ternário $G(p, s, a)$ seja introduzido por definição.
+
+    Então vale:
+    \[
+        \forall a \forall p \exists!y \exists t\big(\Ap_G(t, p, a)\wedge t(a)=y\big).
+    \]
+
+    Seja $F^G$ o símbolo funcional binário introduzido por definição tal que:
+    \[
+        \forall a \forall p \forall y\bigg(F^G_{p}(a)=y \leftrightarrow \exists t\big(\Ap_G(t, p, a)\wedge t(a)=y\big)\bigg).
+    \]
+    Então $\forall a \forall p \Big( F^G_{p}(a)=G(p, F^G_p|\pred_{R}(a), a)\Big)$.
+\end{theorem}
+\begin{proof}
+    Primeiro, vejamos que, dados $a$ e $p$, existe um único $y$ tal que
+    \[
+        \exists t\big(\Ap_G(t,p,a)\wedge t(a)=y\big).
+    \]
+    A existência segue do lema anterior.
+    Para a unicidade, sejam $t$ e $t'$ tais que $\Ap_G(t,p,a)$ e $\Ap_G(t',p,a)$.
+    Pelo Lema~\ref{lem:compatibilidadeComputacoesParciais}, $t$ e $t'$ são compatíveis.
+    Como $a\in\dom(t)\cap\dom(t')$, segue que $t(a)=t'(a)$.
+
+    Segundo, dado $a$ e $p$, seja $t$ tal que $\Ap_G(t, p, a)$.
+    Então, para todo $b\in \pred_{R}(a)$, temos $b\in \dom(t)$ e, portanto, $\Ap_G(t, p, b)$.
+    Pela definição de $F^G$, segue que $t|\pred_{R}(a)=F^G_p|\pred_{R}(a)$.
+    Assim, $F^G_p(a)=t(a)=G(p, t|\pred_{R}(a), a)=G(p, F^G_p|\pred_{R}(a), a)$.
+\end{proof}
+
+\subsection{Ranks de relações bem-fundadas e set-like}
+
+De posse da recursão transfinita, podemos definir o rank de um conjunto com respeito a uma relação definida set-like e bem-fundada.
+
+Intuitivamente, $\rank_R(x)$ mede a ``altura'' de $x$ na relação $R$: elementos sem $R$-predecessores terão rank $0$, e o rank de $x$ será sempre estritamente maior do que o rank de cada $R$-predecessor de $x$.
+\begin{definition}[$\ZFmP$]
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    O \emph{rank} de um conjunto $x$ com respeito a $R$, denotado por $\rank_R(x)$, é definido recursivamente pela relação $R$ a partir da seguinte fórmula
+
+    \[
+        \rank_R(x)=\bigcup\{S(\rank_R(y)): y R x\},
+    \]
+    em que $S(u)=u\cup\{u\}$ é a operação sucessora.
+\end{definition}
+
+A definição acima pode ser formalizada a partir do teorema da recursão transfinita, tomando
+\[
+    G(p, s, a)=\bigcup\{S(s(b)): b\in \dom s \land b R a\}.
+\]
+O Teorema da Recursão nos define um símbolo funcional binário $F(p, a)$ tal que, para todos $p, a$:
+\[
+    F_p(a)=G(p, F_p|\pred_{R}(a), a)=\bigcup\{S(F_p(b)): b R a\}.
+\]
+
+Tome $p$ qualquer, digamos, $p=\emptyset$, e seja $\rank_R(a)=F_p(a)$.
+Então $\rank_R(a)=\bigcup\{S(\rank_R(b)): b R a\}$, como queríamos.
+
+Tal função é, em algum sentido, a única função que satisfaz essa fórmula (ver Exercício~\ref{ex:rankBemDefinido}).
+
+\begin{lemma}[$\ZFmP$]\label{lem:propriedadesRank}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    \begin{enumerate}[label=(\roman*)]
+        \item Para todo $x$, $\rank_R(x)$ é um ordinal.
+        \item Para todo $x$, $\rank_R(x)=\sup\{\rank_R(y)+1: y R x\}$.
+        \item Para todos $x$ e $y$, se $y R x$, então $\rank_R(y)<\rank_R(x)$.
+        \item Para todos $x$ e $y$, se $y R^* x$, então $\rank_R(y)<\rank_R(x)$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Para (i), por $R$-indução, para todo $x$, $\rank_R(x)$ é um ordinal.
+    Dado $x$, suponha que, para todo $y R x$, $\rank_R(y)$ é um ordinal.
+    Então $\rank_R(x)=\bigcup\{S(\rank_R(y)): y R x\}$.
+    Como $\rank_R(y)$ é um ordinal para todo $y R x$, temos $S(\rank_R(y))=\rank_R(y)+1$ para todo $y R x$.
+    Logo, $\rank_R(x)$ é um ordinal.
+
+    Para (ii), de (i), temos que $\rank_R(x)=\bigcup\{\rank_R(y)+1: y R x\}=\sup\{\rank_R(y)+1: y R x\}$, pois o supremo de um conjunto de ordinais é sua união.
+
+    Para (iii), se $y R x$, temos que $\rank_R(y)+1\leq \rank_R(x)$ por (ii), e, portanto, $\rank_R(y)<\rank_R(x)$.
+
+    Para (iv), suponha que $y R^* x$.
+    Então existe um número natural $n\geq 1$ e um $R$-caminho com $n$ passos de $y$ até $x$, digamos, $(x_0,\dots,x_n)$, em que $x_0=y$ e $x_n=x$.
+    Por (iii), $\rank_R(x_0)<\rank_R(x_1)<\cdots <\rank_R(x_n)$, e, portanto, $\rank_R(y)=\rank_R(x_0)<\rank_R(x_n)=\rank_R(x)$.
+\end{proof}
+
+Adotaremos a seguinte notação, em analogia à Definição~\ref{def:predRA}, para nos referirmos ao rank de um elemento $x$ com respeito a uma relação definida $R$ restrita a uma classe $A$.
+
+\begin{definition}[$\ZFmP$]
+    Seja $R$ uma relação definida e seja $A$ uma classe tal que $R_A$ é set-like e bem-fundada.
+    Para $x\in A$, escrevemos $\rank_{R,A}(x)=\rank_{R_A}(x)$.
+\end{definition}
+
+A operação $\rank_R$ fornece uma medida ordinal que cresce estritamente com a relação $R$.
+Assim, para provar alguns resultados sobre $R$, por vezes, lança-se mão da tomada de elementos de rank mínimo.
+Esse artifício será utilizado na próxima demonstração.
+
+\begin{proposition}[$\ZFmP$]\label{prop:fechoTransitivoBemFundadoEmA}
+    Se $A$ é uma classe $R$-fechada e $R$ é uma relação definida set-like e bem-fundada em $A$, então $R^*$ é set-like e é bem-fundada em $A$.
+\end{proposition}
+\begin{proof}
+    Já vimos que $R^*$ é set-like.
+
+    Para ver que $R^*$ é bem-fundada em $A$, seja $X\subseteq A$ um conjunto não vazio.
+    Seja $O=\{\rank_{R, A}(x): x\in X\}$.
+    Como $O$ é um conjunto de ordinais, existe um ordinal $\alpha$ tal que $\alpha=\min O$.
+    Seja $x\in X$ tal que $\rank_{R, A}(x)=\alpha$.
+    Se $y\in X$ e $y R^* x$, então, como $A$ é $R$-fechada e $x\in A$, todo $R$-caminho de $y$ até $x$ está contido em $A$.
+    Logo, $y R_A^* x$.
+    Portanto, $\rank_{R, A}(y)<\rank_{R, A}(x)=\alpha=\min O$, o que contradiz o fato de $\rank_{R,A}(y)\in O$.
+    Assim, não existe $y\in X$ tal que $y R^* x$, e, portanto, $x$ é um elemento $R^*$-minimal de $X$.
+\end{proof}
+
+Tomando $A=\V$ na proposição anterior, segue que:
+
+\begin{corollary}[$\ZFmP$]
+    Se $R$ é uma relação definida set-like e bem-fundada, então $R^*$ é set-like e bem-fundada.
+\end{corollary}
+
+
+
+\begin{proposition}[$\ZFmP$]\label{prop:relacoesComparaveis2}
+    Sejam $R$ e $S$ relações definidas ou relações-conjunto tais que $R\subseteq S$.
+    Se $S$ é set-like e bem-fundada, então para todo $x$, $\rank_R(x)\leq \rank_S(x)$.
+\end{proposition}
+\begin{proof}
+    Pela Proposição~\ref{prop:relacoesComparaveis}, $R$ é set-like e bem-fundada.
+    Por $R$-indução, veremos que para todo $x$, $\rank_R(x)\leq \rank_S(x)$.
+    Dado $x$, suponha que, para todo $y R x$, $\rank_R(y)\leq \rank_S(y)$.
+    Então $\rank_R(x)=\sup\{\rank_R(y)+1: y R x\}\leq \sup\{\rank_S(y)+1: y R x\}\leq \sup\{\rank_S(y)+1: y S x\}=\rank_S(x)$.
+\end{proof}
+
+\begin{proposition}[$\ZFmP$]\label{prop:rankRestricao}
+    Seja $R$ uma relação definida set-like e bem-fundada e $A$ uma classe.
+    Se $x\in A$ é tal que $\pred_{R^*}(x)\subseteq A$, então $\rank_{R,A}(x)=\rank_R(x)$.
+\end{proposition}
+\begin{proof}
+    Como $R_A\subseteq R$, a Proposição~\ref{prop:relacoesComparaveis} garante que $R_A$ é set-like e bem-fundada.
+
+    Por $R$-indução, seja dado $x$ tal que a tese vale para todo $y R x$.
+    Suponha que $x \in A$ e que $\pred_{R^*}(x)\subseteq A$.
+
+    Dado $y R x$, temos que $y\in A$ e que $\pred_{R^*}(y)\subseteq \pred_{R^*}(x)\subseteq A$.
+    Assim, $\rank_{R,A}(y)=\rank_R(y)$.
+
+    Temos, ainda, que para todo $y$, $y R_A x$ se, e somente se, $y R x$, pois se $y R x$, então $y\in \pred_{R^*}(x)\subseteq A$, e, portanto, $y R_A x$.
+
+    Logo, $\rank_{R,A}(x)=\sup\{\rank_{R,A}(y)+1: y R_A x\}=\sup\{\rank_R(y)+1: y R x\}=\rank_R(x)$.
+\end{proof}
+
+Concluiremos essa seção mostrando que a operação $\rank_R$, quando restrita à $\pred_{R^*}(x)$, é sobrejetora em $\rank_R(x)$, qualquer que seja $x$.
+
+\begin{proposition}[$\ZFmP$]\label{prop:rankSobrejetora}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Para todo $x$ e para todo $\beta<\rank_R(x)$, existe um $y\in \pred_{R^*}(x)$ tal que $\rank_R(y)=\beta$.
+\end{proposition}
+\begin{proof}
+    Por $R$-indução, seja dado $x$ tal que a tese vale para todo $y R x$.
+    Se $\beta<\rank_R(x)$, então $\beta<\sup\{\rank_R(y)+1: y R x\}$.
+    Logo, existe um $y$ tal que $y R x$ e $\beta<\rank_R(y)+1$, de modo que $\beta\leq \rank_R(y)$.
+    Se $\beta=\rank_R(y)$, então $y$ é o elemento desejado.
+
+    Caso contrário, $\beta<\rank_R(y)$.
+    Pela hipótese de indução, existe um $z\in \pred_{R^*}(y)$ tal que $\rank_R(z)=\beta$.
+    Como $y R x$, temos que $z R^* x$, e, portanto, $z\in \pred_{R^*}(x)$.
+    Assim, $z$ é o elemento desejado.
+\end{proof}
+\section*{Exercícios}
+
+\begin{exercise}[$\ZFmP$]\label{ex:rankBemDefinido}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Suponha que $F$ é um símbolo funcional unário introduzido por definição tal que, para todo $x$, $F(x)=\bigcup\{S(F(y)): y R x\}$.
+    Mostre que, para todo $x$,
+    \[
+        F(x)=\rank_R(x).
+    \]
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]\label{exr:relacaoBemFundadaEmVranks}
+    Seja $R$ uma relação definida.
+    Mostre que se $R$ é set-like e bem-fundada, então $\rank_R(x)=\rank_{R, \V}(x)$ para todo $x$.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]\label{ex:semCiclosBemFundada}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+
+    Mostre que não existem $x$ e $n\geq 1$ tais que existe um $R$-caminho com $n$ passos de $x$ até $x$.
+
+    Conclua que, para todo $x$, não vale $x R^* x$.
+\end{exercise}
+
+\begin{exercise}[$\ZFmP$]\label{ex:rankCaminho}
+    Seja $R$ uma relação definida set-like e bem-fundada.
+    Mostre que para todo $x$, $\rank_R(x)=\rank_{R^*}(x)$.
+\end{exercise}

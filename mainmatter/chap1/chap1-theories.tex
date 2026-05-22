@@ -11,10 +11,11 @@ Não comentaremos outras formas de axiomatização com profundidade.
 
 Agora estamos prontos para enunciar os axiomas lógicos adotados neste texto.
 Como fizemos com a lógica proposicional, adotamos um sistema de axiomas estilo Hilbert.
+Além disso, por simplicidade, nos restringiremos a um sistema dedutivo que envolve apenas sentenças.
 Ressaltamos novamente que esse não é o único modo de formalizar a dedução lógica.
 
 \begin{metadefinition}[Axiomas da lógica de primeira ordem]\label{mdef:axiomasLogicaPrimeiraOrdem}\index{axioma!lógica de primeira ordem}
-    Fixado um léxico $\mathcal L$ para uma linguagem de primeira ordem, os axiomas da Lógica de Primeira Ordem em $\mathcal L$ são as fórmulas que podem ser escritas de alguma das seguintes formas, em que $\phi$, $\psi$ e $\chi$ são $\mathcal L$-fórmulas quaisquer, $x$, $x_1,\dots,x_n$, $y_1,\dots,y_n$ são variáveis, $t$ é um $\mathcal L$-termo, e $P$ e $f$ são símbolos de predicado e de função, respectivamente.
+    Fixado um léxico $\mathcal L$ para uma linguagem de primeira ordem, os axiomas da Lógica de Primeira Ordem em $\mathcal L$ são os fechos universais das $\mathcal L$-fórmulas que têm uma das seguintes formas, em que $\phi$, $\psi$ e $\chi$ são $\mathcal L$-fórmulas quaisquer, $x$, $x_1,\dots,x_n$, $y_1,\dots,y_n$ são variáveis, $t$ é um $\mathcal L$-termo, e $P$ e $f$ são símbolos de predicado e de função, respectivamente.
     \begin{enumerate}[label=(FO\arabic*), leftmargin=3.2em]
         \item $\phi \rightarrow (\psi \rightarrow \phi)$;
         \item $(\phi \rightarrow (\psi \rightarrow \chi)) \rightarrow ((\phi \rightarrow \psi) \rightarrow (\phi \rightarrow \chi))$;
@@ -31,9 +32,13 @@ Ressaltamos novamente que esse não é o único modo de formalizar a dedução l
         \item $\neg \neg \phi \rightarrow \phi$;
         \item $\forall x \phi \rightarrow \phi[x/t]$, se $x$ é substituível por $t$ em $\phi$;
         \item $\phi[x/t] \rightarrow \exists x \phi$, se $x$ é substituível por $t$ em $\phi$;
+        \item $\forall x(\phi\rightarrow\psi)\rightarrow(\forall x\phi\rightarrow\forall x\psi)$;
+        \item $\phi\rightarrow\forall x\phi$, se $x$ não ocorre livre em $\phi$;
+        \item $\forall x(\phi\rightarrow\psi)\rightarrow(\exists x\phi\rightarrow\psi)$, se $x$ não ocorre livre em $\psi$.
         \item $x=x$;
         \item $\bigl(\bigwedge_{i=1}^n x_i=y_i\bigr) \rightarrow (f(x_1, \dots, x_n)=f(y_1, \dots, y_n))$, para cada símbolo funcional $f$ de aridade $n>0$.
         \item $\bigl(\bigwedge_{i=1}^n x_i=y_i\bigr) \rightarrow (P(x_1, \dots, x_n) \leftrightarrow P(y_1, \dots, y_n))$, em que $P$ é um símbolo de predicado não lógico de aridade $n>0$, ou o símbolo lógico de igualdade $=$ (que possui aridade 2).
+        \item 
         \end{enumerate}
 
         Observação: quando $n=1$, $\bigwedge_{i=1}^n\phi_i$ é $\phi_1$.
@@ -42,9 +47,9 @@ Ressaltamos novamente que esse não é o único modo de formalizar a dedução l
 
 Os axiomas (FO1)--(FO13) possuem a mesma forma dos axiomas proposicionais (PC1)--(PC13), agora permitindo que $\phi$, $\psi$ e $\chi$ sejam fórmulas de primeira ordem.
 
-Os axiomas (FO14) e (FO15) governam o comportamento dos quantificadores em relação à substituição de termos por variáveis.
+Os axiomas (FO14) e (FO18) governam o comportamento dos quantificadores em relação à substituição de termos por variáveis.
 
-Por fim, (FO16)--(FO18) são os axiomas que governam a igualdade e sua compatibilidade com símbolos funcionais e relacionais.
+Por fim, (FO19)--(FO21) são os axiomas que governam a igualdade e sua compatibilidade com símbolos funcionais e relacionais.
 
 A seguir, definiremos as noções de teoria, demonstração e teorema.
 
@@ -53,24 +58,20 @@ A seguir, definiremos as noções de teoria, demonstração e teorema.
 \end{metadefinition}
 
 \begin{metadefinition}[Demonstração]\label{mdef:demonstracaoFormal}\index{demonstração formal}\index{teorema}\index{modus ponens}
-    Seja $T=(\mathcal L,\Sigma)$ uma teoria de primeira ordem e seja $\phi$ uma $\mathcal L$-fórmula.
-    Uma \emph{demonstração} de $\phi$ a partir de $T$ é uma sequência finita de $\mathcal L$-fórmulas $\psi_0, \dots, \psi_n$ tal que $\psi_n$ é $\phi$ e, para cada $i\leq n$:
+    Seja $T=(\mathcal L,\Sigma)$ uma teoria de primeira ordem e seja $\phi$ uma $\mathcal L$-sentença.
+    Uma \emph{demonstração} de $\phi$ a partir de $T$ é uma sequência finita de $\mathcal L$-sentenças $\psi_0, \dots, \psi_n$ tal que $\psi_n$ é $\phi$ e, para cada $i\leq n$:
     \begin{enumerate}[label=(\roman*)]
         \item $\psi_i$ é um axioma lógico, ou
         \item $\psi_i$ é um axioma de $T$, ou
-        \item $\psi_i$ é obtida por \emph{modus ponens} a partir de duas fórmulas anteriores.
+        \item $\psi_i$ é obtida por \emph{modus ponens} a partir de duas sentenças anteriores.
         Ou seja, existem $j, k<i$ tais que $\psi_j$ é  $\psi_k \rightarrow \psi_i$.
-        \item Existe uma variável $x$, fórmulas $\theta$ e $\eta$, e $j<i$, tais que $\psi_j$ é $\theta\rightarrow \eta$ e $\psi_i$ é $\theta\rightarrow \forall x \eta$, em que $x$ não ocorre livre em $\theta$.
-        Essa regra é chamada de introdução de quantificador universal.
-        \item Existe uma variável $x$, fórmulas $\theta$ e $\eta$, e $j<i$, tais que $\psi_j$ é $\theta\rightarrow \eta$ e $\psi_i$ é $\exists x \theta\rightarrow \eta$, em que $x$ não ocorre livre em $\eta$.
-        Essa regra é chamada de introdução de quantificador existencial.
     \end{enumerate}
 
     Caso exista uma demonstração de $\phi$ a partir de $T$, dizemos que $\phi$ é um \emph{teorema} de $T$, e escrevemos $T \vdash \phi$.
     Sendo $T=(\mathcal L, \Sigma)$, também podemos escrever $\Sigma \vdash_\mathcal L \phi$.
-
-    Se tal demonstração só usa, além dos axiomas de $T$, os axiomas proposicionais de primeira ordem (FO1)--(FO13) e a regra de \emph{modus ponens}, dizemos que $\phi$ é uma \emph{consequência proposicional} de $T$, e escrevemos $T \vdash_P \phi$.
 \end{metadefinition}
+
+Assim, neste sistema, \emph{modus ponens} é a única regra de inferência primitiva. As demais regras usuais envolvendo conectivos, quantificadores e igualdade serão tratadas posteriormente como regras derivadas.
 
 Na prática, raramente escrevemos, em matemática, uma demonstração tão formal quanto a Metadefinição~\ref{mdef:demonstracaoFormal} exige.
 Para reforçar a ideia de que as demonstrações usuais em matemática poderiam, em tese, ser reescritas de forma tão formal, apresentaremos alguns resultados relevantes.
@@ -80,38 +81,26 @@ Começaremos ``importando'' teoremas da lógica proposicional para a lógica de 
 A definição abaixo é similar àquela apresentada em Metadefinição~\ref{mdef:substituicaoProposicional} para a lógica proposicional, mas agora permite substituir letras proposicionais por fórmulas de uma linguagem de primeira ordem.
 
 \begin{metadefinition}
-    A \emph{extensão da lógica proposicional para a lógica de primeira ordem} é a teoria $T_P=(\mathcal L_P,\varnothing)$, em que os únicos símbolos não lógicos de $\mathcal L_P$ são letras proposicionais, isto é, símbolos de predicado $0$-ários $P_0$, $P_1$, $P_2,\dots$.
-
-    Exceto quando explicitamente mencionado, vamos assumir que qualquer outra teoria que estudaremos não possui as letras proposicionais $P_0$, $P_1$, $P_2$, $\dots$ como símbolos de seu léxico.
-\end{metadefinition}
-
-Note que as fórmulas proposicionais são exatamente as $\mathcal L_P$-fórmulas sem quantificadores e sem símbolos de igualdade.
-\begin{metadefinition}
    Seja $\mathcal L$ um léxico de primeira ordem.
-   Considere uma coleção finita $\mathcal P$ de letras proposicionais de $\mathcal L_P$.
-   Uma atribuição de $\mathcal P$ a $\mathcal L$-fórmulas é um mapeamento tal que, para cada letra proposicional $P$ em $\mathcal P$, $\rho(P)$ é uma $\mathcal L$-fórmula.
+   Considere uma coleção finita $\mathcal P$ de variáveis proposicionais.
+   Uma atribuição de $\mathcal P$ a $\mathcal L$-fórmulas é um mapeamento tal que, para cada variável proposicional $P$ em $\mathcal P$, $\rho(P)$ é uma $\mathcal L$-fórmula.
+   Nesse contexto, o \emph{domínio} de $\rho$ é $\mathcal P$.
 
-   Se $\theta$ é uma $\mathcal L_P$-fórmula, dizemos que $\rho$ é uma atribuição para $\theta$ se toda letra proposicional que ocorre em $\theta$ está em $\mathcal P$.
+   Se $\theta$ é uma $\mathcal L_P$-fórmula, dizemos que $\rho$ é uma atribuição para $\theta$ se toda variável proposicional que ocorre em $\theta$ está em $\mathcal P$.
 \end{metadefinition}
 
-Essa substituição é literal: ao substituir uma letra proposicional por uma fórmula, variáveis livres da fórmula substituída podem passar a ficar no escopo de quantificadores já presentes em $\theta$.
+Essa substituição é literal: ao substituir uma variável proposicional por uma fórmula, variáveis livres da fórmula substituída podem passar a ficar no escopo de quantificadores já presentes em $\theta$.
 
 \begin{metadefinition}[Substituição proposicional]\label{mdef:substituicaoProposicionalFO}\index{substituição!proposicional}
    Seja $\mathcal L$ um léxico de primeira ordem.
-   Considere uma coleção finita $\mathcal P$ de letras proposicionais de $\mathcal L_P$ e $\rho$ uma atribuição de $\mathcal P$ a $\mathcal L$-fórmulas.
+   Considere uma coleção finita $\mathcal P$ de variáveis proposicionais e $\rho$ uma atribuição de $\mathcal P$ a $\mathcal L$-fórmulas.
 
-   Recursivamente na complexidade de uma $\mathcal L_P$-fórmula $\theta$, definimos a substituição de $\theta$ via $\rho$, denotada por $\subst(\theta, \rho)$, a partir do seguinte algoritmo.
-   Se $\rho$ não é uma atribuição para $\theta$, então $\subst(\theta, \rho)$ é um símbolo $I$ que não faz parte da linguagem (indicando, intuitivamente, que $\subst(\theta, \rho)$ é indefinido).
-   Caso contrário, procedemos como nos itens abaixo.
-   Note que, como os únicos símbolos não lógicos de $\mathcal L_P$ são predicados $0$-ários, os únicos termos de $\mathcal L_P$ são variáveis.
+   Recursivamente na complexidade das fórmulas proposicionais cujas únicas variáveis proposicionais são as de $\mathcal P$, definimos a substituição de $\theta$ via $\rho$, denotada por $\subst(\theta, \rho)$, a partir do seguinte algoritmo.
     \begin{itemize}
-        \item Se $\theta$ é uma letra proposicional $P$, então $\subst(\theta, \rho)$ é $\rho(P)$.
+        \item Se $\theta$ é uma variável proposicional $P$, então $\subst(\theta, \rho)$ é $\rho(P)$.
         \item Se $\theta$ é $\neg \psi$, então $\subst(\theta, \rho)$ é $\neg \subst(\psi, \rho)$.
-        \item Se $\theta$ é $x=y$, em que $x$ e $y$ são variáveis, então $\subst(\theta, \rho)$ é $x=y$.
         \item Se $\theta$ é $\psi \square \eta$, em que $\square$ é $\vee$, $\wedge$, $\rightarrow$ ou $\leftrightarrow$, então $\subst(\theta, \rho)$ é $\subst(\psi, \rho) \square \subst(\eta, \rho)$.
-        \item Se $\theta$ é $\forall x \psi$ ou $\exists x \psi$, então $\subst(\theta, \rho)$ é $\forall x \subst(\psi, \rho)$ ou $\exists x \subst(\psi, \rho)$, respectivamente.
     \end{itemize}
-
     Se $\theta$ é uma tautologia proposicional e $\rho$ é uma atribuição para $\theta$, então $\subst(\theta, \rho)$ é dita uma \emph{instância de tautologia}.
 \end{metadefinition}
 
